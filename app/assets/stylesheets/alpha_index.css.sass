@@ -1,0 +1,41 @@
+@import 'mixins.css.sass'
+
+$index_bg_color: #eee
+$index_font_color: #888
+$index_hovere_color:#ddd
+
+.list_index
+  position: fixed
+  top: 60px
+  right: 10px
+  height: 91vh
+  min-height: 600px
+  width: 35px
+  +display-box
+  +box-orient(vertical)
+  a
+    position: relative
+    -webkit-box-flex: 1
+    display: block
+    font-size: 1.15em
+    text-align: center
+    vertical-align: middle
+    text-decoration: none
+    background-color: $index_bg_color
+    color: $index_font_color
+    +display-box
+    +box-orient(vertical)
+    +box-pack(center)
+    +box-align(center)
+
+    &:hover
+      background-color: $index_hovere_color
+
+#app.active
+  .list_index
+    top: 80px
+    height: 90vh
+
+@media only screen and (max-width: 600px)
+  nav.list_index
+    display: none

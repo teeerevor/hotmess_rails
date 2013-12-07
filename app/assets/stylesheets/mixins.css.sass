@@ -1,0 +1,27 @@
+@import 'bourbon/css3/prefixer'
+@import 'bourbon/css3/border-radius'
+@import 'bourbon/css3/flex-box'
+@import 'bourbon/css3/transition'
+
+$font-color: #333
+
+$light_grey: #eee
+$dark_grey: #ccc
+
+$song_base_color: $light_grey
+$song_hover_color: $dark_grey
+
+@mixin clearfix
+  &:after
+    content: "."
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+  * html
+    height: 1px
+
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  border-radius: $radius

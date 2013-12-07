@@ -1,0 +1,121 @@
+!!!
+%html
+  %head
+    %title
+      hottest100.io
+
+    = stylesheet_link_tag '/assets/application'
+    = stylesheet_link_tag '/assets/ui-progress-bar'
+
+    %meta{name:"viewport", content:"initial-scale=1.0 maximum-scale=1.0 width=device-width"}
+    %link{ rel:"icon", type:"image/ico", href: "/assets/favicon.ico"}
+
+  %body
+    #loading
+      %img.logo{src:'/assets/hottest100_logo.png'}
+
+
+      .ui-progress-bar.ui-container#progress_bar
+        .ui-progress{style:"width: 7%;"}
+          %span.ui-label
+            %b.value
+
+      -#%button.launch_btn.button.red.hidden
+        -#Lets do this!
+
+      %ol.waiting_list
+        %li
+          Shortlist your favs
+          %img.watch{src:'/assets/awkward.png'}
+
+        %li
+          Refine your top ten
+          %img.list{src:'/assets/list.gif'}
+
+        %li
+          Vote in the Hottest 100
+
+        %li
+          Party on!
+
+    #app.hidden
+      #bg
+        -#- @songs.shuffle.each_with_index do |song, i|
+          -#- if song.album_img_url && i < 50
+            -#%img{src:song.album_img_url}
+
+      #header
+        %img.logo{src:'/assets/hottest100_logo.png'}
+        %h1.hidden
+          Hotmess100
+        %span.hidden
+          (Hottest100 messed with, for the better)
+        -#%a{href:"#short_list"}
+          -#Short List
+
+
+      #main
+        %section#short_list
+          %a{name:'short_list'}
+          %h2
+            Short List
+          .empty_list_blank_state
+            %p
+              Your short list is sad.
+
+            %p
+              Go on add some songs.
+
+            %img{src:'/assets/short_list_blankstate.gif'}
+
+
+        %section#song_list
+          %h2
+            All Songs
+
+        %nav.list_index.hidden
+          - ('a'..'z').each do |letter|
+            %a{href:"##{letter.upcase}"}
+              %div
+                =letter.upcase
+
+
+      = yield
+
+    -#= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min'
+    -#= javascript_include_tag "//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject"
+    = javascript_include_tag '/assets/jquery-1.7.1.min'
+    = javascript_include_tag '/assets/swfobject'
+    = javascript_include_tag '/assets/application'
+    = yield_content :js
+    :javascript
+      window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
+      window.urlEmail = '#{@email}'
+      window.urlYear = '#{@year}'
+
+      function onYouTubePlayerReady(playerId) {
+        ytplayer = document.getElementById(playerId);
+        var functionName = playerId+'_statechange'
+        window[functionName] = function(newState) {
+          hottestPlayer.yt_state_change(playerId, ytplayer, newState);
+        }
+
+        ytplayer.addEventListener("onStateChange", functionName);
+      }
+
+      function onYouTubeError(error) {
+        window.console && console.log && console.log(error);
+      }
+
+    //google analytics
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36742034-1']);
+      _gaq.push(['_setDomainName', 'hottest100.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();

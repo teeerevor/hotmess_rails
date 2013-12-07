@@ -1,0 +1,134 @@
+@import 'mixins.css.sass'
+
+=song_transition
+  -webkit-transition: background-color 0.3s linear
+  -moz-transition: background-color 0.3s linear
+  -ms-transition: background-color 0.3s linear
+  -o-transition: background-color 0.3s linear
+  transition: background-color 0.3s linear
+
+.song
+  .song_header:hover
+    .song_tab
+      background-color: $song_hover_color
+
+    //.song_tab:after
+      //box-shadow: -2px 2px 0 $song_hover_color
+
+.highlight
+  .song_extras
+    background-color: $song_hover_color
+
+@mixin song_name
+  display: inline-block
+  font-weight: bold
+  margin-bottom: 3px
+
+@mixin artist_name
+  display: inline-block
+  color: #666
+  &:before
+    content: "-"
+    margin-right: 5px
+
+.song
+  margin-top: 2px
+
+  .song_header
+    width: 100%
+    cursor: pointer
+    +display-box
+    +box-orient(horizontal)
+
+
+  .song_tab
+    +box-flex(1)
+    min-height: 40px
+    background-color: $song_base_color
+    +border-radius( 10px)
+    +song_transition
+    //used to flash color when song is added to
+    //short list
+
+  .song_details
+    padding: 11px 10px 11px 20px
+    .song_name
+      +song_name
+
+    .artist_name
+      +artist_name
+
+  .buttons
+    display: inline-block
+    margin-left: 6px
+
+    button
+      margin: 0 -1px
+      font-size: 1.7em
+      padding: 0.2em 0.4em
+
+  &.expanded
+    .song_tab
+      border-bottom-right-radius: 0
+      border-bottom-left-radius: 0
+      height: 45px
+
+    //removed roundend inner corner near buttons for now
+    //.song_tab:after
+      //border: 1px solid $song_base_color
+      //position: absolute
+      //bottom: -1px
+      //width: 5px
+      //height: 5px
+      //content: " "
+      //right: -6px
+      //border-bottom-left-radius: 6px
+      //border-width: 0 0 1px 1px
+      //box-shadow: -2px 2px 0 $song_base_color
+      //+song_transition
+
+    .song_extras
+      display: block
+
+.song_extras
+  display: none
+  padding: 11px 20px
+  background-color: $song_base_color
+  margin-bottom: 5px
+  border-top-right-radius: 10px
+  border-bottom-right-radius: 10px
+  border-bottom-left-radius: 10px
+  +song_transition
+
+  a
+    text-decoration: none
+    color: $font-color
+  .desc
+    padding: 5px
+    overflow: hidden
+    font-size: 0.9em
+    font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif
+    line-height: 1.2em
+    &:hover
+      background-color: $song_hover_color
+      cursor: pointer
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      border-radius: 5px
+
+  .youtube_clip
+    margin: 14px 0px 5px
+
+
+#song_list
+  button.remove, button.move_to_pos
+    display: none
+
+#short_list
+  button.short_list_song, .short_list_to_pos
+    display: none
+
+#short_list, #song_list
+  h2
+    margin-left: 22px
+    margin-bottom: 10px

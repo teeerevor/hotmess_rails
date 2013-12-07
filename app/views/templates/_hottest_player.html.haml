@@ -1,0 +1,18 @@
+%script#hottest-player-template{type:'text/x-handlebars-template'}
+  .current_song
+    %h3.song_name
+      Song Name
+    .artist_name
+      Artist Name
+  .player_buttons
+    %button.previous{title: 'previous song'}
+      %i.icon-previous
+    %button.play_pause.is_paused
+      %i.pause.icon-pause
+      %i.play.icon-play
+    %button.next{title: 'next song'}
+      %i.icon-next
+    %button.continuous{title: 'continuous play'}
+      %i.icon-continuous
+    %button.shuffle{title: 'shuffle play order'}
+      %i.icon-shuffle

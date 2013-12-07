@@ -1,0 +1,114 @@
+@import "mixins.css.sass"
+
+#save_load:hover
+  color: #EE736D
+
+#save_load
+  display: inline-block
+  background-color: #fff
+  text-align: center
+
+  .email_display
+    margin-top: 5px
+    cursor: pointer
+    .current_email
+      margin-bottom: 6px
+      display: none
+  .list_label
+    margin-top: 6px
+
+  form
+    position: relative
+    display: none
+    #email
+      float: left
+      display: block
+      width: 302px
+      padding: 2px 5px
+      text-align: center
+      font-size: 1.3em
+    .buttons
+      clear: both
+      float: left
+      display: block
+      margin: 4px auto 0
+      button
+        display: inline-block
+        margin: 0 -1px
+
+      .close_form_button
+        display: inline
+        position: relative
+        top: 7px
+        left: 4px
+        img
+          -webkit-transition: opacity 0.5s linear
+          -moz-opacity: 0.2
+          -khtml-opacity: 0.2
+          opacity: 0.2
+
+        span
+          position: relative
+          bottom: 6px
+          -moz-opacity: 0
+          -khtml-opacity: 0
+          opacity: 0
+          -webkit-transition: opacity 0.5s linear
+
+        &.highlight
+          img
+            -moz-opacity: 0.6
+            -khtml-opacity: 0.6
+            opacity: 0.6
+
+          span
+            -moz-opacity: 1
+            -khtml-opacity: 1
+            opacity: 1
+
+      .close_form_button:hover
+        cursor: pointer
+
+    .side_tips
+      float: left
+      text-align: left
+      margin: 9px 0 0 10px
+      p
+        display: none
+        background-repeat: no-repeat
+        padding: 1px 0 4px 30px
+      .error
+        background-image: url(/assets/red_cross.png)
+        color: #E00000
+      .good
+        background-image: url(/assets/tick.png)
+        color: green
+
+  form
+    -webkit-transition: all 100ms linear
+    &.valid
+      p.good
+        display: inline
+
+    &.invalid
+      p.invalid
+        display: inline
+
+    &.blank
+      p.blank
+        display: inline
+
+#header.open
+  #save_load
+    .email_display
+      display: none
+    form
+      display: block
+
+#app.active
+  #header
+    height: 80px
+    .email_display
+      margin-top: 15px
+
+

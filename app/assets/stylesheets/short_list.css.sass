@@ -1,0 +1,59 @@
+@import 'mixins.css.sass'
+
+#short_list
+  li
+    background-color: transparent
+  ol
+    counter-reset: li /* Initiate a counter */
+    list-style: none /* Remove default numbering */
+    *list-style: decimal /* Keep using default numbering for IE6/7 */
+    padding: 0
+    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+
+  li:nth-child(-n+10)
+    .song_tab
+      position: relative
+      display: block
+      margin-left: 17px
+      margin-top: 0
+
+    .song_tab:before
+      content: counter(li)
+      counter-increment: li
+      position: absolute
+      left: -1.3em
+      top: 50%
+      margin-top: -1.3em
+      background: #EE736D
+      height: 2em
+      width: 2em
+      line-height: 2em
+      border: .3em solid #fff
+      text-align: center
+      font-weight: bold
+      border-radius: 2em
+      transition: all .3s ease-out
+
+    .song_details
+      margin-left: 5px
+
+    .song_extras
+      margin-left: 17px
+
+  .empty_list_blank_state
+    max-width: 350px
+    margin: 10px
+    padding: 10px 20px 20px
+    color: whitesmoke
+    font-size: 1.15em
+    background-color: #666
+    +border-radius(10px)
+
+    p
+      margin-bottom: 20px
+
+    img
+      display: block
+      margin-top: 20px
+      width: 100%
+      +border-radius(10px)

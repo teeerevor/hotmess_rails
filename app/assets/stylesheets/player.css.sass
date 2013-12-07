@@ -1,0 +1,71 @@
+@import 'songs.css.sass'
+
+.player
+  margin: 10px 0
+  text-align: center
+
+  .current_song
+    display: none
+
+    img
+      float: left
+      margin-right: 10px
+
+  .song_name
+    +song_name
+
+  .artist_name
+    +artist_name
+
+  .player_buttons
+    width: 190px
+    margin: 5px auto 0
+
+  button
+    margin: 0
+    padding: 0
+    border: 0
+    background: 0
+    color: #555
+
+    &.active
+      color: #F7BDBA
+    &:hover
+      color: #EE736D
+    &:active
+      color: #E73F36
+
+
+  .play_pause
+    font-size: 2em
+    cursor: pointer
+
+  .is_paused
+    .pause
+      display: none
+
+  .is_playing
+    .play
+      display: none
+
+  .previous, .next, .shuffle, .continuous
+    font-size: 1.2em
+    cursor: pointer
+    position: relative
+    top: -5px
+
+  .shuffle
+    display: none
+    margin-top: 8px
+    margin-left: 10px
+  .continuous
+    margin-top: 8px
+    margin-left: 25px
+
+#app.active
+  .current_song
+    display: inline-block
+
+@media only screen and (max-width: 600px)
+  .player
+    display: none

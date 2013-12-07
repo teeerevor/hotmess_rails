@@ -1,0 +1,6 @@
+object @artist
+attributes :id, :name
+
+child :song do
+  attributes :id, :name
+end

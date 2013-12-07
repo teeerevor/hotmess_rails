@@ -1,0 +1,60 @@
+@import "mixins.css.sass"
+
+#progress_bar
+  margin: 40px auto
+  width: 60%
+
+#bg
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  opacity: 0.2
+  z-index: -1
+  img
+    width: 20%
+    float: left
+
+#main
+  margin: 80px 15px 0 3px
+
+#song_list, #short_list
+  margin-bottom: 20px
+
+#app.active
+  #main
+    margin-top: 100px
+
+@media only screen and (max-width: 600px)
+  //#app
+    //background-color: red
+
+  .list_index
+    display: none
+
+@media only screen and (min-width: 600px)
+  #app
+    //background-color: green
+    margin-left: 10px
+    margin-right: 46px
+
+  #short_list
+    margin-left: 5px
+
+
+
+@media only screen and (min-width: 800px)
+  //#app
+    //background-color: blue
+
+  #short_list
+    width: 47%
+    position: fixed
+    overflow: auto
+    overflow-x: hidden
+
+  #song_list
+    margin-left: 52%
+
+  #save_load
+    right: 3%
