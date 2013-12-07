@@ -27,6 +27,7 @@ window.App = {
 
 
   showApp: ->
+    console.log 'showApp'
     $("#progress_bar").removeClass "warning"
     $("#progress_bar .ui-progress").animateProgress 100, ->
       $('#app').removeClass('hidden')

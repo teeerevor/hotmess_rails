@@ -5,7 +5,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render @songs.to_json(:include => :artist, :methods => [:short_desc, :content_link])}
+      format.json
     end
   end
 end
