@@ -36,7 +36,7 @@ window.App = {
 
   load_backbone: ->
     #year and email are set in the app layout
-    window.songsList = new Hotmess.Collections.Songs({year: urlYear})
+    window.songsList = new Hotmess.Collections.Songs([],{year: urlYear})
     window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
     $('#song_list').append(songListView.render().el)
 

@@ -4,8 +4,7 @@ class Song < ActiveRecord::Base
   has_many :short_lists, :through => :short_listed_songs
 
   def self.find_for_year(year = ENV['current_year'])
-    find_params = {conditions: {year: year}, include: 'artist', order: 'songs.name'}
-    all(find_params)
+    self.includes(:artist).where(year: year).order(:name)
   end
 
   def youtube_search_string

@@ -84,10 +84,8 @@
 
     -#= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min'
     -#= javascript_include_tag "//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject"
-    = javascript_include_tag '/assets/jquery-1.7.1.min'
-    = javascript_include_tag '/assets/swfobject'
     = javascript_include_tag '/assets/application'
-    = yield_content :js
+    = yield :js
     :javascript
       window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
       window.urlEmail = '#{@email}'
