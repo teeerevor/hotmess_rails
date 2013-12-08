@@ -16,7 +16,10 @@ window.App = {
       $("#progress_bar").removeClass("error").addClass "warning"
 
       $("#progress_bar .ui-progress").animateProgress 60, ->
-        songsList.fetch({dataType: 'json', success: self.showApp})
+        console.log 'fetch'
+        #songsList.fetch({dataType: 'json', success: self.showApp})
+        self.showApp()
+        console.log 'done fetch'
 
   #may use this later
   finishAndShowLaunchBtn: ->
@@ -37,7 +40,7 @@ window.App = {
 
   load_backbone: ->
     #year and email are set in the app layout
-    window.songsList = new Hotmess.Collections.Songs([],{year: urlYear})
+    window.songsList = new Hotmess.Collections.Songs([{'name':'stuff','artist':{'name':'stuff'}}],{year: urlYear})
     window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
     $('#song_list').append(songListView.render().el)
 
