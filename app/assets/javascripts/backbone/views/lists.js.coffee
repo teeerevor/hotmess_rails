@@ -7,10 +7,12 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 
   render: ->
     $(@el).empty()
+    container = document.createDocumentFragment()
     @updateTotal(@collection.length)
     for song in @collection.models
       songView = new Hotmess.Views.SongView({model: song})
-      $(@el).append songView.render().el
+      container.appendChild songView.render().el
+    $(@el).append(container)
     @
 
   updateTotal: (song_count) ->
