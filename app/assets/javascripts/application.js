@@ -13,4 +13,11 @@
 //= require_self
 //= require jquery
 //= require vendor
+//= require backbone
+//= require backbone/models
+//= require backbone/collections
+//= require backbone/views/song
+//= require backbone/views/lists
+//= require backbone/views/player
+//= require backbone/views/save_load
 //= require_tree .

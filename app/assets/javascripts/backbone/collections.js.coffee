@@ -1,6 +1,7 @@
 class window.Hotmess.Collections.Songs extends Backbone.Collection
   url: '/songs/'
   model: Hotmess.Models.Song
+  name: 'songs'
 
   initialize: ->
     if options = arguments[1]
@@ -21,6 +22,7 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
 
 class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs
   url: '/short_lists/'
+  name: 'short_list'
 
   initialize: ->
     super

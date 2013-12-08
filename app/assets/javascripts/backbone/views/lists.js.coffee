@@ -9,7 +9,7 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
     $(@el).empty()
     @updateTotal(@collection.length)
     for song in @collection.models
-      songView = new Hotmess.Views.SongView({model: song, listType: @className})
+      songView = new Hotmess.Views.SongView({model: song})
       $(@el).append songView.render().el
     @
 
