@@ -16,10 +16,8 @@ window.App = {
       $("#progress_bar").removeClass("error").addClass "warning"
 
       $("#progress_bar .ui-progress").animateProgress 60, ->
-        console.log 'fetch'
         #songsList.fetch({dataType: 'json', success: self.showApp})
         self.showApp()
-        console.log 'done fetch'
 
   #may use this later
   finishAndShowLaunchBtn: ->
@@ -30,7 +28,6 @@ window.App = {
 
 
   showApp: ->
-    console.log 'showApp'
     $("#progress_bar").removeClass "warning"
     $("#progress_bar .ui-progress").animateProgress 100, ->
       $('#app').removeClass('hidden')
