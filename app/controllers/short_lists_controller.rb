@@ -6,10 +6,7 @@ class ShortListsController < ApplicationController
     @short_list_songs = @short_list.short_listed_songs.all( :include => {:song => :artist}, :order => 'short_listed_songs.position')
     @songs = @short_list_songs.map{|sls| sls.song}
 
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    render 'songs/index'
   end
 
   def update

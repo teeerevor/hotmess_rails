@@ -10,8 +10,8 @@ HotmessRails::Application.routes.draw do
   get 'songs' => 'songs#index'
   get 'songs/:year' => 'songs#index'
 
-  get 'short_lists/:email' => 'short_lists#show'
-  post 'short_lists/:email' => 'short_lists#update'
+  get 'short_lists/:email' => 'short_lists#show', :email => /.*/
+  post 'short_lists/:email' => 'short_lists#update', :email => /.*/
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

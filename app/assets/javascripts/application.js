@@ -12,6 +12,7 @@
 //
 //= require_self
 //= require jquery
+//= require csrf
 //= require vendor
 //= require backbone
 //= require backbone/models
