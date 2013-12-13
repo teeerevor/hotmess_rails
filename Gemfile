@@ -33,11 +33,12 @@ gem 'gon'         # injectind data js/dom
 gem 'rabl'        # json templating
 gem 'oj'          # json parsing
 
-group :test do
+group :development do
   gem 'nokogiri'
   gem 'googleajax'
   gem 'pry'
   gem 'pry-nav'
+  gem 'pry-rails'
 end
 
 group :test do
