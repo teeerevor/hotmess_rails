@@ -8,8 +8,6 @@ development:
   adapter: postgresql
   database: hotmess_rails_dev
   pool: 5
-  username: trev
-  password:
   timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
@@ -18,13 +16,5 @@ development:
 test:
   adapter: postgresql
   database: hotmess_rails_test
-  username: trev
-  password:
-  pool: 5
-  timeout: 5000
-
-production:
-  adapter: postgresql
-  database: hotmess_rails_prod
   pool: 5
   timeout: 5000

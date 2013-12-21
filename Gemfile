@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.0.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -25,15 +26,16 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
 
-gem 'thin' # a bit faster than webrick
-
 gem 'gon'         # injectind data js/dom
 gem 'rabl'        # json templating
 gem 'oj'          # json parsing
 
+#needed so rake works on heroku
+gem 'nokogiri'
+gem 'googleajax'
+
 group :development do
-  gem 'nokogiri'
-  gem 'googleajax'
+  gem 'thin' # a bit faster than webrick
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-rails'
@@ -48,8 +50,6 @@ end
 
 #for heroku
 group :production do
+  gem 'unicorn'
   gem 'rails_12factor'
 end
-
-
-
