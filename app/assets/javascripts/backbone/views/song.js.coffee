@@ -19,6 +19,8 @@ class window.Hotmess.Views.SongView extends Backbone.View
   render: ->
     if @model
       $(@el).html(@template(@model.toJSON()))
+      if not @model.is_playable()
+        @set_unplayable()
       if @model.get('open')
         @toggle_song()
     @
@@ -108,3 +110,6 @@ class window.Hotmess.Views.SongView extends Backbone.View
 
   toggle_song_highlight: ->
     $(@el).toggleClass('highlight')
+
+  set_unplayable: ->
+    $(@el).addClass('no-sound-assets')

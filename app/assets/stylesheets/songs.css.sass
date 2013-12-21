@@ -7,6 +7,10 @@
   -o-transition: background-color 0.3s linear
   transition: background-color 0.3s linear
 
+
+
+
+
 .song
   .song_header:hover
     .song_tab
@@ -52,11 +56,12 @@
 
   .song_details
     padding: 11px 10px 11px 20px
-    .song_name
-      +song_name
 
-    .artist_name
-      +artist_name
+  .song_name
+    +song_name
+
+  .artist_name
+    +artist_name
 
   .buttons
     display: inline-block
@@ -118,6 +123,20 @@
   .youtube_clip
     margin: 14px 0px 5px
 
+
+.no-sound-assets-msg
+  display: none
+
+.no-sound-assets
+  .no-sound-assets-msg
+    display: block
+
+  .song_tab
+    background-color: #fafafa
+
+  .song_name, .artist_name, .no-sound-assets-msg
+    color: #aaa
+    font-weight: normal
 
 #song_list
   button.remove, button.move_to_pos

@@ -5,6 +5,8 @@
       .song_details
         %h3.song_name {{song_name_trim name}}
         .artist_name {{artist.name}}
+        .no-sound-assets-msg
+          (Not playable)
     .buttons
       %button.short_list_to_pos.button.black.hotmess_regular.up{title: "Short list at position"}
         %i.icon-up
