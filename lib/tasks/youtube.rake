@@ -7,20 +7,32 @@ desc 'youtube loader'
 task :load_youtube => :environment do
   year = ENV['current_year']
 
-  Song.where(year: year).each do |song|
-    puts "artist = #{song.artist.name}|#{song.name}"
+  Song.where(year: year, youtube_url: nil).each do |song|
+    puts "-----------------------------------"
+    puts "#{song.name} - #{song.artist.name}"
     url = "http://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string)}"
-    puts URI::encode(song.youtube_search_string)
+    puts "search = #{url}"
     begin
       doc = Nokogiri::HTML(open(url))
-      url = doc.css('#search-results').first.css('a').first.attr('href')
-      puts url
-      song.youtube_url = url.gsub(/\/watch\?v=/i ,'')
-      song.save
-      puts song.youtube_url
+      yt_results = doc.css('#search-results').first
+      yt_vid_name = yt_results.css('.yt-lockup-title a').first.text.strip
+      puts "vid_name = [#{yt_vid_name}]"
+
+      yt_vid_name.downcase!
+      #initial run - matches all words in song titles
+      #if song.name.downcase.split(/\W+/).all? {|word| yt_vid_name.include?(word)}
+      #second run removes {ft ...}
+      if song.name.gsub(/\{.*\}/,'').downcase.split(/\W+/).all? {|word| yt_vid_name.include?(word)}
+        url = yt_results.css('a').first.attr('href')
+        song.youtube_url = url.gsub(/\/watch\?v=/i ,'')
+        song.save
+        puts song.youtube_url
+      else
+        puts "no match"
+      end
     rescue
       puts "********** error ************"  
-      puts "song = #{song.id}"
+      puts "error song = #{song.id}"
       puts url
     end
   end
