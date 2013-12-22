@@ -3,6 +3,7 @@ ruby "2.0.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
+gem 'actionpack-action_caching'
 
 gem 'pg'    #for the dbs
 gem 'pony'  #email
