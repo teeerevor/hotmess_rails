@@ -24,4 +24,4 @@ Thanks to
 
 * [Ragetube](http://www.ragetube.net/) for the inspiration
 
-* [@IvanVanderbyl](https://twitter.com/IvanVanderbyl) for [ui-progress-bar](https://github.com/ivanvanderbyl/ui-progress-bar)
+* All the awesome peeps that bang out opensource stuff.. legends
