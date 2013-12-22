@@ -28,6 +28,11 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   className:  'short_list'
 
+  initialize: ->
+    @collection.bind 'add', @render, @
+    @collection.bind 'reset', @render, @
+    @collection.bind 'remove', @render, @
+
   render: ->
     if @collection.length == 0
       @show_blank_state()
@@ -42,7 +47,3 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   hide_blank_state: ->
     $('.empty_list_blank_state').hide()
 
-  initialize: ->
-    @collection.bind 'add', @render, @
-    @collection.bind 'reset', @render, @
-    @collection.bind 'remove', @render, @
