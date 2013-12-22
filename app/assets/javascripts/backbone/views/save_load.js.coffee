@@ -114,6 +114,11 @@ class SaveLoadView extends Backbone.View
   showErrorMessage: (msg) ->
     alert(msg)
 
+  resetToBlank: ->
+    @.$('.current_email').hide()
+    @.$('.list_label').show()
+
+
   updateUrl: ->
     window.history.pushState("object or string", "Load hottest100.io short list", "/#{@email()}")
 

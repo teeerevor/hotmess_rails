@@ -3,15 +3,6 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
   model: Hotmess.Models.Song
   name: 'songs'
 
-  initialize: ->
-    if options = arguments[1]
-      @email = options['email']
-      @year = options['year']
-
-      unless @year== ''
-        if @url == '/songs/'
-          @url = "/songs/#{@year}"
-
   get_next_song: (song) ->
     song_index = _.indexOf( @.models, song)
     @.models[song_index + 1]
@@ -24,12 +15,6 @@ class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs
   url: '/short_lists/'
   name: 'short_list'
 
-  initialize: ->
-    super
-
-    unless @email == ''
-      @loadListFromUrlEmail(@email)
-
   setListUrl: (email) ->
     @url = "/short_lists/#{email}"
 
@@ -39,7 +24,10 @@ class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs
 
   loadList: (email) ->
     @setListUrl(email)
-    @fetch({success: -> saveLoadView.updateUrl()})
+    @fetch({
+        success: -> saveLoadView.updateUrl(),
+        error: -> saveLoadView.resetToBlank()
+    })
 
   loadListFromUrlEmail: (email) ->
     @setListUrl(email)
