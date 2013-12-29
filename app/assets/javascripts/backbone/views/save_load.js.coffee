@@ -1,10 +1,3 @@
-delay = (->
-  timer = 0
-  (callback, ms) ->
-    clearTimeout timer
-    timer = setTimeout(callback, ms)
-)()
-
 class SaveLoadView extends Backbone.View
   id: 'save_load'
 
@@ -29,7 +22,7 @@ class SaveLoadView extends Backbone.View
     $('header').addClass('open')
     $('#email').focus()
     $('#email').on 'keyup', ->
-      delay (->
+      resetableDelay (->
         self.form().removeClass('valid invalid blank')
         self.showInlineValidation()
       ), 1000

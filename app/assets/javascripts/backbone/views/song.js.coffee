@@ -24,6 +24,8 @@ class window.Hotmess.Views.SongView extends Backbone.View
         @set_unplayable()
       if @model.get('open')
         @toggle_song()
+      if @model.get('added-song')
+        @set_added_song()
     @
 
   template: (model)->
@@ -64,8 +66,16 @@ class window.Hotmess.Views.SongView extends Backbone.View
     track('click', 'move_to_top')
 
   remove_from_short_list: ->
+<<<<<<< HEAD
     window.shortList.remove @model
     track('click', 'remove_from_short_list')
+=======
+    model = @model
+    $(@el).removeClass('added-song')
+    $(@el).addClass('removed-song')
+    delay 400, ->
+      window.shortList.remove model
+>>>>>>> adding animations to short list add and remove
 
   flash_song: ->
     song = @.$('.song_tab')
