@@ -26,7 +26,7 @@ class SaveLoadView extends Backbone.View
 
   open: ->
     self = @
-    $('#header').addClass('open')
+    $('header').addClass('open')
     $('#email').focus()
     $('#email').on 'keyup', ->
       delay (->
@@ -36,7 +36,7 @@ class SaveLoadView extends Backbone.View
 
   close: ->
     $('#email').off('keyup')
-    $('#header').removeClass('open')
+    $('header').removeClass('open')
     @email_input().attr('value', '') unless @validateEmail @email()
     @form().removeClass('invalid blank')
 

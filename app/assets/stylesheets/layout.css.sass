@@ -1,5 +1,8 @@
 @import "mixins.css.sass"
 
+html, body
+  height: 100%
+
 #progress_bar
   margin: 40px auto
   width: 60%
@@ -15,46 +18,59 @@
     width: 20%
     float: left
 
-#main
-  margin: 80px 15px 0 3px
+#app
+  display: -webkit-flex
+  -webkit-flex-direction: column
+  height: 100%
 
-#song_list, #short_list
-  margin-bottom: 20px
+header
+  height: 60px
 
-#app.active
-  #main
-    margin-top: 100px
+.lists
+  -webkit-flex: 1 1 auto
+  overflow-y: auto
+  min-height: 0px
 
-@media only screen and (max-width: 600px)
+  display: -webkit-flex
+  -webkit-flex-direction: row
+  height: 100%
+
+
+.list
+  -webkit-flex: 1 1 100px
+  padding: 10px
+  overflow-y: auto
+
+//@media only screen and (max-width: 600px)
+  ////#app
+    ////background-color: red
+
+  //.list_index
+    //display: none
+
+//@media only screen and (min-width: 600px)
   //#app
-    //background-color: red
+    ////background-color: green
+    //margin-left: 10px
+    //margin-right: 46px
 
-  .list_index
-    display: none
-
-@media only screen and (min-width: 600px)
-  #app
-    //background-color: green
-    margin-left: 10px
-    margin-right: 46px
-
-  #short_list
-    margin-left: 5px
+  //#short_list
+    //margin-left: 5px
 
 
 
-@media only screen and (min-width: 800px)
-  //#app
-    //background-color: blue
+//@media only screen and (min-width: 800px)
+  ////#app
+    ////background-color: blue
 
-  #short_list
-    width: 47%
-    position: fixed
-    overflow: auto
-    overflow-x: hidden
+  //#short_list
+    //width: 47%
+    //position: fixed
+    //overflow: auto
+    //overflow-x: hidden
 
-  #song_list
-    margin-left: 52%
+  //#song_list
+    //margin-left: 52%
 
-  #save_load
-    right: 3%
+  //#save_load
+    //right: 3%

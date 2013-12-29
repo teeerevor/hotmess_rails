@@ -55,12 +55,12 @@
             @teeerevor
 
     #app.hidden
-      #bg
+      -##bg
         -#- @songs.shuffle.each_with_index do |song, i|
           -#- if song.album_img_url && i < 50
             -#%img{src:song.album_img_url}
 
-      #header
+      %header
         %img.logo{src:'/assets/hottest100_logo.png'}
         %h1.hidden
           Hotmess100
@@ -70,8 +70,8 @@
           -#Short List
 
 
-      #main
-        %section#short_list
+      %section.lists
+        %section#short_list.list
           %a{name:'short_list'}
           %h2
             Short List
@@ -85,9 +85,10 @@
             %img{src:'/assets/short_list_blankstate.gif'}
 
 
-        %section#song_list
+        %section#song_list.list
           %h2
-            All Songs
+            = @year
+            Candidates
 
         %nav.list_index.hidden
           - ('a'..'z').each do |letter|

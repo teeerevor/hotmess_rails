@@ -42,11 +42,11 @@ window.App = {
     $('#song_list').append(songListView.render().el)
 
     window.saveLoadView = new Hotmess.Views.SaveLoadView({})
-    $('#header').append(saveLoadView.render().el)
+    $('header').append(saveLoadView.render().el)
     saveLoadView.setEmailFromUrlLoad(urlEmail) if urlEmail
 
     window.hottestPlayer = new Hotmess.Views.PlayerView({})
-    $('#header').append(hottestPlayer.render().el)
+    $('header').append(hottestPlayer.render().el)
 
     #load these last - will break url email to saveload push otherwise
     sl = []
