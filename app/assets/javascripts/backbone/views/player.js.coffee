@@ -81,6 +81,9 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
     console.log 'current_song'
     @open_songs[@current_song_id]
 
+  current_song_name: ->
+    @current_song().song.model.get('name')
+
   current_player: ->
     console.log 'current_player'
     @yt_players[@current_song_id]
@@ -106,6 +109,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   show_playing: ->
     console.log 'show play'
+    track 'play', @current_song_name()
     $('.play_pause').addClass('is_playing')
     $('.play_pause').removeClass('is_paused')
 
@@ -117,11 +121,13 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   show_paused: ->
     console.log 'show paused'
+    track 'pause', @current_song_name()
     $('.play_pause').removeClass('is_playing')
     $('.play_pause').addClass('is_paused')
 
   next: ->
     console.log 'next'
+    track 'next', @current_song_name()
     next_song = songsList.get_next_song(@current_song().model)
     @pause()
     @current_song().close()
@@ -132,6 +138,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   previous: ->
     console.log 'prev'
+    track 'prev', @current_song_name()
     next_song = songsList.get_previous_song(@current_song().model)
     @pause()
     @current_song().close()
@@ -148,6 +155,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   continuous: ->
     console.log 'continuous'
+    track 'click', 'continuous'
     $('.continuous').toggleClass('active')
     $('.shuffle').removeClass('active')
     switch @player_mode
