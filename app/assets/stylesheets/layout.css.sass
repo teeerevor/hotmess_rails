@@ -20,7 +20,13 @@ html, body
 
 #app
   display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: flex
   -webkit-flex-direction: column
+  -moz-flex-direction: column
+  -ms-flex-direction: column
+  flex-direction: column
   height: 100%
 
 header
@@ -28,16 +34,23 @@ header
 
 .lists
   -webkit-flex: 1 1 auto
+  -moz-flex: 1 1 auto
+  -ms-flex: 1 1 auto
+  flex: 1 1 auto
   overflow-y: auto
   min-height: 0px
 
   display: -webkit-flex
-  -webkit-flex-direction: row
+  display: -moz-flex
+  display: flex
   height: 100%
 
 
 .list
   -webkit-flex: 1 1 100px
+  -moz-flex: 1 1 100px
+  -ms-flex: 1 1 100px
+  flex: 1 1 100px
   padding: 10px
   overflow-y: auto
 
