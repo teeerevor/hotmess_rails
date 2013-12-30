@@ -47,6 +47,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
   add_to_short_list: ->
     window.shortList.add(@model)
     @flash_song()
+    track('click', 'add_to_short_list')
     #catch
       #show already in list error
 
@@ -54,11 +55,13 @@ class window.Hotmess.Views.SongView extends Backbone.View
   add_to_short_list_at: ->
     window.shortList.add(@model, {at: 0})
     @flash_song()
+    track('click', 'add_to_short_list_at')
     #catch
       #show already in list error
 
   remove_from_short_list: ->
     window.shortList.remove(@model)
+    track('click', 'remove_from_short_list')
 
   flash_song: ->
     song = @.$('.song_tab')
@@ -83,12 +86,14 @@ class window.Hotmess.Views.SongView extends Backbone.View
       @load_youtube_swf(yt_holder, @model.get('youtube_url'))
     yt_holder.fitVids()
     @song_open = true
+    track('click', 'open_song')
 
   close: ->
     unless @user_opened
       $(@el).removeClass('expanded')
       @.$('.youtube_vid').empty()
       @song_open = false
+      track('click', 'close_song')
 
   load_youtube_iframe: (yt_contianer, model) ->
     yt_contianer.html(@youtube_template(model.toJSON()))

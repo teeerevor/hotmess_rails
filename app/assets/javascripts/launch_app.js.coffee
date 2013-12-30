@@ -55,6 +55,8 @@ window.App = {
     window.shortListView = new Hotmess.Views.ShortListView({collection: shortList})
     $('#short_list').append(shortListView.render().el)
 
+    window.user = if urlEmail then urlEmail else 'anonymous'
+
   fadeIn: (section) ->
     $("section.#{section}").fadeIn 'slow'
 

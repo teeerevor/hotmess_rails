@@ -33,12 +33,14 @@ class SaveLoadView extends Backbone.View
         self.form().removeClass('valid invalid blank')
         self.showInlineValidation()
       ), 1000
+    track('click', 'open_save_load')
 
   close: ->
     $('#email').off('keyup')
     $('header').removeClass('open')
     @email_input().attr('value', '') unless @validateEmail @email()
     @form().removeClass('invalid blank')
+    track('click', 'close_save_load')
 
 
   hover_close_button: ->
@@ -58,6 +60,7 @@ class SaveLoadView extends Backbone.View
     e.preventDefault()
     self = @
     @doIfEmailIsValid( ->
+      track('click', 'load_playlist')
       self.setEmailDisplay()
       window.shortList.loadList self.email()
       self.close()
@@ -67,6 +70,7 @@ class SaveLoadView extends Backbone.View
     e.preventDefault()
     self = @
     @doIfEmailIsValid( ->
+      track('click', 'save_playlist')
       self.setEmailDisplay()
       window.shortList.saveList self.email()
       self.close()
@@ -76,6 +80,7 @@ class SaveLoadView extends Backbone.View
     e.preventDefault()
     self = @
     @doIfEmailIsValid( ->
+      track('click', 'send_playlist')
       self.setEmailDisplay()
       window.shortList.saveAndSend self.email()
       self.close()
@@ -83,6 +88,7 @@ class SaveLoadView extends Backbone.View
 
   setEmailDisplay: ->
     @.$('.current_email').text(@email()).show()
+    window.user = @email()
     @.$('.list_label').hide()
 
   setEmailFromUrlLoad: (email) ->
