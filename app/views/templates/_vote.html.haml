@@ -1,0 +1,44 @@
+%script#vote-template{:type =>"text/x-handlebars-template"}
+  .vote.vote-overlay
+    .vote-screen
+      .has-votes
+        %h2
+          Here is your top ten of #{@year}
+
+        .songs
+          %ol
+            {{#each songs}}
+            %li {{name}} - {{artist.name}}
+            {{/each}}
+
+        .instructions
+          %h2
+            Now to sumbit your votes to Triple J
+
+          %ol
+            %li
+              Select all and copy these links
+              %textarea
+                {{#each songs}}
+                http://open.spotify.com/track/{{spotify_key}}{{/each}}
+
+            %li
+              Now go to the
+              %a{href:'http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=106&MD=NominateCandidate#import'}
+                Hottest100 voting
+              page
+
+            %li
+              Hit the spotify tap.
+            %li
+              Paste in your list
+            %li
+              Hit submit
+            %li
+              Jump through some Triple J hoops
+            %li
+              AAaaand your done, now go get your party on
+
+      .no-votes
+        hmmmm you probably want to short list some songs first.
+

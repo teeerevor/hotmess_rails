@@ -10,4 +10,8 @@ class Song < ActiveRecord::Base
   def youtube_search_string
     "#{self.name} #{self.artist.the_name_fix}"
   end
+
+  def spotify_search_string
+    [URI::encode(self.name), URI::encode(self.artist.the_name_fix)].join('+')
+  end
 end

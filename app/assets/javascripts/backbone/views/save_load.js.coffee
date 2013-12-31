@@ -12,7 +12,7 @@ class SaveLoadView extends Backbone.View
     'click .email_display'  : 'open'
     'click .load' : 'load'
     'click .save' : 'save'
-    'click .send' : 'send'
+    'click .vote' : 'vote'
     'hover .close_form_button' : 'hover_close_button'
     'click .close_form_button' : 'close'
 
@@ -76,15 +76,15 @@ class SaveLoadView extends Backbone.View
       self.close()
     , self)
 
-  send: (e)->
+  vote: (e)->
     e.preventDefault()
     self = @
-    @doIfEmailIsValid( ->
-      track('click', 'send_playlist')
-      self.setEmailDisplay()
-      window.shortList.saveAndSend self.email()
-      self.close()
-    , self)
+    track('click', 'vote')
+    self.setEmailDisplay()
+    window.voteView = new Hotmess.Views.VoteView()
+    $('body').append(voteView.render().el)
+    #window.shortList.saveAndSend self.email()
+    self.close()
 
   setEmailDisplay: ->
     @.$('.current_email').text(@email()).show()

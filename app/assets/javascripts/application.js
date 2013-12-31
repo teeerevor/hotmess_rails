@@ -21,4 +21,5 @@
 //= require backbone/views/lists
 //= require backbone/views/player
 //= require backbone/views/save_load
+//= require backbone/views/vote
 //= require_tree .

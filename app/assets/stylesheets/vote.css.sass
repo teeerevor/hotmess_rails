@@ -1,0 +1,45 @@
+.vote-overlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 10
+  background-color: rgba(0,0,0,0.5)
+  //dim the background
+
+  //center content
+  display: -webkit-flex
+  display: flex
+  -webkit-flex-direction: row
+  flex-direction: row
+  -webkit-align-items: center
+  align-items: center
+  -webkit-justify-content: center
+  justify-content: center
+
+.vote
+  //display: none
+
+  .vote-screen
+    padding: 20px
+    background-color: white
+    border-radius: 10px
+    line-height: 26px
+
+    .songs
+      padding: 20px 60px
+      font-size: 14px
+      color: #999
+      line-height: 16px
+
+    textarea
+      display: block
+
+    ol
+      list-style-type: decimal
+      list-style-position: outside
+      padding: 25px
+    li
+      padding: 5px
+
