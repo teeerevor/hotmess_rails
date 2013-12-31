@@ -82,7 +82,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
     @open_songs[@current_song_id]
 
   current_song_name: ->
-    @current_song().song.model.get('name')
+    @current_song().model.get('name')
 
   current_player: ->
     console.log 'current_player'
