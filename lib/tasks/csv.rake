@@ -23,8 +23,9 @@ task :load_csv => :environment do
       artist.songs.create(name:song_name, year: year, youtube_url: youtube_key, spotify_key: spotify_key)
       song_count += 1
     else
-      unless song.youtube_url == youtube_key
+      if song.youtube_url != youtube_key || song.spotify_key != spotify_key
         song.youtube_url = youtube_key
+        song.spotify_key = spotify_key
         song.save
         updates += 1
       end
