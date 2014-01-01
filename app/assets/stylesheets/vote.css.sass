@@ -1,3 +1,6 @@
+@import mixins
+@import colours
+
 .vote-overlay
   position: absolute
   top: 0
@@ -19,27 +22,66 @@
   justify-content: center
 
 .vote
-  //display: none
-
   .vote-screen
+    position: relative
     padding: 20px
-    background-color: white
+    background-color: $background-color
     border-radius: 10px
     line-height: 26px
 
-    .songs
-      padding: 20px 60px
-      font-size: 14px
-      color: #999
-      line-height: 16px
-
     textarea
       display: block
+      width: 350px
+      min-height: 152px
+      margin: 0
+      resize: none
+      border-color: #ccc
+      color: #EB7C77
+      background-color: $background-color
 
     ol
-      list-style-type: decimal
-      list-style-position: outside
-      padding: 25px
+      padding-left: 25px
+      overflow: hidden
+
+      &.instructions
+        list-style-type: decimal
+        list-style-position: outside
+
     li
       padding: 5px
+
+    .songs
+      padding: 20px
+      font-size: 14px
+      color: #EB7C77
+      line-height: 16px
+
+      li
+        float: left
+        width: 250px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+      li:nth-child(2n+1)
+        clear: both
+
+  a
+    color: #EB7C77
+    text-decoration: none
+    &:hover
+      color: #C92922
+      text-decoration: underline
+
+  .no-votes
+    display: none
+    padding: 30px 0 20px
+
+  .vote-close
+    position: absolute
+    right: 5px
+    top: 5px
+    font-size: 20px
+    border: none
+    background-color: transparent
+    +hottest-button
 

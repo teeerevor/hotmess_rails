@@ -8,7 +8,7 @@ $dark_grey: #ccc
 $song_base_color: $light_grey
 $song_hover_color: $dark_grey
 
-@mixin clearfix
+=clearfix
   &:after
     content: "."
     display: block
@@ -18,7 +18,14 @@ $song_hover_color: $dark_grey
   * html
     height: 1px
 
-//@mixin border-radius($radius)
-  //-webkit-border-radius: $radius
-  //-moz-border-radius: $radius
-  //border-radius: $radius
+=hottest-button
+  color: #555
+
+  &.active
+    color: #F7BDBA
+  &:hover
+    color: #EE736D
+  &:active
+    color: #E73F36
+  &:focus
+    outline: none
