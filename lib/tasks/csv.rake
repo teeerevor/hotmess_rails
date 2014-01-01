@@ -13,13 +13,14 @@ task :load_csv => :environment do
     artist_name = row['artist']
     song_name = row['song']
     youtube_key = row['youtube_key']
+    spotify_key = row['spotify_key']
     puts "#{artist_name}-#{song_name}"
 
     artist = Artist.find_by_name(artist_name)
     artist ||= Artist.create(name: artist_name)
     song = artist.songs.where(name:song_name, year: year).first
     unless song
-      artist.songs.create(name:song_name, year: year, youtube_url: youtube_key)
+      artist.songs.create(name:song_name, year: year, youtube_url: youtube_key, spotify_key: spotify_key)
       song_count += 1
     else
       unless song.youtube_url == youtube_key
@@ -44,9 +45,9 @@ task :save_csv => :environment do
 
   song_count = 0
   CSV.open(csv_file, "wb", {col_sep: "|"}) do |csv|
-    csv << ['artist', 'song', 'youtube_key']
+    csv << ['artist', 'song', 'youtube_key', 'spotify_key']
     songs.each do |s|
-      csv << [s.artist.name, s.name, s.youtube_url]
+      csv << [s.artist.name, s.name, s.youtube_url, s.spotify_key]
       song_count += 1
     end
   end
