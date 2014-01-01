@@ -5,6 +5,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
   events:
     'click .short_list_song'   : 'add_to_short_list'
     'click .short_list_to_pos' : 'add_to_short_list_at'
+    'click .move_to_pos'       : 'move_to_top'
     'click .remove'            : 'remove_from_short_list'
     'click .song_details'      : 'toggle_song'
     'hover .song_header'       : 'toggle_song_highlight'
@@ -58,6 +59,11 @@ class window.Hotmess.Views.SongView extends Backbone.View
     track('click', 'add_to_short_list_at')
     #catch
       #show already in list error
+
+  move_to_top: ->
+    window.shortList.remove(@model)
+    window.shortList.add(@model, {at: 0})
+    track('click', 'move_to_top')
 
   remove_from_short_list: ->
     window.shortList.remove(@model)
