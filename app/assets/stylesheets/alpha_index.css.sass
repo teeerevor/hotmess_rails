@@ -5,16 +5,20 @@ $index_font_color: #888
 $index_hovere_color:#ddd
 
 .list_index
+  display: -webkit-flex
+  display: -moz-flex
+  display: -ms-flex
+  display: flex
+  +display-box
+  +box-orient(vertical)
   -webkit-flex: 0 0 35px
   -moz-flex: 0 0 35px
   -ms-flex: 0 0 35px
   flex: 0 0 35px
   overflow-y: auto
   min-height: 0px
-
   width: 35px
-  +display-box
-  +box-orient(vertical)
+
   a
     position: relative
     display: block
@@ -28,10 +32,20 @@ $index_hovere_color:#ddd
     -moz-box-flex: 1
     -ms-box-flex: 1
     box-flex: 1
-    +display-box
-    +box-orient(vertical)
-    +box-pack(center)
-    +box-align(center)
+    display: -webkit-flex
+    display: -moz-flex
+    display: -ms-flex
+    display: flex
+    -webkit-flex-direction: column
+    -moz-flex-direction: column
+    -ms-flex-direction: column
+    flex-direction: column
+    -webkit-justify-content: flex-start
+    justify-content: flex-start
+    -webkit-align-items: center
+    align-items: center
+    -webkit-justify-content: center
+    justify-content: center
 
     &:hover
       background-color: $index_hovere_color
