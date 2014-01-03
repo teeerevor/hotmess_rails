@@ -28,12 +28,10 @@ class window.Hotmess.Views.SongView extends Backbone.View
 
   template: (model)->
     #this helper is used for the index down the side
-    addToIndex = if @model.collection.name == 'songs' then true else false
+    #only want index to work on candidates_list
     Handlebars.registerHelper 'first_letter', (str)->
-      if addToIndex  && str
-        str.charAt(0)
-      else
-        ''
+      str.charAt(0)
+
     Handlebars.registerHelper 'song_name_trim', (str)->
       if str and str.length > 37
         return str.substring(0,34) + '...'
@@ -46,7 +44,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
     tp(model)
 
   add_to_short_list: ->
-    window.shortList.add(@model)
+    window.shortList.add_to_shortlist @model
     @flash_song()
     track('click', 'add_to_short_list')
     #catch
@@ -54,19 +52,19 @@ class window.Hotmess.Views.SongView extends Backbone.View
 
 
   add_to_short_list_at: ->
-    window.shortList.add(@model, {at: 0})
+    window.shortList.add_to_shortlist @model, {at: 0}
     @flash_song()
     track('click', 'add_to_short_list_at')
     #catch
       #show already in list error
 
   move_to_top: ->
-    window.shortList.remove(@model)
-    window.shortList.add(@model, {at: 0})
+    window.shortList.remove @model
+    window.shortList.add_to_shortlist @model, {at: 0}
     track('click', 'move_to_top')
 
   remove_from_short_list: ->
-    window.shortList.remove(@model)
+    window.shortList.remove @model
     track('click', 'remove_from_short_list')
 
   flash_song: ->

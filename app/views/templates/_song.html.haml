@@ -1,5 +1,7 @@
 %script#song-template{:type =>"text/x-handlebars-template"}
+  {{#unless short_list}}
   %a{name:'{{first_letter name}}'}
+  {{/unless}}
   .song_header
     .song_tab
       .song_details

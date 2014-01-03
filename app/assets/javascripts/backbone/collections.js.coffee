@@ -32,3 +32,8 @@ class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs
   loadListFromUrlEmail: (email) ->
     @setListUrl(email)
     @fetch({success: -> saveLoadView.setEmailFromUrlLoad(email)})
+
+  add_to_shortlist: (model, options) ->
+    #set so that view knows not to add to index
+    model.set 'short_list', true
+    @add(model, options)
