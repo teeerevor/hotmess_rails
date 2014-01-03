@@ -1,34 +1,29 @@
 @import 'mixins.css.sass'
 
 =song_transition
-  -webkit-transition: background-color 0.3s linear
-  -moz-transition: background-color 0.3s linear
-  -ms-transition: background-color 0.3s linear
-  -o-transition: background-color 0.3s linear
-  transition: background-color 0.3s linear
+  -webkit-transition: background-color 0.1s linear
+  -moz-transition: background-color 0.1s linear
+  -ms-transition: background-color 0.1s linear
+  -o-transition: background-color 0.1s linear
+  transition: background-color 0.1s linear
 
-
-
-
-
-.song
-  .song_header:hover
+.song:hover
+  .song_header
     .song_tab
       background-color: $song_hover_color
+
+  .song_extras
+    background-color: $song_hover_color
 
     //.song_tab:after
       //box-shadow: -2px 2px 0 $song_hover_color
 
-.highlight
-  .song_extras
-    background-color: $song_hover_color
-
-@mixin song_name
+=song_name
   display: inline-block
   font-weight: bold
   margin-bottom: 3px
 
-@mixin artist_name
+=artist_name
   display: inline-block
   color: #666
   &:before

@@ -70,8 +70,8 @@ class window.Hotmess.Views.SongView extends Backbone.View
   flash_song: ->
     song = @.$('.song_tab')
     desc = @.$('.song_extras')
-    song.css('background-color', 'yellow')
-    desc.css('background-color', 'yellow')
+    song.css('background-color', '#FCDB9A')
+    desc.css('background-color', '#FCDB9A')
     setTimeout(->
       song.removeAttr('style')
       desc.removeAttr('style')
