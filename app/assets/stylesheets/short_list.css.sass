@@ -1,4 +1,5 @@
-@import 'mixins.css.sass'
+@import animation
+@import mixins
 
 #short_list
   li
@@ -62,32 +63,32 @@
       width: 100%
       //+border-radius(10px)
 
-@-webkit-keyframes openSpace
++keyframes(openSpace)
   to
-    max-height: 50px
+    max-height: 100px
 
-@-webkit-keyframes closeSpace
++keyframes(closeSpace)
   to
     max-height: 0px
 
-@-webkit-keyframes moveIn
++keyframes(moveIn)
   to
     opacity: 1
-    -webkit-transform: translateX(0)
+    +transform(translateX(0))
 
-@-webkit-keyframes moveOut
++keyframes(moveOut)
   to
     opacity: 0
-    -webkit-transform: translateX(-300px)
+    +transform(translateX(-300px))
 
 .added-song
   max-height: 0
   opacity: 0
-  -webkit-transform: translateX(300px)
-  -webkit-animation: openSpace 0.1s ease forwards, moveIn 0.1s 0.2s ease forwards
+  +transform(translateX(300px))
+  +animation(openSpace 0.1s ease forwards, moveIn 0.1s 0.2s ease forwards)
 
 .removed-song
-  max-height: 50px
+  max-height: 100px
   opacity: 1
-  -webkit-transform: translateX(0)
-  -webkit-animation: moveOut 0.2s ease forwards, closeSpace 0.2s 0.2s ease forwards
+  +transform(translateX(0))
+  +animation(moveOut 0.2s ease forwards, closeSpace 0.2s 0.2s ease forwards)

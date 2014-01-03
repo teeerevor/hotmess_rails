@@ -38,6 +38,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
       if str and str.length > 37
         return str.substring(0,34) + '...'
       str
+
     tp = Handlebars.compile($('#song-template').html())
     tp(model)
 
@@ -66,16 +67,12 @@ class window.Hotmess.Views.SongView extends Backbone.View
     track('click', 'move_to_top')
 
   remove_from_short_list: ->
-<<<<<<< HEAD
-    window.shortList.remove @model
     track('click', 'remove_from_short_list')
-=======
     model = @model
     $(@el).removeClass('added-song')
     $(@el).addClass('removed-song')
     delay 400, ->
       window.shortList.remove model
->>>>>>> adding animations to short list add and remove
 
   flash_song: ->
     song = @.$('.song_tab')

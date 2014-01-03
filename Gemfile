@@ -12,6 +12,7 @@ gem 'haml'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'compass-rails'
+gem 'animation', '~> 0.1.alpha.3'
 gem 'fancy-buttons'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
