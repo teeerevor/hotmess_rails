@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby "2.0.0"
+ruby "2.1.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.6'
 gem 'actionpack-action_caching'
 
 gem 'pg'    #for the dbs
@@ -10,14 +10,12 @@ gem 'pony'  #email
 
 gem 'haml'
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
-gem 'animation', '~> 0.1.alpha.3'
-gem 'fancy-buttons'
-gem 'uglifier', '>= 1.3.0'
+gem 'animation'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'modular-scale'
-#gem 'coffee-filter'             # embed coffeescript in haml files
+gem 'coffee-filter'             # embed coffeescript in haml files
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -41,6 +39,7 @@ group :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-rails'
+  gem 'rubocop', require: false
 end
 
 group :test do
