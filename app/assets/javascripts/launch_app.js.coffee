@@ -6,34 +6,13 @@ window.App = {
   init: ->
     self = @
 
-    @progressBar = $("#progress_bar")
-    @progressBar.removeClass("transition").addClass("error").addClass("transition")
-    $(".ui-progress .ui-label", @progressBar).hide()
-    $(".ui-progress", @progressBar).css "width", "7%"
-
-    $(".ui-progress", @progressBar).animateProgress 35, ->
-      self.load_backbone()
-      $("#progress_bar").removeClass("error").addClass "warning"
-
-      $("#progress_bar .ui-progress").animateProgress 60, ->
-        #songsList.fetch({dataType: 'json', success: self.showApp})
-        self.showApp()
-
-  #may use this later
-  finishAndShowLaunchBtn: ->
-    $("#progress_bar").removeClass "warning"
-    $("#progress_bar .ui-progress").animateProgress 100, ->
-      $('.launch_btn').removeClass('hidden')
-      $('.ui-progress-bar').hide()
-
+    self.load_backbone()
+    self.showApp()
 
   showApp: ->
-    $("#progress_bar").removeClass "warning"
-    $("#progress_bar .ui-progress").animateProgress 100, ->
-      $('#app').removeClass('hidden')
-      $('.list_index').removeClass('hidden')
-      $('#loading').hide()
-    #self.setupWaypoints()
+    $('#app').removeClass('hidden')
+    $('.list_index').removeClass('hidden')
+    $('#loading').hide()
 
   load_backbone: ->
     #year and email are set in the app layout
@@ -56,18 +35,6 @@ window.App = {
     $('#short_list').append(shortListView.render().el)
 
     window.user = if urlEmail then urlEmail else 'anonymous'
-
-  fadeIn: (section) ->
-    $("section.#{section}").fadeIn 'slow'
-
-  fadeInNextSection: ->
-    @fadeIn(@sections.shift()) if @sections.length > 0
-
-  setupWaypoints: ->
-    $.waypoints.settings.scrollThrottle = 30
-    $("#short_list").waypoint (event, direction) ->
-      $(this).toggleClass "sticky", direction is "down"
-      event.stopPropagation()
 }
 
 $ ->
