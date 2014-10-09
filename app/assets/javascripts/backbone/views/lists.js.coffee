@@ -4,9 +4,14 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 
   initialize: ->
     @collection.bind 'reset', @render, @
+    @collection.bind 'add', @add_song, @
 
   render: ->
     $(@el).empty()
+    @addSongs(@collection.models)
+    @
+
+  addSongs: (songs) ->
     container = document.createDocumentFragment()
     @updateTotal(@collection.length)
     for song in @collection.models
