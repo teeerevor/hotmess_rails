@@ -73,12 +73,16 @@
 
 
         %section#song_list.list
+          %a{name: 'song-list-top'}
           %h2
             The
             = @year
             Candidates - Songs Artists
 
         %nav.list_index.hidden
+          %a{href:'#song-list-top'}
+            %div
+              top
           - ('a'..'z').each do |letter|
             %a{href:"##{letter.upcase}"}
               %div
@@ -87,8 +91,6 @@
 
       = yield
 
-    -#= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min'
-    -#= javascript_include_tag "//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject"
     = javascript_include_tag '/assets/application'
     = yield :js
     :javascript
