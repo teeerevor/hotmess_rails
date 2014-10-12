@@ -4,7 +4,7 @@ window.App = {
 
     self.showApp()
     self.loadBackbone()
-    #self.loadRestOfSongs()
+    self.loadRestOfSongs()
 
   showApp: ->
     $('#app').removeClass('hidden')
@@ -42,7 +42,7 @@ window.App = {
     , timeout
 
   loadRestOfSongs: ->
-    @loadSong song, 10 * i for song, i in gon.songs
+    @loadSong song, i for song, i in gon.songs #loads each song after waiting a millsecond
 
   loadFromLocalStorage: ->
     window.songsList = new Hotmess.Collections.Songs()

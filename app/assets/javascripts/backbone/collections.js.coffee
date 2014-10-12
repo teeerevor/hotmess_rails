@@ -3,6 +3,9 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
   model: Hotmess.Models.Song
   name: 'songs'
 
+  localStorage: new Backbone.LocalStorage("hottest100ioStore")
+
+
   sortStrategies:
     name:        (song) ->  return song.get 'name'
     artistName:  (song) ->  return song.get 'artistName'
