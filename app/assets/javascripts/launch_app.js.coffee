@@ -1,22 +1,21 @@
 window.App = {
-  sections: ['intro', 'compatibility', 'wild']
-
-  progressBar: null
-
   init: ->
     self = @
 
-    self.load_backbone()
     self.showApp()
+    self.loadBackbone()
+    #self.loadRestOfSongs()
 
   showApp: ->
     $('#app').removeClass('hidden')
     $('.list_index').removeClass('hidden')
     $('#loading').hide()
 
-  load_backbone: ->
+  loadBackbone: ->
     #year and email are set in the app layout
-    window.songsList = new Hotmess.Collections.Songs(gon.songs)
+
+    #window.songsList = new Hotmess.Collections.Songs(gon.songs)
+    window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
     window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
     $('#song_list').append(songListView.render().el)
 
@@ -35,6 +34,19 @@ window.App = {
     $('#short_list').append(shortListView.render().el)
 
     window.user = if urlEmail then urlEmail else 'anonymous'
+
+  loadSong: (song, timeout) ->
+    setTimeout ->
+      console.log 'loading...'
+      songsList.add(song)
+    , timeout
+
+  loadRestOfSongs: ->
+    @loadSong song, 10 * i for song, i in gon.songs
+
+  loadFromLocalStorage: ->
+    window.songsList = new Hotmess.Collections.Songs()
+    songsList.fetch()
 }
 
 $ ->

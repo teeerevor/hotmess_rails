@@ -3,7 +3,9 @@ class SongsController < ApplicationController
 
   def index
     @year = ENV['current_year']
-    @songs = Song.find_for_year(@year)
+    @songs = Song.includes(:artist).where(year: @year).order(:name).limit 100
+    gon.rabl "app/views/songs/index.json.rabl", as: 'initial_songs'
+    @songs = Song.includes(:artist).where(year: @year).order(:name)
     gon.rabl "app/views/songs/index.json.rabl", as: 'songs'
   end
 end

@@ -4,20 +4,21 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 
   initialize: ->
     @collection.bind 'reset', @render, @
-    @collection.bind 'add', @add_song, @
+    @collection.bind 'sort',  @render, @
+    @collection.bind 'add',   @addSong, @
 
   render: ->
     $(@el).empty()
-    @addSongs(@collection.models)
-    @
-
-  addSongs: (songs) ->
     container = document.createDocumentFragment()
-    @updateTotal(@collection.length)
     for song in @collection.models
       songView = new Hotmess.Views.SongView({model: song})
       container.appendChild songView.render().el
     $(@el).append(container)
+    @
+
+  addSong: (song) ->
+    songView = new Hotmess.Views.SongView({model: song})
+    $(@el).append(songView.render().el)
     @
 
   updateTotal: (song_count) ->
@@ -35,38 +36,38 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
 
   initialize: ->
     @collection.bind 'reset', @render, @
-    @collection.bind 'add', @add_song, @
+    @collection.bind 'add', @addSong, @
     @collection.bind 'remove', @render, @
 
   render: ->
-    @try_blank_state()
+    @tryBlankState()
     super
 
-  add_song: (song) ->
+  addSong: (song) ->
     @updateTotal(@collection.length)
-    @try_blank_state()
+    @tryBlankState()
     songView = new Hotmess.Views.SongView({model: song, className: 'song added-song'})
 
     if @collection.indexOf(song) == 0
-      @add_song_to_top(songView)
+      @addSongToTop(songView)
     else
-      @add_song_to_bottom(songView)
+      @addSongToBottom(songView)
 
-  add_song_to_top: (songView) ->
+  addSongToTop: (songView) ->
     $(@el).prepend songView.render().el
 
-  add_song_to_bottom: (songView) ->
+  addSongToBottom: (songView) ->
     $(@el).append songView.render().el
 
-  try_blank_state: ->
+  tryBlankState: ->
     if @collection.length == 0
-      @show_blank_state()
+      @showBlankState()
     else
-      @hide_blank_state()
+      @hideBlankState()
 
-  show_blank_state: ->
+  showBlankState: ->
     $('.empty_list_blank_state').show()
 
-  hide_blank_state: ->
+  hideBlankState: ->
     $('.empty_list_blank_state').hide()
 
