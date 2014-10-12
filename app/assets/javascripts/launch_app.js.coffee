@@ -6,6 +6,12 @@ window.App = {
     self.loadBackbone()
     self.loadRestOfSongs()
 
+    $('.sort-by-songs').click ->
+      songsList.sortBySongName()
+
+    $('.sort-by-artist').click ->
+      songsList.sortByArtistName()
+
   showApp: ->
     $('#app').removeClass('hidden')
     $('.list_index').removeClass('hidden')
