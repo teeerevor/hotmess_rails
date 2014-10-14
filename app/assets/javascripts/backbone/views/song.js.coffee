@@ -39,7 +39,11 @@ class window.Hotmess.Views.SongView extends Backbone.View
         return str.substring(0,34) + '...'
       str
 
-    tp = Handlebars.compile($('#song-template').html())
+    tp = null
+    if @model.sortedBy == 'artistName'
+      tp = Handlebars.compile($('#song-artist-first-template').html())
+    else
+      tp = Handlebars.compile($('#song-template').html())
     tp(model)
 
   youtube_template: (model)->

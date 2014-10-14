@@ -74,14 +74,16 @@
 
         %section#song_list.list
           %a{name: 'song-list-top'}
-          %h2
-            The
-            = @year
-            Candidates -
-            %span.sort-by-songs
+          .header
+            %h2
+              The
+              = @year
               Songs
-            %span.sort-by-artist
-              Artists
+            %span.toggle-sort-button
+              Sort by
+              %br/
+              %span.label
+                artists
 
         %nav.list_index.hidden
           %a{href:'#song-list-top'}

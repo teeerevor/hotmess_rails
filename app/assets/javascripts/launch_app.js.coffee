@@ -6,11 +6,15 @@ window.App = {
     self.loadBackbone()
     self.loadRestOfSongs()
 
-    $('.sort-by-songs').click ->
-      songsList.sortBySongName()
+    $('.toggle-sort-button').click ->
+      sortedBy = songsList.toggleListSort()
+      $(this).find('.label').text(self.buttonLabel(sortedBy))
 
-    $('.sort-by-artist').click ->
-      songsList.sortByArtistName()
+  buttonLabel: (option) ->
+    if option == 'songName'
+      return 'artists'
+    else
+      return 'songs'
 
   showApp: ->
     $('#app').removeClass('hidden')

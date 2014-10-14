@@ -2,21 +2,23 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
   url: '/songs/'
   model: Hotmess.Models.Song
   name: 'songs'
+  sortedBy: 'songName'
 
   localStorage: new Backbone.LocalStorage("hottest100ioStore")
-
 
   sortStrategies:
     name:        (song) ->  return song.get 'name'
     artistName:  (song) ->  return song.get 'artistName'
 
-  sortBySongName: ->
-    @comparator = @sortStrategies['name']
+  toggleListSort: ->
+    if @sortedBy == 'songName'
+      @comparator = @sortStrategies['artistName']
+      @sortedBy = 'artistName'
+    else
+      @comparator = @sortStrategies['name']
+      @sortedBy = 'songName'
     @sort()
-
-  sortByArtistName: ->
-    @comparator = @sortStrategies['artistName']
-    @sort()
+    return @sortedBy
 
   save: ->
     for model in @models

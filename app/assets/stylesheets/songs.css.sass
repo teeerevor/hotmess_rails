@@ -137,6 +137,25 @@
   button.remove, button.move_to_pos
     display: none
 
+  .header
+    h2, .toggle-sort-button
+      float: left
+    .toggle-sort-button
+      border: white 1px solid
+      border-radius: 5px
+      cursor: pointer
+      font-size: 13px
+      left: 20px
+      padding: 2px 6px
+      position: relative
+      text-align: center
+      top:  -5px
+      &:hover
+        background-color: #f1f2f3
+  .song_list
+    clear: both
+
+
 #short_list
   button.short_list_song, .short_list_to_pos
     display: none
@@ -145,3 +164,4 @@
   h2
     margin-left: 22px
     margin-bottom: 10px
+

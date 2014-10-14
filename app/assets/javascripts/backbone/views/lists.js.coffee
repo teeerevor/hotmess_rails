@@ -11,6 +11,7 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
     $(@el).empty()
     container = document.createDocumentFragment()
     for song in @collection.models
+      song.sortedBy = @collection.sortedBy
       songView = new Hotmess.Views.SongView({model: song})
       container.appendChild songView.render().el
     $(@el).append(container)
