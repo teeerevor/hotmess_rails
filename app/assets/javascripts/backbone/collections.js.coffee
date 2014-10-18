@@ -18,7 +18,7 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
       @comparator = @sortStrategies['name']
       @sortedBy = 'songName'
     @sort()
-    return @sortedBy
+    @
 
   save: ->
     for model in @models

@@ -7,14 +7,20 @@ window.App = {
     self.loadRestOfSongs()
 
     $('.toggle-sort-button').click ->
-      sortedBy = songsList.toggleListSort()
+      sortedBy = songsList.sortedBy
       $(this).find('.label').text(self.buttonLabel(sortedBy))
+      $('ol.song_list').empty()
+      $('.loader').show()
+      setTimeout ->
+        songsList.toggleListSort()
+        $('.loader').hide()
+      , 3000
 
   buttonLabel: (option) ->
     if option == 'songName'
-      return 'artists'
-    else
       return 'songs'
+    else
+      return 'artists'
 
   showApp: ->
     $('#app').removeClass('hidden')
