@@ -82,7 +82,6 @@ class SaveLoadView extends Backbone.View
   setEmailDisplay: ->
     @.$('.current_email').text(@email()).show()
     window.user = @email()
-    @.$('.list_label').hide()
 
   setEmailFromUrlLoad: (email) ->
     @email_input().attr('value', email)
@@ -115,7 +114,6 @@ class SaveLoadView extends Backbone.View
 
   resetToBlank: ->
     @.$('.current_email').hide()
-    @.$('.list_label').show()
 
 
   updateUrl: ->
