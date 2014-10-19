@@ -1,6 +1,6 @@
 class window.Hotmess.Views.SongsListView extends Backbone.View
-  tagName:    'ol'
-  className:  'song_list'
+  id: 'song_list'
+  charIndex:  {}
 
   initialize: ->
     @collection.bind 'reset', @render, @
@@ -8,13 +8,14 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
     @collection.bind 'add',   @addSong, @
 
   render: ->
-    $(@el).empty()
+    @charIndex = {}
+    #$().empty()
     container = document.createDocumentFragment()
     for song in @collection.models
       song.sortedBy = @collection.sortedBy
       songView = new Hotmess.Views.SongView({model: song})
       container.appendChild songView.render().el
-    $(@el).append(container)
+    $('#song_list').append(container)
     @
 
   addSong: (song) ->
@@ -31,6 +32,13 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
       text = text + " - #{song_count} song#{ if song_count > 1 then 's' else ''}"
 
     h2.text(text)
+
+  charIsIndexed: (char) ->
+    @charIndex[char]
+
+  setCharAsIndexed: (char) ->
+    @charIndex[char] = true
+
 
 class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   className:  'short_list'

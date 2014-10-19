@@ -73,7 +73,7 @@
 
 
         %section#song_list.list
-          %a{name: 'song-list-top'}
+          #song-list-top
           .header
             %h2
               The
@@ -90,14 +90,13 @@
                 Loading...
 
         %nav.list_index.hidden
-          %a{href:'#song-list-top'}
+          %a.animatescroll{data:{target:"#song-list-top"}}
             %div
               top
           - ('a'..'z').each do |letter|
-            %a{href:"##{letter.upcase}"}
+            %a.animatescroll{data:{target:".#{letter.upcase}"}}
               %div
                 =letter.upcase
-
 
       = yield
 

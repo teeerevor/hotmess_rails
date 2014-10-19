@@ -1,5 +1,4 @@
 class window.Hotmess.Views.SongView extends Backbone.View
-  tagName: 'li'
   className: 'song'
 
   events:
@@ -20,6 +19,8 @@ class window.Hotmess.Views.SongView extends Backbone.View
   render: ->
     if @model
       $(@el).html(@template(@model.toJSON()))
+      @setId()
+      @setIndex()
       if not @model.is_playable()
         @set_unplayable()
       if @model.get('open')
@@ -29,11 +30,6 @@ class window.Hotmess.Views.SongView extends Backbone.View
     @
 
   template: (model)->
-    #this helper is used for the index down the side
-    #only want index to work on candidates_list
-    Handlebars.registerHelper 'first_letter', (str)->
-      str.charAt(0)
-
     Handlebars.registerHelper 'song_name_trim', (str)->
       if str and str.length > 37
         return str.substring(0,34) + '...'
@@ -45,6 +41,16 @@ class window.Hotmess.Views.SongView extends Backbone.View
     else
       tp = Handlebars.compile($('#song-template').html())
     tp(model)
+
+  setId: ->
+    $(@el).addClass "song-#{@model.get('id')}"
+
+  setIndex: ->
+    indexBaseStr = if @model.sortedBy == 'artistName' then @model.get('artist_name') else @model.get('name')
+    char = indexBaseStr.charAt 0
+    unless songListView.charIsIndexed char
+      songListView.setCharAsIndexed(char)
+      $(@el).addClass char
 
   youtube_template: (model)->
     tp = Handlebars.compile($('#youtube-template').html())
