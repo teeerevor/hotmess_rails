@@ -46,7 +46,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
     $(@el).addClass "song-#{@model.get('id')}"
 
   setIndex: ->
-    indexBaseStr = if @model.sortedBy == 'artistName' then @model.get('artist_name') else @model.get('name')
+    indexBaseStr = if @model.sortedBy == 'artistName' then @model.get('artistName') else @model.get('name')
     char = indexBaseStr.charAt 0
     unless songListView.charIsIndexed char
       songListView.setCharAsIndexed(char)

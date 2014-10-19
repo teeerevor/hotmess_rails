@@ -4,23 +4,27 @@ window.App = {
 
     self.showApp()
     self.loadBackbone()
-    #self.loadRestOfSongs()
+    self.loadRestOfSongs()
 
     $('.toggle-sort-button').click ->
       sortedBy = songsList.sortedBy
       $(this).find('.label').text(self.buttonLabel(sortedBy))
-      $('ol.song_list').empty()
+      $('.song_list').empty()
       $('.loader').show()
       setTimeout ->
         songsList.toggleListSort()
         $('.loader').hide()
-      , 3000
+      , 100
 
     $('.animatescroll').click ->
       target = $(this).data('target')
       console.log target
       $(target).animatescroll
         element:'#song_list'
+        padding:10
+        scrollSpeed:2000
+        easing:'easeInOutCubic'
+        
 
   buttonLabel: (option) ->
     if option == 'songName'

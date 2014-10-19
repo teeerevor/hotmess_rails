@@ -1,5 +1,5 @@
 class window.Hotmess.Views.SongsListView extends Backbone.View
-  id: 'song_list'
+  className: 'song_list'
   charIndex:  {}
 
   initialize: ->
@@ -9,13 +9,13 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 
   render: ->
     @charIndex = {}
-    #$().empty()
+    $(@el).empty()
     container = document.createDocumentFragment()
     for song in @collection.models
       song.sortedBy = @collection.sortedBy
       songView = new Hotmess.Views.SongView({model: song})
       container.appendChild songView.render().el
-    $('#song_list').append(container)
+    $(@el).append(container)
     @
 
   addSong: (song) ->
