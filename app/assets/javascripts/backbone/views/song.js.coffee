@@ -71,19 +71,6 @@ class window.Hotmess.Views.SongView extends Backbone.View
     #catch
       #show already in list error
 
-  move_to_top: ->
-    window.shortList.remove @model
-    window.shortList.add_to_shortlist @model, {at: 0}
-    track('click', 'move_to_top')
-
-  remove_from_short_list: ->
-    track('click', 'remove_from_short_list')
-    model = @model
-    $(@el).removeClass('added-song')
-    $(@el).addClass('removed-song')
-    delay 400, ->
-      window.shortList.remove model
-
   flash_song: ->
     song = @.$('.song_tab')
     desc = @.$('.song_extras')
@@ -118,7 +105,6 @@ class window.Hotmess.Views.SongView extends Backbone.View
 
   load_youtube_iframe: (yt_contianer, model) ->
     yt_contianer.html(@youtube_template(model.toJSON()))
-
 
   load_youtube_swf: (yt_container, yt_vid_id) ->
     hottestPlayer.open_song(yt_vid_id, @)

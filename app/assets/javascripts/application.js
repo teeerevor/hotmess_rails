@@ -18,6 +18,7 @@
 //= require backbone/models
 //= require backbone/collections
 //= require backbone/views/song
+//= require backbone/views/shortlist_song
 //= require backbone/views/lists
 //= require backbone/views/player
 //= require backbone/views/save_load

@@ -44,9 +44,9 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   className:  'short_list'
 
   initialize: ->
-    @collection.bind 'reset', @render, @
+    #@collection.bind 'reset', @render, @
     @collection.bind 'add', @addSong, @
-    @collection.bind 'remove', @render, @
+    @collection.bind 'remove', @tryBlankState, @
 
   render: ->
     @tryBlankState()
@@ -55,7 +55,7 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   addSong: (song) ->
     @updateTotal(@collection.length)
     @tryBlankState()
-    songView = new Hotmess.Views.SongView({model: song, className: 'song added-song'})
+    songView = new Hotmess.Views.ShortListSongView({model: song, className: 'shortlist-song added-song'})
 
     if @collection.indexOf(song) == 0
       @addSongToTop(songView)

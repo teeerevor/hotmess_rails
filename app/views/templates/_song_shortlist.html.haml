@@ -1,0 +1,13 @@
+%script#shortlist-song-template{:type =>"text/x-handlebars-template"}
+  .song_header
+    .song_tab
+      .song_details
+        %h3.song_name {{song_name_trim name}}
+        .artist_name {{artist.name}}
+        .no-sound-assets-msg
+          (Not playable)
+    .buttons
+      %button.move_to_pos.button.black{:title => "Move to top"}
+        %i.icon-up
+      %button.remove.button.black{:title => "Remove song from list"}
+        %i.icon-cross
