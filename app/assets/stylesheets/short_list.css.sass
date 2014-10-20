@@ -2,16 +2,13 @@
 @import mixins
 
 #short_list
-  li
-    background-color: transparent
-  ol
-    counter-reset: li /* Initiate a counter */
-    list-style: none /* Remove default numbering */
-    *list-style: decimal /* Keep using default numbering for IE6/7 */
-    padding: 0
-    text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  counter-reset: div /* Initiate a counter */
+  list-style: none /* Remove default numbering */
+  *list-style: decimal /* Keep using default numbering for IE6/7 */
+  padding: 0
+  text-shadow: 0 1px 0 rgba(255,255,255,.5)
 
-  li:nth-child(-n+10)
+  .shortlist-song:nth-child(-n+10)
     .song_tab
       position: relative
       display: block
@@ -19,8 +16,8 @@
       margin-top: 0
 
     .song_tab:before
-      content: counter(li)
-      counter-increment: li
+      content: counter(div)
+      counter-increment: div
       position: absolute
       left: -1.3em
       top: 50%

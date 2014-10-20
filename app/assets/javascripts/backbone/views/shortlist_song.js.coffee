@@ -15,8 +15,8 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
 
   move_to_top: ->
     $(@el).detach()
-    window.shortList.remove @model
-    window.shortList.add_to_shortlist @model, {at: 0}
+    shortList.remove @model
+    shortList.add_to_shortlist @model, {at: 0}
     track('click', 'move_to_top')
 
   remove_from_short_list: ->
@@ -24,9 +24,9 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     model = @model
     $(@el).removeClass('added-song')
     $(@el).addClass('removed-song')
-    $(@el).detach()
     delay 400, ->
-      window.shortList.remove model
+      $(@el).detach()
+      shortList.remove model
 
   template: (model)->
     tp = Handlebars.compile($('#shortlist-song-template').html())
