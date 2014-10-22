@@ -41,16 +41,24 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
 
 
 class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
-  className:  'short_list'
+  className:  'shortlist'
 
   initialize: ->
-    #@collection.bind 'reset', @render, @
+    @collection.bind 'reset', @render, @
     @collection.bind 'add', @addSong, @
-    @collection.bind 'remove', @tryBlankState, @
+    @collection.bind 'remove', @render, @
 
   render: ->
+    @updateTotal(@collection.length)
     @tryBlankState()
-    super
+    if @collection.length > 0
+      $(@el).empty()
+      container = document.createDocumentFragment()
+      for song in @collection.models
+        songView = new Hotmess.Views.ShortListSongView({model: song, className: 'shortlist-song'})
+        container.appendChild songView.render().el
+      $(@el).append(container)
+    @
 
   addSong: (song) ->
     @updateTotal(@collection.length)
