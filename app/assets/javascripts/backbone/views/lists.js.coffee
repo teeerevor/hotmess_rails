@@ -23,15 +23,21 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
     $(@el).append(songView.render().el)
     @
 
-  updateTotal: (song_count) ->
-    h2 = $(@el).parent().find('h2')
-    text = h2.text().split('-')[0]
-    songs_text = ''
+  openSong: (@model) ->
+    @animateToSong @model
+    @collection.get(@model).trigger 'open'
 
-    if song_count > 0
-      text = text + " - #{song_count} song#{ if song_count > 1 then 's' else ''}"
+  animateToSong: (@model) ->
+    target = ".song-#{@model.get 'id' }"
+    @animateTo target
 
-    h2.text(text)
+  animateTo: (target) ->
+    $(target).animatescroll
+      element:'#song_list'
+      padding:10
+      scrollSpeed:2000
+      easing:'easeInOutCubic'
+
 
   charIsIndexed: (char) ->
     @charIndex[char]
@@ -75,6 +81,16 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
 
   addSongToBottom: (songView) ->
     $(@el).append songView.render().el
+
+  updateTotal: (song_count) ->
+    h2 = $(@el).parent().find('h2')
+    text = h2.text().split('-')[0]
+    songs_text = ''
+
+    if song_count > 0
+      text = text + " - #{song_count} song#{ if song_count > 1 then 's' else ''}"
+
+    h2.text(text)
 
   tryBlankState: ->
     if @collection.length == 0

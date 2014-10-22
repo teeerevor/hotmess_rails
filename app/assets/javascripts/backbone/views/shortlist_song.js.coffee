@@ -4,7 +4,7 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
   events:
     'click .move_to_pos'       : 'move_to_top'
     'click .remove'            : 'remove_from_short_list'
-    'click .song_header'       : 'open_song_in_list'
+    'click .song_header'       : 'openSongInList'
 
   initialize: ->
     @model.bind 'reset', @render, @
@@ -27,6 +27,9 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     delay 400, ->
       $(@el).detach()
       shortList.remove model
+
+  openSongInList: ->
+    songListView.openSong(@model)
 
   template: (model)->
     tp = Handlebars.compile($('#shortlist-song-template').html())
