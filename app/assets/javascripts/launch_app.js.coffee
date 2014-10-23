@@ -24,7 +24,6 @@ window.App = {
         padding:10
         scrollSpeed:2000
         easing:'easeInOutCubic'
-        
 
   buttonLabel: (option) ->
     if option == 'songName'

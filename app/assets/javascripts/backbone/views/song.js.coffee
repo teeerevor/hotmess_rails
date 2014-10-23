@@ -15,6 +15,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
     @model.bind 'open',  @open, @
     @model.bind 'close', @close, @
     @model.bind 'reset', @render, @
+    @model.bind 'toggle', @toggle_song, @
 
   render: ->
     if @model

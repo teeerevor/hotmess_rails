@@ -29,7 +29,7 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
       shortList.remove model
 
   openSongInList: ->
-    songListView.openSong(@model)
+    songListView.toggleSong(@model)
 
   template: (model)->
     tp = Handlebars.compile($('#shortlist-song-template').html())

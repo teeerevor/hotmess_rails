@@ -23,9 +23,9 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
     $(@el).append(songView.render().el)
     @
 
-  openSong: (@model) ->
+  toggleSong: (@model) ->
     @animateToSong @model
-    @collection.get(@model).trigger 'open'
+    @collection.get(@model).trigger 'toggle'
 
   animateToSong: (@model) ->
     target = ".song-#{@model.get 'id' }"
