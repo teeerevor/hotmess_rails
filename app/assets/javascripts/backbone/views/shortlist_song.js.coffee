@@ -13,13 +13,15 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     $(@el).html(@template(@model.toJSON()))
     @
 
-  move_to_top: ->
+  move_to_top: (event) ->
+    event.stopImmediatePropagation()
     $(@el).detach()
     shortList.remove @model
     shortList.add_to_shortlist @model, {at: 0}
     track('click', 'move_to_top')
 
-  remove_from_short_list: ->
+  remove_from_short_list: (event) ->
+    event.stopImmediatePropagation()
     track('click', 'remove_from_short_list')
     model = @model
     $(@el).removeClass('added-song')
