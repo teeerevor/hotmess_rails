@@ -2,7 +2,6 @@ window.App = {
   init: ->
     self = @
 
-    self.showApp()
     self.loadBackbone()
     self.loadRestOfSongs()
 
@@ -25,11 +24,14 @@ window.App = {
         scrollSpeed:2000
         easing:'easeInOutCubic'
 
+    $('.show-app').click ->
+      App.showApp()
+
   buttonLabel: (option) ->
     if option == 'songName'
-      return 'songs'
+      return 'song'
     else
-      return 'artists'
+      return 'artist'
 
   showApp: ->
     $('#app').removeClass('hidden')

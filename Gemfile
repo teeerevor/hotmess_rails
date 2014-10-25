@@ -10,6 +10,7 @@ gem 'pony'  #email
 
 gem 'haml'
 
+gem 'susy'
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
 gem 'animation'

@@ -181,6 +181,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    susy (1.0.9)
+      compass (>= 0.12.2)
+      sass (>= 3.2.0)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -228,6 +231,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 4.0.3)
   shoulda-matchers
+  susy
   thin
   uglifier
   unicorn

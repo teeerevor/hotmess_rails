@@ -5,7 +5,6 @@
       hottest100.io
 
     = stylesheet_link_tag '/assets/application'
-    = stylesheet_link_tag '/assets/ui-progress-bar'
 
     = include_gon
     %meta{name:"viewport", content:"initial-scale=1.0 maximum-scale=1.0 width=device-width"}
@@ -14,29 +13,44 @@
     = csrf_meta_tag
 
   %body
+    =render '/svgs'
     #loading
-      %img.logo{src:'/assets/hottest100_logo.png'}
-
-      %ol.waiting_list
+      %svg.logo{:viewbox => "0 0 460 79"}
+        %use{"xlink:href" => "#logo"}
+        
+      .no-svg{style: 'display:none'}
+        %img.logo{src:'/assets/hottest100_logo.png'}
+      %ul.waiting_list
         %li
-          Shortlist your favs
-          %img.watch{src:'/assets/awkward.png'}
-
+          %svg.stereo{:viewbox => "0 0 60.5 73.1"}
+            %use{"xlink:href" => "#stereo"}
+          .rant
+            Blast the fuck out of 2014's best tunes
         %li
-          Refine your top ten
-          %img.list{src:'/assets/list.gif'}
-
+          %svg.mixer{:viewbox => "0 0 57.4 63.9"}
+            %use{"xlink:href" => "#mixer"}
+          .rant
+            Jam your shortlist into shape
         %li
-          Vote in the Hottest 100
-
+          %svg.notes{:viewbox => "0 0 60.5 73.1"}
+            %use{"xlink:href" => "#notes"}
+          .rant
+            Vote the shit out of your top 10
         %li
-          Party on!
+          %svg.beer{viewbox:"0 0 48.4 60.20"}
+            %use{"xlink:href" => "#beer"}
+          .rant
+            Get ready for the motherfuckin party
+        %li
+          %button.show-app.button.rosy
+            Lets do this!
+
 
       .info
         %p
           Want to steal the code or found a bug
           %a{href: 'http://github.com/teeerevor/hotmess_rails', target:'_blank'}
-            github FTW
+            github is your friend
 
         %p
           For feedback, rants and other tips
@@ -46,10 +60,10 @@
             @teeerevor
 
     #app.hidden
-      -##bg
-        -#- @songs.shuffle.each_with_index do |song, i|
-          -#- if song.album_img_url && i < 50
-            -#%img{src:song.album_img_url}
+      #bg
+        - @songs.shuffle.each_with_index do |song, i|
+          - if song.album_img_url && i < 50
+            %img{src:song.album_img_url}
 
       %header
         %img.logo{src:'/assets/hottest100_logo.png'}
@@ -99,6 +113,7 @@
                 =letter.upcase
 
       = yield
+
 
     = javascript_include_tag '/assets/application'
     = yield :js
