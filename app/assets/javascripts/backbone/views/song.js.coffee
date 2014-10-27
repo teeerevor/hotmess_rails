@@ -58,7 +58,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
     tp(model)
 
   add_to_short_list: ->
-    window.shortList.add_to_shortlist @model
+    shortList.addToShortlist @model
     @flash_song()
     track('click', 'add_to_short_list')
     #catch
@@ -66,7 +66,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
 
 
   add_to_short_list_at: ->
-    window.shortList.add_to_shortlist @model, {at: 0}
+    shortList.addToShortlist @model, {at: 0}
     @flash_song()
     track('click', 'add_to_short_list_at')
     #catch

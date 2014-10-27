@@ -17,7 +17,7 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     event.stopImmediatePropagation()
     $(@el).detach()
     shortList.remove @model
-    shortList.add_to_shortlist @model, {at: 0}
+    shortList.addToShortlist @model, {at: 0}
     track('click', 'move_to_top')
 
   remove_from_short_list: (event) ->

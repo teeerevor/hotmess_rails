@@ -6,7 +6,7 @@ class SaveLoadView extends Backbone.View
     'click .load' : 'load'
     'click .save' : 'save'
     'click .vote' : 'vote'
-    'hover .close_form_button' : 'hover_close_button'
+    'hover .close_form_button' : 'hoverCloseButton'
     'click .close_form_button' : 'close'
 
   render: ->
@@ -31,22 +31,22 @@ class SaveLoadView extends Backbone.View
   close: ->
     $('#email').off('keyup')
     $('header').removeClass('open')
-    @email_input().attr('value', '') unless @validateEmail @email()
+    @emailInput().attr('value', '') unless @validateEmail @email()
     @form().removeClass('invalid blank')
     track('click', 'close_save_load')
 
 
-  hover_close_button: ->
+  hoverCloseButton: ->
     $('.close_form_button').toggleClass('highlight')
 
   form: ->
     @.$('form')
 
-  email_input: ->
+  emailInput: ->
     @.$('#email')
 
   email: ->
-    @email_input().val()
+    @emailInput().val()
 
 
   load: (e) ->
@@ -84,7 +84,7 @@ class SaveLoadView extends Backbone.View
     window.user = @email()
 
   setEmailFromUrlLoad: (email) ->
-    @email_input().attr('value', email)
+    @emailInput().attr('value', email)
     @setEmailDisplay()
 
   validateEmail: (email) ->

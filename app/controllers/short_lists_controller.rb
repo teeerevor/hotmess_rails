@@ -4,8 +4,8 @@ class ShortListsController < ApplicationController
     @year = params[:year] || ENV['current_year']
 
     @short_list = ShortList.find_by_email_and_year(@email, @year)
-    @short_list_songs = @short_list.short_listed_songs.all( :include => {:song => :artist}, :order => 'short_listed_songs.position')
-    @songs = @short_list_songs.map{|sls| sls.song}
+    @short_list_songs = @short_list.short_listed_songs.all.includes(:song => :artist).order('short_listed_songs.position')
+    @songs = @short_list_songs.map(&:song)
     gon.rabl "app/views/songs/index.json.rabl", as: 'songs'
 
     setup_for_html if request.format == :html
@@ -18,7 +18,6 @@ class ShortListsController < ApplicationController
       format.html { redirect_to root_path, :flash => { :error => "Short list for that email does not exist" }}
       format.json { render status: 404, json: @controller.to_json }
     end
-    
   end
 
   def update
