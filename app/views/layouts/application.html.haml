@@ -14,10 +14,13 @@
 
   %body
     =render '/svgs'
+    -##bg
+      -#- @albums.each_with_index do |album_url, i|
+        -#%img.tile{src:album_url}
     #loading
       %svg.logo{:viewbox => "0 0 460 79"}
         %use{"xlink:href" => "#logo"}
-        
+
       .no-svg{style: 'display:none'}
         %img.logo{src:'/assets/hottest100_logo.png'}
       %ul.waiting_list
@@ -60,10 +63,6 @@
             @teeerevor
 
     #app.hidden
-      #bg
-        - @songs.shuffle.each_with_index do |song, i|
-          - if song.album_img_url && i < 50
-            %img{src:song.album_img_url}
 
       %header
         %img.logo{src:'/assets/hottest100_logo.png'}
@@ -116,8 +115,18 @@
 
 
     = javascript_include_tag '/assets/application'
+    = javascript_include_tag 'http://isotope.metafizzy.co/isotope.pkgd.js'
+    = javascript_include_tag 'http://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js'
     = yield :js
     :javascript
+      $( function() {
+        $('#bg').isotope({
+          layoutMode: 'packery',
+          itemSelector: '.tile'
+        });
+      });
+      $('#bg').css('position','fixed')
+
       window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
       window.urlEmail = '#{@email}'
       window.urlYear = '#{@year}'
