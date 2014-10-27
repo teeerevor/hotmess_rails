@@ -4,7 +4,7 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
   name: 'songs'
   sortedBy: 'songName'
 
-  localStorage: new Backbone.LocalStorage("hottest100ioStore")
+  #localStorage: new Backbone.LocalStorage("hottest100ioStore")
 
   sortStrategies:
     name:        (song) ->  return song.get 'name'
@@ -20,9 +20,9 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
     @sort()
     @
 
-  save: ->
-    for model in @models
-      model.save()
+  #save: ->
+    #for model in @models
+      #model.save()
 
   get_next_song: (song) ->
     song_index = _.indexOf( @models, song)
