@@ -34,5 +34,10 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     songListView.toggleSong(@model)
 
   template: (model)->
+    Handlebars.registerHelper 'song_name_trim', (str)->
+      if str and str.length > 37
+        return str.substring(0,34) + '...'
+      str
+
     tp = Handlebars.compile($('#shortlist-song-template').html())
     tp(model)

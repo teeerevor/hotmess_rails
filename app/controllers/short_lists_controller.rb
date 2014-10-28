@@ -34,11 +34,11 @@ class ShortListsController < ApplicationController
   end
 
   def setup_for_html
-    gon.rabl "app/views/songs/index.json.rabl", as: 'short_list'
-    load_song_list
+    gon.rabl "app/views/songs/index.json.rabl", as: 'shortlist'
+    load_songlist
   end
 
-  def load_song_list
+  def load_songlist
     @songs = Song.find_for_year(@year)
     gon.rabl "app/views/songs/index.json.rabl", as: 'songs'
   end

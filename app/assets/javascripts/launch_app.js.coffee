@@ -2,6 +2,7 @@ window.App = {
   init: ->
     self = @
 
+    App.showApp() if gon.shortlist
     self.loadBackbone()
     self.loadRestOfSongs()
 
@@ -50,7 +51,7 @@ window.App = {
 
     #load these last - will break url email to saveload push otherwise
     sl = []
-    sl = gon.short_list if gon.short_list
+    sl = gon.shortlist if gon.shortlist
     window.shortList = new Hotmess.Collections.ShortList(sl, {year: urlYear, email: urlEmail})
     window.shortListView = new Hotmess.Views.ShortListView({collection: shortList})
     $('#short_list').append(shortListView.render().el)
