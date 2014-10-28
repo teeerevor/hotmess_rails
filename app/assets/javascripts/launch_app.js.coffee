@@ -17,12 +17,7 @@ window.App = {
 
     $('.animatescroll').click ->
       target = $(this).data('target')
-      console.log target
-      $(target).animatescroll
-        element:'#song_list'
-        padding:10
-        scrollSpeed:2000
-        easing:'easeInOutCubic'
+      songListView.animateTo target
 
     $('.show-app').click ->
       App.showApp()
