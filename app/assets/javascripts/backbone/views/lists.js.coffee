@@ -38,7 +38,6 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
       scrollSpeed:2000
       easing:'easeInOutCubic'
 
-
   charIsIndexed: (char) ->
     @charIndex[char]
 

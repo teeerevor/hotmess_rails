@@ -1,14 +1,12 @@
 window.App = {
   init: ->
-    self = @
-
-    App.showApp() if gon.shortlist
-    self.loadBackbone()
-    self.loadRestOfSongs()
+    @shouldIShowApp()
+    @loadBackbone()
+    @loadRestOfSongs() unless @hasLocalStorageSongs()
 
     $('.toggle-sort-button').click ->
       sortedBy = songsList.sortedBy
-      $(this).find('.label').text(self.buttonLabel(sortedBy))
+      $(this).find('.label').text(App.buttonLabel(sortedBy))
       $('.song_list').empty()
       $('.loader').show()
       setTimeout ->
@@ -29,6 +27,9 @@ window.App = {
     else
       return 'artist'
 
+  shouldIShowApp: ->
+    @showApp() if @hasLocalStorageSongs() || @hasShortlist()
+
   showApp: ->
     $('#app').removeClass('hidden')
     $('.list_index').removeClass('hidden')
@@ -36,9 +37,13 @@ window.App = {
 
   loadBackbone: ->
     #year and email are set in the app layout
+    if @hasLocalStorageSongs()
+      window.songsList = new Hotmess.Collections.Songs([])
+      songsList.fetch()
+    else
+      window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
+      #load the rest later
 
-    #window.songsList = new Hotmess.Collections.Songs(gon.songs)
-    window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
     window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
     $('#song_list').append(songListView.render().el)
 
@@ -66,10 +71,20 @@ window.App = {
 
   loadRestOfSongs: ->
     @loadSong song, i for song, i in gon.songs #loads each song after waiting a millsecond
+    if @hasLocalStorage()
+      #saves songs to local storage once complete
+      setTimeout ->
+        songsList.save()
+      , gon.songs.length + 5
 
-  loadFromLocalStorage: ->
-    window.songsList = new Hotmess.Collections.Songs()
-    songsList.fetch()
+  hasShortlist: ->
+    gon.shortlist
+
+  hasLocalStorageSongs: ->
+    @hasLocalStorage() && localStorage.getItem('songs')
+
+  hasLocalStorage: ->
+    Modernizr.localstorage
 }
 
 $ ->
