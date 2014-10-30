@@ -26,37 +26,47 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
 
   get_next_song: (song) ->
     song_index = _.indexOf( @models, song)
-    @.models[song_index + 1]
+    @models.at song_index + 1
 
   get_previous_song: (song) ->
     song_index = _.indexOf( @models, song)
-    @.models[song_index - 1]
+    @models.at song_index - 1
 
-class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs
-  url: '/short_lists/'
+class window.Hotmess.Collections.ShortList extends Backbone.Collection
   name: 'short_list'
+  url: 'shortlist'
+  localUrl: 'shortlist'
+  remoteUrl: '/short_lists/'
+  local: true
 
-  local: false
+  setLocalUrl: ->
+    @url = @localUrl
 
-  setListUrl: (email) ->
-    @url = "/short_lists/#{email}"
+  setRemoteUrl: (email) ->
+    @url = "#{remoteUrl}#{email}"
 
   saveList: (email) ->
-    @setListUrl(email)
+    @setRemoteUrl(email)
     $.post(@url, {songs: @.pluck('id')})
 
   loadList: (email) ->
-    @setListUrl(email)
+    @setRemoteUrl(email)
     @fetch({
         success: -> saveLoadView.updateUrl(),
         error: -> saveLoadView.resetToBlank()
     })
 
   loadListFromUrlEmail: (email) ->
-    @setListUrl(email)
+    @setRemoteUrl(email)
     @fetch({success: -> saveLoadView.setEmailFromUrlLoad(email)})
 
-  addToShortlist: (model, options) ->
-    #set so that view knows not to add to index
-    model.set 'short_list', true
-    @add(model, options)
+  #add: (model, options) ->
+    #model.collection = @
+    #super(model, options)
+    #if model.id
+      #console.log 'save'
+      #@localSync()
+
+  #remove: (model) ->
+    #super(model)
+    #@localSync()
