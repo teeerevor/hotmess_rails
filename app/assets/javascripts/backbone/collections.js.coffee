@@ -3,7 +3,7 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
   name: 'songs'
   sortedBy: 'songName'
 
-  url: 'songs'
+  storeName: 'songs'
   local: true
 
   sortStrategies:
@@ -32,22 +32,22 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
     song_index = _.indexOf( @models, song)
     @models.at song_index - 1
 
-class window.Hotmess.Collections.ShortList extends Backbone.Collection
+class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs #Backbone.Collection
   name: 'short_list'
-  url: 'shortlist'
-  localUrl: 'shortlist'
   remoteUrl: '/short_lists/'
   local: true
-
-  setLocalUrl: ->
-    @url = @localUrl
+  storeName: 'shortlist'
+  comparator: 'shortlistPosition'
 
   setRemoteUrl: (email) ->
-    @url = "#{remoteUrl}#{email}"
+    @email = email
+    @url = "#{@remoteUrl}#{email}"
 
   saveList: (email) ->
-    @setRemoteUrl(email)
-    $.post(@url, {songs: @.pluck('id')})
+    @saveLocally()
+    @setRemoteUrl(email) if email
+    if @email
+      $.post(@url, {songs: @.pluck('id')})
 
   loadList: (email) ->
     @setRemoteUrl(email)
@@ -60,13 +60,7 @@ class window.Hotmess.Collections.ShortList extends Backbone.Collection
     @setRemoteUrl(email)
     @fetch({success: -> saveLoadView.setEmailFromUrlLoad(email)})
 
-  #add: (model, options) ->
-    #model.collection = @
-    #super(model, options)
-    #if model.id
-      #console.log 'save'
-      #@localSync()
-
-  #remove: (model) ->
-    #super(model)
-    #@localSync()
+  saveLocally: ->
+    for model, i in shortList.models
+      model.set('shortlistPosition', i)
+      model.save()

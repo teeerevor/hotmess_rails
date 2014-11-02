@@ -21,6 +21,9 @@ window.App = {
     $('.show-app').click ->
       App.showApp()
 
+    $(window).unload ->
+      shortList.saveList()
+
   buttonLabel: (option) ->
     if option == 'songName'
       return 'song'
@@ -55,9 +58,11 @@ window.App = {
     $('header').append(hottestPlayer.render().el)
 
     #load these last - will break url email to saveload push otherwise
-    sl = []
-    sl = gon.shortlist if gon.shortlist
-    window.shortList = new Hotmess.Collections.ShortList(sl, {year: urlYear, email: urlEmail})
+    if gon.shortlist
+      window.shortList = new Hotmess.Collections.ShortList(gon.shortlist, {year: urlYear, email: urlEmail})
+    else
+      window.shortList = new Hotmess.Collections.ShortList([], {year: urlYear, email: urlEmail})
+      shortList.fetch()
     window.shortListView = new Hotmess.Views.ShortListView({collection: shortList})
     $('#short_list').append(shortListView.render().el)
 
