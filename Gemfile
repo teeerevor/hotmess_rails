@@ -41,6 +41,8 @@ group :development do
   gem 'pry-nav'
   gem 'pry-rails'
   gem 'rubocop', require: false
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
 end
 
 group :test do
