@@ -77,9 +77,15 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
 
   addSongToTop: (songView) ->
     $(@el).prepend songView.render().el
+    setTimeout ->
+      $(songView.el).removeClass('added-song')
+    , 400
 
   addSongToBottom: (songView) ->
     $(@el).append songView.render().el
+    setTimeout ->
+      $(songView.el).removeClass('added-song')
+    , 400
 
   updateTotal: (song_count) ->
     h2 = $(@el).parent().find('h2')

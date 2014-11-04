@@ -1,5 +1,6 @@
 @import animation
 @import mixins
+@import colours
 
 #short_list
   counter-reset: div /* Initiate a counter */
@@ -7,6 +8,10 @@
   *list-style: decimal /* Keep using default numbering for IE6/7 */
   padding: 10px 0 10px 10px
   text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  -webkit-transition: transform 1s ease-in
+  -moz-transition: transform 1s ease-in
+  -o-transition: transform 1s ease-in
+  transition: transform 1s ease-in
 
   .shortlist-song:nth-child(-n+10)
     .song_tab
@@ -82,10 +87,24 @@
   max-height: 0
   opacity: 0
   +transform(translateX(300px))
-  +animation(openSpace 0.1s ease forwards, moveIn 0.1s 0.2s ease forwards)
+  +animation(openSpace 100ms ease forwards, moveIn 100ms 200s ease forwards)
 
 .removed-song
   max-height: 100px
   opacity: 1
   +transform(translateX(0))
-  +animation(moveOut 0.2s ease forwards, closeSpace 0.2s 0.2s ease forwards)
+  +animation(moveOut 200ms ease forwards, closeSpace 200s 200s ease forwards)
+
+.song-bounce-left
+  +transform(translateX(50px))
+
+.song-bounce-right
+  +transform(translateX(-50px))
+
+#short_list
+  .shortlist-song
+    -webkit-transition: all 100ms ease
+    -moz-transition: all 100ms ease
+    -ms-transition: all 100ms ease
+    -o-transition: all 100ms ease
+    transition: all 100ms ease

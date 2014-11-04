@@ -23,13 +23,17 @@ class window.Hotmess.Views.ShortListSongView extends Backbone.View
     self = @
     model = @model
     track('click', 'remove_from_short_list')
-    $(@el).removeClass('added-song')
     $(@el).addClass('removed-song')
     delay 400, ->
       model.destroy()
 
   openSongInList: ->
+    el = $(@el)
+    el.addClass('song-bounce-left')
     songListView.toggleSong(@model)
+    setTimeout ->
+      el.removeClass('song-bounce-left')
+    , 100
 
   template: (model)->
     Handlebars.registerHelper 'song_name_trim', (str)->
