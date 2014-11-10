@@ -26,11 +26,11 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
 
   get_next_song: (song) ->
     song_index = _.indexOf( @models, song)
-    @models.at song_index + 1
+    @at song_index + 1
 
   get_previous_song: (song) ->
     song_index = _.indexOf( @models, song)
-    @models.at song_index - 1
+    @at song_index - 1
 
 class window.Hotmess.Collections.ShortList extends Hotmess.Collections.Songs #Backbone.Collection
   name: 'short_list'

@@ -6,11 +6,19 @@
       Artist Name
   .player_buttons
     %button.previous{title: 'previous song'}
+      %svg.icon-prev{:viewbox => "0 0 22.68 17.01"}
+        %use{"xlink:href" => "#prev"}
       %i.icon-previous
     %button.play_pause.is_paused
+      %svg.pause.icon-pause{:viewbox => "0 0 22.68 17.01"}
+        %use{"xlink:href" => "#pause"}
       %i.pause.icon-pause
+      %svg.play.icon-play{:viewbox => "0 0 22.68 17.01"}
+        %use{"xlink:href" => "#play"}
       %i.play.icon-play
     %button.next{title: 'next song'}
+      %svg.icon-next{:viewbox => "0 0 22.68 17.01"}
+        %use{"xlink:href" => "#next"}
       %i.icon-next
     %button.continuous{title: 'continuous play'}
       %i.icon-continuous

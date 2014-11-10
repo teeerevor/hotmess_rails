@@ -28,6 +28,9 @@
     background: 0
     +hottest-button
 
+    i
+      display: none
+
   .play_pause
     font-size: 2em
     cursor: pointer
@@ -45,6 +48,15 @@
     cursor: pointer
     position: relative
     top: -5px
+    display: none
+
+  .play_pause
+    width: 40px
+
+  .previous
+    width: 25px
+  .next
+    width: 25px
 
   .shuffle
     display: none
@@ -53,6 +65,10 @@
   .continuous
     margin-top: 8px
     margin-left: 25px
+
+.playing
+  .previous, .next, .shuffle, .continuous
+    display: inline
 
 #app.active
   .current_song

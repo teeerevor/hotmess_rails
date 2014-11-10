@@ -110,6 +110,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
   show_playing: ->
     console.log 'show play'
     track 'play', @current_song_name()
+    $(@el).addClass('playing')
     $('.play_pause').addClass('is_playing')
     $('.play_pause').removeClass('is_paused')
 
