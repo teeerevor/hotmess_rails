@@ -8,9 +8,13 @@
           (Not playable)
     .buttons
       %button.short_list_to_pos.button.black.hotmess_regular.up{title: "Short list to top"}
-        %i.icon-up
+        %svg.up-arrow{:viewbox => "0 0 22.68 17.01"}
+          %use{"xlink:href" => "#up-arrow"}
+        -#%i.icon-up
       %button.short_list_song.button.black{:title => "Short list"}
-        %i.icon-plus
+        %svg.plus{:viewbox => "0 0 22.68 17.01"}
+          %use{"xlink:href" => "#plus"}
+        -#%i.icon-plus
   .song_extras
     .youtube_vid
     -#%img{src:"{{artist.image}}"}
