@@ -116,17 +116,18 @@
 
 
     = javascript_include_tag '/assets/application'
-    = javascript_include_tag 'http://isotope.metafizzy.co/isotope.pkgd.js'
-    = javascript_include_tag 'http://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js'
+    -#= javascript_include_tag 'http://isotope.metafizzy.co/isotope.pkgd.js'
+    -#= javascript_include_tag 'http://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js'
     = yield :js
     :javascript
-      $( function() {
+      /*$( function() {
         $('#bg').isotope({
           layoutMode: 'packery',
           itemSelector: '.tile'
         });
       });
       $('#bg').css('position','fixed')
+      */
 
       window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
       window.urlEmail = '#{@email}'
