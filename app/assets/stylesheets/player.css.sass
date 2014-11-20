@@ -1,5 +1,4 @@
 @import 'songs.css.sass'
-
 .player
   margin: 10px 0
   text-align: center
@@ -13,10 +12,8 @@
 
   .song_name
     +song_name
-
   .artist_name
     +artist_name
-
   .player_buttons
     width: 190px
     margin: 5px auto 0
@@ -27,6 +24,12 @@
     border: 0
     background: 0
     +hottest-button
+    svg
+      fill: #555
+
+    &:hover
+      svg
+        fill: #EE736D
 
     i
       display: none
@@ -50,7 +53,7 @@
     top: -5px
     display: none
 
-  .play_pause
+  .play_pause, .play-random
     width: 40px
 
   .previous

@@ -107,7 +107,7 @@ class window.Hotmess.Views.SongView extends Backbone.View
     yt_contianer.html(@youtube_template(model.toJSON()))
 
   load_youtube_swf: (yt_container, yt_vid_id) ->
-    hottestPlayer.open_song(yt_vid_id, @)
+    hottestPlayer.openPlayer(yt_vid_id, @)
     yt_container.append("<div id='#{yt_vid_id}'></div>")
     params = { allowScriptAccess: "always", wmode: "transparent" }
     atts = { id: yt_vid_id }

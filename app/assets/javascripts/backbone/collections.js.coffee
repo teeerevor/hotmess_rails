@@ -24,11 +24,11 @@ class window.Hotmess.Collections.Songs extends Backbone.Collection
     for model in @models
       model.save()
 
-  get_next_song: (song) ->
+  getNextSong: (song) ->
     song_index = _.indexOf( @models, song)
     @at song_index + 1
 
-  get_previous_song: (song) ->
+  getPreviousSong: (song) ->
     song_index = _.indexOf( @models, song)
     @at song_index - 1
 

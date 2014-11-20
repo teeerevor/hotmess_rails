@@ -14,17 +14,19 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
   className: 'player'
 
   events:
-    'click .play_pause' : 'play_pause'
+    'click .play-random': 'playRandomSong'
+    'click .play_pause' : 'playPause'
     'click .next'       : 'next'
     'click .previous'   : 'previous'
     'click .shuffle'    : 'shuffle'
     'click .continuous' : 'continuous'
 
   initialize: ->
-    @open_songs = {}
-    @yt_players = {}
-    @current_song_id = ''
-    @player_mode = DEFAULT
+    @openSongs = {}
+    @ytPlayers = {}
+    @currentSongId = ''
+    @playerMode = DEFAULT
+    @isPlaying = false
 
   render: ->
     $(@el).html @template({})
@@ -34,149 +36,171 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
     tp = Handlebars.compile($('#hottest-player-template').html())
     tp(model)
 
-  open_song: (id, song) ->
-    @open_songs[id] = song
-    @current_song_id = id if @current_song_id == ''
+  openPlayer: (playerId, song) ->
+    @openSongs[playerId] = song
+    @currentSongId = playerId if @currentSongId == ''
 
-  close_song: (id, song) ->
-    @open_songs.delete[id]
-    @yt_players.delete[id]
+  closePlayer: (playerId) ->
+    delete @openSongs[playerId]
+    delete @ytPlayers[playerId]
 
-  yt_state_change: (player_id, player, state) ->
-    console.log "yt_state_change #{state}"
-    @yt_players[player_id] = player
+  ytStateChange: (playerId, player, state) ->
+    console.log "ytStateChange - #{state}"
+    @ytPlayers[playerId] = player
     switch state
-      when READY then @song_ready()
-      when ENDED then @song_ended()
-      when PLAYING then @song_playing(player_id)
-      when STOPPED then @show_paused()
-      when BUFFERING then @show_paused()
+      when READY then @songReady(playerId)
+      when ENDED then @songEnded()
+      when PLAYING then @songPlaying(playerId)
+      when STOPPED then @showPaused()
+      when BUFFERING then @showPaused()
 
-  song_ready: ->
-    if @play_on_ready
+  songReady: (playerId) ->
+    console.log "ready playerId=#{playerId}"
+    @setCurrentSongFromId(playerId)
+    if @playOnReady
       @play()
-      @play_on_ready = false
+      @playOnReady = false
 
-  song_ended: ->
-    switch @player_mode
+  songEnded: ->
+    switch @playerMode
       when CONTINUOUS then @next()
-      when SHUFFLE then @shuffle_next()
+      when SHUFFLE then @shuffleNext()
         #stoa
       #when 'repeat'
         #stoeau
         #
 
-  song_playing: (player_id) ->
-    console.log 'song_playing'
-    @pause() unless player_id == @current_song_id
-    @set_current_song(player_id)
-    @update_player_display()
-    @show_playing()
+  songPlaying: (playerId) ->
+    console.log 'songPlaying'
+    @setCurrentSongFromId(playerId)
+    #@pauseOtherSongs()
+    @updatePlayerDisplay(@currentSongModel)
+    @showPlaying()
 
-  set_current_song: (id) ->
-    console.log "current_song #{id}"
-    @current_song_id = id
+  setCurrentSongFromId: (playerId) ->
+    console.log 'setCurrentSongFromId'
+    @currentSongId = playerId
+    @currentSong = @openSongs[playerId]
+    @currentSongModel = @currentSong.model
 
-  current_song: ->
-    console.log 'current_song'
-    @open_songs[@current_song_id]
+  setCurrentSong: (song) ->
+    @currentSong = song
+    @currentSongModel = song.model
 
-  current_song_name: ->
-    @current_song().model.get('name')
+  currentSongName: ->
+    @currentSongModel.get('name')
 
-  current_player: ->
-    console.log 'current_player'
-    @yt_players[@current_song_id]
+  currentPlayer: ->
+    @ytPlayers[@currentSongId]
 
-  update_player_display: ->
-    song = @current_song()
-    window.tsong =  song
-    @.$('.song_name').html(song.model.get('name'))
-    @.$('.artist_name').html(song.model.get('artist').name)
+  updatePlayerDisplay: (model) ->
+    console.log 'updatePlayerDisplay'
+    @.$('.song_name').html(model.get('name'))
+    @.$('.artist_name').html(model.get('artist').name)
     $('#app').addClass('active')
 
-  play_pause: ->
-    if $('.play_pause').hasClass('is_paused')
-      @play()
-    else
+  playPause: ->
+    if @isPlaying
       @pause()
+    else
+      @play()
 
   play: ->
     console.log 'play'
-    if @current_player()
-      @current_player().playVideo()
-    @show_playing()
+    @swapRandomToPlay()
+    if @currentPlayer()
+      @currentPlayer().playVideo()
+      @isPlaying = true
+    @showPlaying()
+    track 'play', @currentSongName()
 
-  show_playing: ->
+  swapRandomToPlay: ->
+    $('.play-random').removeClass('play-random').addClass('play_pause').addClass('is_paused')
+
+  playRandomSong: ->
+    song = _.sample(songsList.models)
+    @swapRandomToPlay()
+    @readySongForPlaying(song)
+
+  showPlaying: ->
     console.log 'show play'
-    track 'play', @current_song_name()
     $(@el).addClass('playing')
     $('.play_pause').addClass('is_playing')
     $('.play_pause').removeClass('is_paused')
 
   pause: ->
     console.log 'pause'
-    if @current_player()
-      @current_player().stopVideo()
-    @show_paused()
+    if @currentPlayer()
+      @currentPlayer().stopVideo()
+      @isPlaying = false
+    @showPaused()
 
-  show_paused: ->
+  pauseOtherSongs: ->
+    for id, player in @ytPlayers
+      debugger
+      unless id == @currentSongId
+        player.pause()
+
+
+  showPaused: ->
     console.log 'show paused'
-    track 'pause', @current_song_name()
+    track 'pause', @currentSongName()
     $('.play_pause').removeClass('is_playing')
     $('.play_pause').addClass('is_paused')
 
   next: ->
     console.log 'next'
-    track 'next', @current_song_name()
-    next_song = songsList.get_next_song(@current_song().model)
+    track 'next', @currentSongName()
+    nextSong = songsList.getNextSong(@currentSongModel)
     @pause()
-    @current_song().close()
-    next_song.trigger 'open'
-    @set_current_song(next_song.get('youtube_url'))
-    @update_player_display()
-    @play_when_ready()
+    @currentSong.trigger 'close'
+    @setCurrentSong(nextSong)
+    @readySongForPlaying(nextSong)
 
   previous: ->
     console.log 'prev'
-    track 'prev', @current_song_name()
-    next_song = songsList.get_previous_song(@current_song().model)
+    track 'prev', @currentSongName()
+    nextSong = songsList.getPreviousSong(@currentSongModel)
     @pause()
-    @current_song().close()
-    next_song.trigger 'open'
-    @set_current_song(next_song.get('youtube_url'))
-    @update_player_display()
-    @play_when_ready()
+    @currentSong.trigger 'close'
+    @setCurrentSong(nextSong)
+    @readySongForPlaying(nextSong)
 
-  shuffle_next: ->
+  readySongForPlaying: (song) ->
+    song.trigger 'open'
+    songListView.animateToSong song
+    @updatePlayerDisplay(song)
+    @playWhenReady()
+
+  shuffleNext: ->
     console.log 'shuffle next'
 
-  play_when_ready: ->
-    @play_on_ready = true
+  playWhenReady: ->
+    @playOnReady = true
 
   continuous: ->
     console.log 'continuous'
     track 'click', 'continuous'
     $('.continuous').toggleClass('active')
     $('.shuffle').removeClass('active')
-    switch @player_mode
-      #when CONTINUOUS then @player_mode = REPEAT
-      #when REPEAT then @player_mode = DEFAULT
-      when CONTINUOUS then @player_mode = DEFAULT
-      else @player_mode = CONTINUOUS
-    @show_player_mode()
+    switch @playerMode
+      #when CONTINUOUS then @playerMode = REPEAT
+      #when REPEAT then @playerMode = DEFAULT
+      when CONTINUOUS then @playerMode = DEFAULT
+      else @playerMode = CONTINUOUS
+    @showPlayerMode()
 
   shuffle: ->
     console.log 'shuffle'
-    switch @player_mode
-      when SHUFFLE then @player_mode = DEFAULT
-      else @player_mode = SHUFFLE
-    @show_player_mode()
+    switch @playerMode
+      when SHUFFLE then @playerMode = DEFAULT
+      else @playerMode = SHUFFLE
+    @showPlayerMode()
 
-  show_player_mode: ->
+  showPlayerMode: ->
     $('.shuffle').removeClass('active')
     $('.continuous').removeClass('active').removeClass('repeat')
-    switch @player_mode
+    switch @playerMode
       when SHUFFLE then $('.shuffle').addClass('active')
       when CONTINUOUS then $('.continuous').addClass('active')
       when REPEAT then $('.continuous').addClass('repeat')

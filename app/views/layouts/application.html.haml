@@ -136,7 +136,7 @@
         ytplayer = document.getElementById(playerId);
         var functionName = playerId+'_statechange'
         window[functionName] = function(newState) {
-          hottestPlayer.yt_state_change(playerId, ytplayer, newState);
+          hottestPlayer.ytStateChange(playerId, ytplayer, newState);
         }
 
         ytplayer.addEventListener("onStateChange", functionName);

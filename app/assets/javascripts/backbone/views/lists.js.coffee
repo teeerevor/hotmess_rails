@@ -3,6 +3,7 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
   charIndex:  {}
 
   initialize: ->
+    @openSongs = {}
     @collection.bind 'reset', @render, @
     @collection.bind 'sort',  @render, @
     @collection.bind 'add',   @addSong, @
@@ -44,6 +45,16 @@ class window.Hotmess.Views.SongsListView extends Backbone.View
   setCharAsIndexed: (char) ->
     @charIndex[char] = true
 
+  getOpenedSongView: (id) ->
+    @openSongs[id]
+
+  songOpened: (song) ->
+    @openSongs[song.model.get('id')] = song
+
+  songClosed: (song) ->
+    id = song.model.get('id')
+    delete @openSongs[id]
+    hottestPlayer.closePlayer(id)
 
 class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
   className:  'shortlist'
