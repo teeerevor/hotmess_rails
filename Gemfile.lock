@@ -41,9 +41,6 @@ GEM
       timers (~> 4.0.0)
     chunky_png (1.3.1)
     coderay (1.1.0)
-    coffee-filter (0.1.3)
-      coffee-script (>= 2.2.0)
-      haml (< 4.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -88,9 +85,15 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.0)
       multi_json (~> 1.8)
-    haml (3.1.8)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     hitimes (1.2.2)
+    html2haml (2.0.0.beta.1)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.2.1)
     http_parser.rb (0.6.0)
     i18n (0.6.11)
     jquery-rails (3.1.2)
@@ -192,12 +195,15 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.6.0)
+    ruby_parser (3.2.2)
+      sexp_processor (~> 4.1)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
+    sexp_processor (4.4.4)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
     slop (3.6.0)
@@ -238,7 +244,6 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   animation
-  coffee-filter
   coffee-rails (~> 4.0.0)
   compass-rails
   fuubar
@@ -246,6 +251,7 @@ DEPENDENCIES
   googleajax
   guard-livereload
   haml
+  html2haml (~> 2.0.0.beta.1)
   jquery-rails
   modular-scale
   nokogiri
