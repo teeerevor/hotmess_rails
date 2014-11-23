@@ -1,11 +1,14 @@
+@import 'mixins.css.sass'
+
 header
   background-color: #fff
   border-bottom: solid 1px #ccc
 
   .logo
-    -webkit-transition: all 300ms linear
+    width: 200px
+    +transition(all 300ms linear)
     position: absolute
-    margin: 15px
+    margin: 10px
 
   &.open
     height: 92px
@@ -29,7 +32,7 @@ header
 
 #app.active
   .logo
-    margin-top: 25px
+    margin-top: 20px
 
 #app.hidden
   #header

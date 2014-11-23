@@ -29,7 +29,7 @@
 
     &:hover, &.active
       svg
-        fill: #EE736D
+        fill: $tomato-red
 
     i
       display: none
@@ -79,32 +79,30 @@
   .previous, .next, .continuous
     display: inline
 
-  .i-feel-lucky
-    display: none
-
 .i-feel-lucky
-  position: absolute
-  top: 6px
-  left: 0px
-  width: 200px
-  font-size: 16px
-  opacity: 0
-  will-change: transform, opacity
-  +transition-property(opacity transform)
-  +transition-duration(200ms)
+  display: none
+
 
 .play-random
   position: relative
-
-.play-random:hover
   cursor: pointer
-  .i-feel-lucky
-    transform: translateX(20px)
-    opacity: 1
 
-.playing
+  &:hover
+    .i-feel-lucky
+      transform: translateX(20px)
+      opacity: 1
+
   .i-feel-lucky
-    display: none
+    display: block
+    position: absolute
+    top: 6px
+    left: 0px
+    width: 200px
+    font-size: 16px
+    opacity: 0
+    will-change: transform, opacity
+    +transition-property(opacity transform)
+    +transition-duration(200ms)
 
 #app.active
   .current_song
