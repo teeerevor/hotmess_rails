@@ -14,12 +14,13 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
   className: 'player'
 
   events:
-    'click .play-random': 'playRandomSong'
-    'click .play_pause' : 'playPause'
-    'click .next'       : 'next'
-    'click .previous'   : 'previous'
-    'click .shuffle'    : 'shuffle'
-    'click .continuous' : 'continuous'
+    'click .play-random' : 'playRandomSong'
+    'click .play_pause'  : 'playPause'
+    'click .next'        : 'next'
+    'click .previous'    : 'previous'
+    'click .shuffle'     : 'shuffle'
+    'click .continuous'  : 'continuous'
+    'click .current_song': 'showCurrentSong'
 
   initialize: ->
     @openSongs = {}
@@ -204,5 +205,8 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
       when SHUFFLE then $('.shuffle').addClass('active')
       when CONTINUOUS then $('.continuous').addClass('active')
       when REPEAT then $('.continuous').addClass('repeat')
+
+  showCurrentSong: ->
+    songListView.animateToSong(@currentSongModel)
 
 
