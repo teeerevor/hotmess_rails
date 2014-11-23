@@ -79,6 +79,33 @@
   .previous, .next, .continuous
     display: inline
 
+  .i-feel-lucky
+    display: none
+
+.i-feel-lucky
+  position: absolute
+  top: 6px
+  left: 0px
+  width: 200px
+  font-size: 16px
+  opacity: 0
+  will-change: transform, opacity
+  +transition-property(opacity transform)
+  +transition-duration(200ms)
+
+.play-random
+  position: relative
+
+.play-random:hover
+  cursor: pointer
+  .i-feel-lucky
+    transform: translateX(20px)
+    opacity: 1
+
+.playing
+  .i-feel-lucky
+    display: none
+
 #app.active
   .current_song
     display: inline-block
