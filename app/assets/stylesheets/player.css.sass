@@ -27,7 +27,7 @@
     svg
       fill: #555
 
-    &:hover
+    &:hover, &.active
       svg
         fill: #EE736D
 
@@ -61,16 +61,22 @@
   .next
     width: 25px
 
+  .continuous, .shuffle
+    width: 20px
+
+  .continuous
+
   .shuffle
     display: none
-    margin-top: 8px
     margin-left: 10px
+
   .continuous
-    margin-top: 8px
     margin-left: 25px
+    position: relative
+    top: -7px
 
 .playing
-  .previous, .next, .shuffle, .continuous
+  .previous, .next, .continuous
     display: inline
 
 #app.active
