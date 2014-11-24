@@ -1,6 +1,7 @@
 window.App = {
   init: ->
-    @shouldIShowApp()
+    @showApp()
+    #@shouldIShowApp()
     @loadBackbone()
     @loadRestOfSongs() unless @hasLocalStorageSongs()
 
@@ -40,11 +41,11 @@ window.App = {
 
   loadBackbone: ->
     #year and email are set in the app layout
-    if @hasLocalStorageSongs()
-      window.songsList = new Hotmess.Collections.Songs([])
-      songsList.fetch()
-    else
-      window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
+    #if @hasLocalStorageSongs()
+      #window.songsList = new Hotmess.Collections.Songs([])
+      #songsList.fetch()
+    #else
+      #window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
       #load the rest later
 
     window.songListView = new Hotmess.Views.SongsListView({collection: songsList})

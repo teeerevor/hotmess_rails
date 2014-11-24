@@ -100,6 +100,10 @@
               Sort by
               %span.label
                 artists
+          .song_list
+            - @songs.each do |song|
+              = render partial: 'songs/song', object: song
+
           .loader
             .label
               loading

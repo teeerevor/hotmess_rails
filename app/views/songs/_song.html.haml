@@ -1,0 +1,22 @@
+.song{class: "song-#{song.id} #{song.name[0]}", data:{songId: "#{song.id}", songName:"#{song.name}", artistName:"#{song.artist.name}", youtubeCode:"#{song.youtube_url}"}}
+  .song_header
+    .song_tab
+      .song_details
+        %h3.song_name= song.name
+        .artist_name= song.artist.name
+        .no-sound-assets-msg
+          (Not playable)
+    .buttons
+      %button.short_list_to_pos.button.black.hotmess_regular.up{title: "Short list to top"}
+        %svg.up-arrow{:viewbox => "0 0 22.68 17.01"}
+          %use{"xlink:href" => "#up-arrow"}
+        -#%i.icon-up
+      %button.short_list_song.button.black{:title => "Short list"}
+        %svg.plus{:viewbox => "0 0 22.68 17.01"}
+          %use{"xlink:href" => "#plus"}
+        -#%i.icon-plus
+  .song_extras
+    .youtube_vid
+    -#%img{src:"{{artist.image}}"}
+    %a{href:"#{song.artist.content_link}"}
+      .desc= song.artist.desc
