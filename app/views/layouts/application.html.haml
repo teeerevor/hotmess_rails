@@ -80,18 +80,21 @@
           %h2
             Your shortlist
           .empty_list_blank_state
-            .first
+            .first-msg
               This part is on you.
               %br/
+              %br/
               So go on get picking!
-            .second
+            .second-msg.hidden
               Woah empty again.
               %br/
+              %br/
               Fan of the the delete button huh.
-            .final
+            .final-msg.hidden
               Boom! All gone.
               %br/
-              Hmm, we could be here for a while.
+              %br/
+              Hmm, at this rate we could be here a while.
 
 
         %section#song_list.list
@@ -100,7 +103,7 @@
             %h2
               The
               = @year
-              Songs
+              Big List
             %span.toggle-sort-button
               Sort by
               %span.label
