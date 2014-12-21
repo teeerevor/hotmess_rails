@@ -78,6 +78,8 @@ window.App = {
     @loadSong song, i for song, i in gon.songs #loads each song after waiting a millsecond
     if @hasLocalStorage()
       #saves songs to local storage once complete
+      localStorage.clear()
+      localStorage.setItem('year', urlYear)
       setTimeout ->
         songsList.save()
       , gon.songs.length + 5
@@ -86,7 +88,7 @@ window.App = {
     gon.shortlist
 
   hasLocalStorageSongs: ->
-    @hasLocalStorage() && localStorage.getItem('songs')
+    @hasLocalStorage() && localStorage.getItem('year') == urlYear &&  localStorage.getItem('songs')
 
   hasLocalStorage: ->
     Modernizr.localstorage
