@@ -42,7 +42,7 @@ task :save_csv => :environment do
   csv_file = File.expand_path(File.join('db', 'fixtures', file_name))
 
   find_params = {conditions: {year: year}, include: 'artist', order: 'artists.name'}
-  songs = Song.all(find_params)
+  songs = Song.includes(:artist).where(year: year).order('artists.name')
 
   song_count = 0
   CSV.open(csv_file, "wb", {col_sep: "|"}) do |csv|
