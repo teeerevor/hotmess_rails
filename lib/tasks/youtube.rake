@@ -10,12 +10,11 @@ task :load_youtube => :environment do
   Song.where(year: year, youtube_url: nil).each do |song|
     puts "-----------------------------------"
     puts "#{song.name} - #{song.artist.name}"
-    url = "http://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string)}"
+    url = "https://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string)}"
     puts "search = #{url}"
     begin
       doc = Nokogiri::HTML(open(url))
-      yt_results = doc.css('#search-results').first
-      yt_vid_name = yt_results.css('.yt-lockup-title a').first.text.strip
+      yt_vid_name = doc.css('.yt-lockup-title a').first.text.strip
       puts "vid_name = [#{yt_vid_name}]"
 
       yt_vid_name.downcase!
@@ -23,7 +22,7 @@ task :load_youtube => :environment do
       #if song.name.downcase.split(/\W+/).all? {|word| yt_vid_name.include?(word)}
       #second run removes {ft ...}
       if song.name.gsub(/\{.*\}/,'').downcase.split(/\W+/).all? {|word| yt_vid_name.include?(word)}
-        url = yt_results.css('a').first.attr('href')
+        url = doc.css('.yt-lockup-title a').first.attr('href')
         song.youtube_url = url.gsub(/\/watch\?v=/i ,'')
         song.save
         puts song.youtube_url
