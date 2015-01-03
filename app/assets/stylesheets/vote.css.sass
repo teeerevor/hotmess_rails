@@ -27,50 +27,38 @@
     padding: 20px
     background-color: $background-color
     border-radius: 10px
+    font-size: 18px
     line-height: 26px
-
-    textarea
-      display: block
-      width: 350px
-      min-height: 152px
-      margin: 0
-      resize: none
-      border-color: #ccc
-      color: #EB7C77
-      background-color: $background-color
 
     ol
       padding-left: 25px
       overflow: hidden
-
-      &.instructions
-        list-style-type: decimal
-        list-style-position: outside
 
     li
       padding: 5px
 
     .songs
       padding: 20px
-      font-size: 14px
-      color: #EB7C77
+      color: $tomato-red
       line-height: 16px
 
       li
-        float: left
-        width: 250px
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
-      li:nth-child(2n+1)
-        clear: both
 
   a
-    color: #EB7C77
+    color: $tomato-red
     text-decoration: none
     &:hover
-      color: #C92922
+      color: darken($tomato-red, 10)
       text-decoration: underline
+
+  .spotify
+    background-color: #68AA34
+
+  .rdio
+    background-color: #3370C1
 
   .no-votes
     display: none

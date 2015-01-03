@@ -123,7 +123,6 @@ class window.Hotmess.Views.ShortListView extends Hotmess.Views.SongsListView
     first = $('.empty_list_blank_state .first-msg')
     second = $('.empty_list_blank_state .second-msg')
     final = $('.empty_list_blank_state .final-msg')
-    debugger
     if(second.hasClass('hidden'))
       first.hide()
       second.removeClass('hidden')

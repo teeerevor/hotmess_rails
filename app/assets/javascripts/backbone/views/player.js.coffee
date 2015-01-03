@@ -138,7 +138,6 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   pauseOtherSongs: ->
     for id, player in @ytPlayers
-      debugger
       unless id == @currentSongId
         player.pause()
 

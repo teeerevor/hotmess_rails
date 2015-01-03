@@ -5,7 +5,7 @@
         &times;
       .has-votes
         %h2
-          Your picks of #{@year}
+          Your bitchin picks
 
         .songs
           %ol
@@ -15,31 +15,30 @@
 
         .instructions
           %h2
-            To sumbit your votes to Triple J
+            Get those votes in
+
+          Via spotify/rdio
+          %br/
+          The other hard way
 
           %ol.instructions
             %li
-              Copy these links
-              %textarea
-                :preserve
-                  {{#each songs}}http://open.spotify.com/track/{{spotify_key}}
-                  {{/each}}
+              Enter your username
+              %input.username
+              -#%textarea
+                -#:preserve
+                  -#{{#each songs}}http://open.spotify.com/track/{{spotify_key}}
+                  -#{{/each}}
             %li
-              Now go to the
-              %a{href:'http://www2b.abc.net.au/votecentral/Client/PlaceVote.aspx?E=106&MD=NominateCandidate#import', target:'_blank'}
+              %button.spotify
+                Spotify my list
+              %button.rdio
+                Rdio my list
+            %li
+              Now go import that sucker here
+              %a{href:'http://www.abc.net.au/triplej/hottest100/14/', target:'_blank'}
                 Hottest100 voting
               page
-
-            %li
-              Hit the spotify tab.
-            %li
-              Paste in your list
-            %li
-              Hit the submit button
-            %li
-              Jump through some Triple J hoops
-            %li
-              Aaaand your done, now go get your party on
 
       .no-votes
         hmmm you probably want to short list some songs first.
