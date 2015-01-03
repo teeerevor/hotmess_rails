@@ -21,31 +21,35 @@
   -webkit-justify-content: center
   justify-content: center
 
-.vote
-  .vote-screen
-    position: relative
-    padding: 20px
-    background-color: $background-color
-    border-radius: 10px
-    font-size: 18px
-    line-height: 26px
+.vote-screen
+  background-color: $background-color
+  border-radius: 10px
+  font-size: 18px
+  line-height: 26px
+  max-width: 500px
+  padding: 20px
+  position: relative
 
-    ol
-      padding-left: 25px
-      overflow: hidden
+  ol
+    padding-left: 25px
+    overflow: hidden
+
+  li
+    padding: 5px
+
+  .songs
+    padding: 20px
+    color: $tomato-red
+    line-height: 16px
 
     li
-      padding: 5px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
 
-    .songs
-      padding: 20px
-      color: $tomato-red
-      line-height: 16px
-
-      li
-        white-space: nowrap
-        overflow: hidden
-        text-overflow: ellipsis
+  .instructions
+    h2, p
+      margin-bottom: 20px
 
   a
     color: $tomato-red
