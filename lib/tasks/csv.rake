@@ -14,6 +14,7 @@ task :load_csv => :environment do
     song_name = row['song']
     youtube_key = row['youtube_key']
     spotify_key = row['spotify_key']
+    spotify_key = row['jjj_preview']
     puts "#{artist_name}-#{song_name}"
 
     artist = Artist.find_by_name(artist_name)
@@ -26,6 +27,7 @@ task :load_csv => :environment do
       if song.youtube_url != youtube_key || song.spotify_key != spotify_key
         song.youtube_url = youtube_key
         song.spotify_key = spotify_key
+        song.jjj_preview = jjj_preview
         song.save
         updates += 1
       end
@@ -46,9 +48,9 @@ task :save_csv => :environment do
 
   song_count = 0
   CSV.open(csv_file, "wb", {col_sep: "|"}) do |csv|
-    csv << ['artist', 'song', 'youtube_key', 'spotify_key']
+    csv << ['artist', 'song', 'youtube_key', 'spotify_key', 'jjj_preview']
     songs.each do |s|
-      csv << [s.artist.name, s.name, s.youtube_url, s.spotify_key]
+      csv << [s.artist.name, s.name, s.youtube_url, s.spotify_key, s.jjj_preview]
       song_count += 1
     end
   end
