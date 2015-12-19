@@ -6,9 +6,17 @@ Made out of frustration with the triplej hottest100 voting app and my love catch
 Quick start
 --
 
-After doing all the rails rakes.
+Assuming you have ruby and bundler installed.
 
-hit <tt>rake load_csv</tt> to load this years h100 song list
+<tt>bundle</tt>
+
+Do the Rails rakes
+
+<tt>rake db:create && rake db:schema:load</tt>
+
+Load this years h100 song list
+
+<tt>rake load_csv</tt>
 
 then
 
