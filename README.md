@@ -6,7 +6,9 @@ Made out of frustration with the triplej hottest100 voting app and my love catch
 Quick start
 --
 
-Assuming you have ruby and bundler installed.
+Assuming you have postgres, ruby, bundler installed. If not go do that.
+
+Bundle the bundles.
 
 <tt>bundle</tt>
 
