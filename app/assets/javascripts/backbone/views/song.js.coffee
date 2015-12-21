@@ -22,8 +22,6 @@ class window.Hotmess.Views.SongView extends Backbone.View
       $(@el).html(@template(@model.toJSON()))
       @setId()
       @setIndex()
-      if not @model.is_playable()
-        @set_unplayable()
       if @model.get('open')
         @toggle_song()
       if @model.get('added-song')
@@ -88,11 +86,17 @@ class window.Hotmess.Views.SongView extends Backbone.View
   open: ->
     $(@el).addClass('expanded')
     yt_holder = @.$('.youtube_vid')
-    if iOS
-      @load_youtube_iframe(yt_holder, @model)
+    if @model.has_youtube()
+      @.$('.html5_audio').remove()
+      if iOS
+        @load_youtube_iframe(yt_holder, @model)
+      else
+        @load_youtube_swf(yt_holder, @model.get('youtube_url'))
+      yt_holder.fitVids()
     else
-      @load_youtube_swf(yt_holder, @model.get('youtube_url'))
-    yt_holder.fitVids()
+      yt_holder.remove()
+      $('audio').mediaelementplayer()
+
     @song_open = true
     track('click', 'open_song')
 

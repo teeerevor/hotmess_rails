@@ -4,8 +4,6 @@
       .song_details
         %h3.song_name {{song_name_trim name}}
         .artist_name {{artist.name}}
-        .no-sound-assets-msg
-          (Not playable)
     .buttons
       %button.short_list_to_pos.button.black.hotmess_regular.up{title: "Short list to top"}
         %svg.up-arrow{:viewbox => "0 0 22.68 17.01"}
@@ -17,7 +15,8 @@
         -#%i.icon-plus
   .song_extras
     .youtube_vid
-    -#%img{src:"{{artist.image}}"}
+    .html5_audio
+      %audio{src:'{{jjj_preview}}'}
     %a{href:'{{artist.content_link}}'}
       .desc
         {{artist.desc}}

@@ -5,6 +5,7 @@
       hottest100.io
 
     = stylesheet_link_tag '/assets/application'
+    = stylesheet_link_tag '/assets/mediaelementplayer'
 
     = include_gon
     %meta{name:"viewport", content:"initial-scale=1.0 maximum-scale=1.0 width=device-width"}
@@ -126,6 +127,7 @@
       = yield
 
 
+    = javascript_include_tag '/assets/mediaelement-and-player'
     = javascript_include_tag '/assets/application'
     -#= javascript_include_tag 'http://isotope.metafizzy.co/isotope.pkgd.js'
     -#= javascript_include_tag 'http://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js'
