@@ -8,18 +8,18 @@ task :json_list_load => :environment do
 
   song_count = 0
   updates = 0
-  json_contents = File.read(json_file)
+  json_file = File.read(json_file)
   puts "importing #{json_file}"
-  json_file = JSON.parse(json_contents, :quirks_mode => true)
+  json_contents = JSON.parse(json_file, :quirks_mode => true)
 
-  jjj_json.each do |song|
-    song_name = song['song']
-    youtube_key = song['youtube_key']
+  json_contents.each do |song|
+    song_name = song['name']
+    youtube_key = song['youtube_url']
     spotify_key = song['spotify_key']
     jjj_id = song['jjj_id']
     jjj_preview = song['jjj_preview']
     artist_name = song['artist']['name']
-    puts "#{artist_name}-#{song_name}"
+    puts "#{artist_name} - #{song_name}"
 
     artist = Artist.find_by_name(artist_name)
     artist ||= Artist.create(name: artist_name)
