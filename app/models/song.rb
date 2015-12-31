@@ -14,4 +14,8 @@ class Song < ActiveRecord::Base
   def spotify_search_string
     [URI::encode(self.name), URI::encode(self.artist.the_name_fix)].join('+')
   end
+
+  def artist_name
+    artist.name
+  end
 end
