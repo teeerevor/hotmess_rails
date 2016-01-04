@@ -108,7 +108,6 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   play: ->
     console.log 'play'
-    $('i-feel-lucky').remove()
     @swapRandomToPlay()
     if @currentPlayer()
       @currentPlayer().playVideo()
@@ -126,6 +125,7 @@ class window.Hotmess.Views.PlayerView extends Backbone.View
 
   showPlaying: ->
     console.log 'show play'
+    $('i-feel-lucky').remove()
     $(@el).addClass('playing')
     $('.play_pause').addClass('is_playing')
     $('.play_pause').removeClass('is_paused')
