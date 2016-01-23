@@ -73,57 +73,11 @@
         %h1.hidden
           Hotmess100
 
-
-      %section.lists
-        %section#short_list.list
-          %a{name:'short_list'}
-          %h2
-            Your shortlist
-          .empty_list_blank_state
-            .first-msg
-              This part is on you.
-              %br/
-              %br/
-              So go on, get picking!
-            .second-msg.hidden
-              Woah empty again.
-              %br/
-              %br/
-              Fan of the the delete button huh.
-            .final-msg.hidden
-              Boom! All gone.
-              %br/
-              %br/
-              Hmm, at this rate we could be here a while.
-
-
-        %section#song_list.list
-          #song-list-top
-          .header
-            %h2
-              The
-              = @year
-              Big List
-            %span.toggle-sort-button
-              Sort by
-              %span.label
-                artists
-          .loader
-            .label
-              loading
-              .loader-element
-                Loading...
-
-        %nav.list_index.hidden
-          %a.animatescroll{data:{target:"#song-list-top"}}
-            %div
-              top
-          - ('a'..'z').each do |letter|
-            %a.animatescroll{data:{target:".#{letter.upcase}"}}
-              %div
-                =letter.upcase
-
       = yield
+    #react
+
+
+
 
 
     = javascript_include_tag '/assets/application'

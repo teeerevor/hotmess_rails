@@ -24,12 +24,6 @@ window.App = {
     $(window).unload ->
       shortList.saveList()
 
-  buttonLabel: (option) ->
-    if option == 'songName'
-      return 'song'
-    else
-      return 'artist'
-
   shouldIShowApp: ->
     @showApp() if @hasLocalStorageSongs() || @hasShortlist()
 
@@ -40,31 +34,30 @@ window.App = {
 
   loadBackbone: ->
     #year and email are set in the app layout
-    if @hasLocalStorageSongs()
-      window.songsList = new Hotmess.Collections.Songs([])
-      songsList.fetch()
-    else
-      window.songsList = new Hotmess.Collections.Songs(gon.initial_songs)
+    #if @hasLocalStorageSongs()
+      #window.songsList = new Hotmess.Collections.Songs([])
+      #songsList.fetch()
+    #else
+      #window.songsList = new Hotmess.Collections.Songs()
       #load the rest later
 
-    window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
-    $('#song_list').append(songListView.render().el)
+    ReactDOM.render(React.createElement(App, {songs: gon.initial_songs}), document.getElementById("react"))
+    #window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
 
-    window.saveLoadView = new Hotmess.Views.SaveLoadView({})
-    $('header').append(saveLoadView.render().el)
-    saveLoadView.setEmailFromUrlLoad(urlEmail) if urlEmail
+    #$('header').append(saveLoadView.render().el)
+    #saveLoadView.setEmailFromUrlLoad(urlEmail) if urlEmail
 
-    window.hottestPlayer = new Hotmess.Views.PlayerView({})
-    $('header').append(hottestPlayer.render().el)
+    #window.hottestPlayer = new Hotmess.Views.PlayerView({})
+    #$('header').append(hottestPlayer.render().el)
 
     #load these last - will break url email to saveload push otherwise
-    if gon.shortlist
-      window.shortList = new Hotmess.Collections.ShortList(gon.shortlist, {year: urlYear, email: urlEmail})
-    else
-      window.shortList = new Hotmess.Collections.ShortList([], {year: urlYear, email: urlEmail})
-      shortList.fetch()
-    window.shortListView = new Hotmess.Views.ShortListView({collection: shortList})
-    $('#short_list').append(shortListView.render().el)
+    #if gon.shortlist
+      #window.shortList = new Hotmess.Collections.ShortList(gon.shortlist, {year: urlYear, email: urlEmail})
+    #else
+      #window.shortList = new Hotmess.Collections.ShortList([], {year: urlYear, email: urlEmail})
+      #shortList.fetch()
+    #window.shortListView = new Hotmess.Views.ShortListView({collection: shortList})
+    #$('#short_list').append(shortListView.render().el)
 
     window.user = if urlEmail then urlEmail else 'anonymous'
 

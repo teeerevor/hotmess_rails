@@ -14,13 +14,7 @@
 //= require jquery
 //= require csrf
 //= require vendor
-//= require backbone
-//= require backbone/models
-//= require backbone/collections
-//= require backbone/views/song
-//= require backbone/views/shortlist_song
-//= require backbone/views/lists
-//= require backbone/views/player
-//= require backbone/views/save_load
-//= require backbone/views/vote
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
