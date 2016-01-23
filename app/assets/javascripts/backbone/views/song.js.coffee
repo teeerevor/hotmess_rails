@@ -97,11 +97,10 @@ class window.Hotmess.Views.SongView extends Backbone.View
     track('click', 'open_song')
 
   close: ->
-    unless @user_opened
-      $(@el).removeClass('expanded')
-      @.$('.youtube_vid').empty()
-      @song_open = false
-      track('click', 'close_song')
+    $(@el).removeClass('expanded')
+    @.$('.youtube_vid').empty()
+    @song_open = false
+    track('click', 'close_song')
 
   load_youtube_iframe: (yt_contianer, model) ->
     yt_contianer.html(@youtube_template(model.toJSON()))
