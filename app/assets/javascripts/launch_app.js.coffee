@@ -1,8 +1,8 @@
-window.App = {
+window.Launcher = {
   init: ->
     @shouldIShowApp()
     @loadBackbone()
-    @loadRestOfSongs() unless @hasLocalStorageSongs()
+    #@loadRestOfSongs() unless @hasLocalStorageSongs()
 
     $('.toggle-sort-button').click ->
       sortedBy = songsList.sortedBy
@@ -88,4 +88,4 @@ window.App = {
 }
 
 $ ->
-  App.init()
+  Launcher.init()

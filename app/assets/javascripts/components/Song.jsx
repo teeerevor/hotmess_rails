@@ -3,7 +3,7 @@ Song = React.createClass({
     const songClassName = false ? "opened" : "";
 
     return (
-      <li className={'song '+songClassName}>
+      <li key={this.props.song.id} className={'song '+songClassName}>
         <div className='song-display' onClick={this.toggleDisplay}>
           {this.arrangeSongInfo()}
           {this.addWaypoint()}
@@ -28,11 +28,11 @@ Song = React.createClass({
                   {this.longNameFix(this.props.song.name)}
                 </b>
                 &nbsp;-&nbsp;
-                {this.longNameFix(this.props.song.artist_name)}
+                {this.longNameFix(this.props.song.artistName)}
               </span>);
     else
       return (<span className="text">
-                <b>{this.longNameFix(this.props.song.artist_name)}</b>
+                <b>{this.longNameFix(this.props.song.artistName)}</b>
                 &nbsp;-&nbsp;
                {this.longNameFix(this.props.song.name)}</span>);
   },

@@ -1,12 +1,12 @@
-App = React.createClass({
-  getInitialState: () => {
+window.App = React.createClass({
+  getInitialState: function(){
     return {
       index:       'top',
       sortBy:      'song',
       sortByNext:  'artist',
       sortBtnText: 'Sort by artist',
-      songs:        [], //gon.initial_songs,
-      songsByArtist: [] //gon.initial_songs
+      songs:        this.props.songs,
+      songsByArtist: this.props.songs
     };
   },
 
@@ -51,11 +51,11 @@ App = React.createClass({
         </nav>
 
         <div className='lists'>
+          <Shortlist />
+          <SongList songs={this.state.songs} index={this.state.index} sortBy={this.state.sortBy} />
         </div>
       </div>
     );
   }
 });
-          //<Shortlist />
-          //<SongList songs={this.getSongData()} index={this.state.index} sortBy={this.state.sortBy} />
 
