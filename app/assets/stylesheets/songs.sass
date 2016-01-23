@@ -1,0 +1,57 @@
+$song-background: #eee
+$song-padding-hoz: 8px
+$song-padding-vert: 15px
+$song-border-radius: 5px
+$song-bottom-margin: 3px
+
+ul
+  padding-left: 0
+
+.song-section
+  h3
+    padding-left: 15px
+.shortlist-section
+  h3
+    padding-left: 46px
+
+.song
+  display: flex
+  cursor: pointer
+  list-style: none
+  margin-bottom: $song-bottom-margin
+  &:hover
+    .song-display
+      background: darken($song-background,10)
+    button
+      background-color: tomato
+  .song-display
+    border-radius: 5px
+    background: $song-background
+    flex: 1
+    padding: $song-padding-hoz $song-padding-vert
+  button
+    outline: 0
+    //background: none
+    background-color: #aaa
+    border: none
+    cursor: pointer
+    padding: $song-padding-hoz 5px
+    margin-left: 5px
+    text-align: center
+    width: 35px
+    height: 35px
+    border-radius: 35px
+    &:hover
+      box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.2)
+  svg
+    fill: white
+    height: 20px
+    position: relative
+    top: -1px
+    width: 20px
+  .icon-top
+    left: -1px
+  .icon-cross
+    height: 18px
+    width: 18px
+    top: 0

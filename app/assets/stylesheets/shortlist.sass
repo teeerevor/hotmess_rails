@@ -1,0 +1,101 @@
+$song-padding-hoz: 8px
+$song-padding-vert: 15px
+$song-border-radius: 5px
+$song-bottom-margin: 3px
+
+=keyframes($identifier)
+  @keyframes $identifier
+    @content
+
+//=transform($)
+
+.shortlist
+  counter-reset: div /* Initiate a counter */
+  list-style: none /* Remove default numbering */
+  *list-style: decimal /* Keep using default numbering for IE6/7 */
+  text-shadow: 0 1px 0 rgba(255,255,255,.5)
+  -webkit-transition: transform 1s ease-in
+  -moz-transition: transform 1s ease-in
+  -o-transition: transform 1s ease-in
+  transition: transform 1s ease-in
+
+  .song:nth-child(-n+10)
+    .song-wrap
+      display: block
+      flex: 1
+      margin-left: 17px
+      margin-top: 0
+      position: relative
+
+    .song-display:before
+      background: tomato
+      border-radius: 2em
+      border: .3em solid #fff
+      color: white
+      content: counter(div)
+      counter-increment: div
+      height: 2em
+      left: -1.3em
+      line-height: 2em
+      margin-top: -1.3em
+      position: absolute
+      text-align: center
+      top: 50%
+      transition: all .3s ease-out
+      width: 2em
+
+    .song-display
+      padding-left: 30px
+
+//+keyframes(openSpace)
+  //to
+    //max-height: 100px
+
+//+keyframes(closeSpace)
+  //to
+    //max-height: 0px
+
+//+keyframes(moveIn)
+  //to
+    //opacity: 1
+    //+transform(translateX(0))
+
+//+keyframes(moveOut)
+  //to
+    //opacity: 0
+    //+transform(translateX(-300px))
+
+.added-song
+  max-height: 0
+  opacity: 0
+  //+transform(translateX(300px))
+  //+animation(openSpace 100ms ease forwards, moveIn 100ms 200s ease forwards)
+
+.removed-song
+  max-height: 100px
+  opacity: 1
+  //+transform(translateX(0))
+  //+animation(moveOut 200ms ease forwards, closeSpace 200s 200s ease forwards)
+
+//.song-bounce-left
+  //+transform(translateX(50px))
+
+//.song-bounce-right
+  //+transform(translateX(-50px))
+
+.shortlist
+  .song
+    -webkit-transition: all 100ms ease
+    -moz-transition: all 100ms ease
+    -ms-transition: all 100ms ease
+    -o-transition: all 100ms ease
+    transition: all 100ms ease
+
+.placeholder
+  border-bottom: 2px #ccc dashed
+  color: #ddd
+  font-weight: bold
+  margin-bottom: $song-bottom-margin
+  margin-left: 33px
+  margin-right: 90px
+  padding: 7px $song-padding-vert

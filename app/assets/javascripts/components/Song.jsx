@@ -3,7 +3,7 @@ Song = React.createClass({
     const songClassName = false ? "opened" : "";
 
     return (
-      <li key={this.props.song.id} className={'song '+songClassName}>
+      <li className={'song '+songClassName}>
         <div className='song-display' onClick={this.toggleDisplay}>
           {this.arrangeSongInfo()}
           {this.addWaypoint()}

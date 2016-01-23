@@ -1,4 +1,5 @@
-@import 'songs.css.sass'
+@import 'mixins'
+
 .player
   margin: 10px 0
   text-align: center
@@ -12,9 +13,9 @@
       margin-right: 10px
 
   .song_name
-    +song_name
+  //+song_name
   .artist_name
-    +artist_name
+  //+artist_name
   .player_buttons
     width: 190px
     margin: 5px auto 0
@@ -24,13 +25,13 @@
     padding: 0
     border: 0
     background: 0
-    +hottest-button
+    //+hottest-button
     svg
       fill: #555
 
     &:hover, &.active
       svg
-        fill: $tomato-red
+        fill: tomato
 
     i
       display: none

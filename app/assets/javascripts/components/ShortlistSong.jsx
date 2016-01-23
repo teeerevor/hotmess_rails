@@ -25,7 +25,7 @@ ShortlistSong = React.createClass({
             {this.longNameFix(this.props.song.name)}
           </b>
           &nbsp;-&nbsp;
-          {this.longNameFix(this.props.song.artist_name)}
+          {this.longNameFix(this.props.song.artistName)}
         </span>
         </div>
         </div>
