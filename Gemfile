@@ -10,6 +10,8 @@ gem 'pony'  #email
 
 gem 'haml'
 
+gem 'react-rails', '~> 1.5.0'
+gem 'susy'
 gem 'susy'
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
