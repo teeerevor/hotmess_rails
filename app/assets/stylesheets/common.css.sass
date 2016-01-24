@@ -1,23 +1,44 @@
 @import "mixins.css.sass"
+@import 'colours'
 
 body
   font-family: 'Open Sans', Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif
   font-size: 16px
+  color: $font-color
 
 h1
   font-size: 2em
+  color: $font-color
 
 h2
   font-size: 1.45em
-
+  color: $font-color
 
 h3
-  color: #333
+  font-size: 1.45em
+  font-weight: bold
+  margin-bottom: 0.5em
+  color: $font-color
 
-.hidden
-  position: absolute
-  left: -999em
+b
+  font-weight: bold
+
+.hot-button
+  +hottest-button
+
+body
+  .hidden
+    position: absolute
+    left: -999em
 
 @media only screen and (max-width: 600px)
   body
     font-size: 13px
+
+.item-index, .toggle-sort
+  cursor: pointer
+  a
+    padding-right: 5px
+    &:hover
+      color: tomato
+

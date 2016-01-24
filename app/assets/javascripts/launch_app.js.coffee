@@ -1,8 +1,10 @@
 window.Launcher = {
   init: ->
-    @shouldIShowApp()
     @loadBackbone()
+    @shouldIShowApp()
     #@loadRestOfSongs() unless @hasLocalStorageSongs()
+    $('.show-app').click ->
+      Launcher.showApp()
 
     $('.toggle-sort-button').click ->
       sortedBy = songsList.sortedBy
@@ -18,18 +20,17 @@ window.Launcher = {
       target = $(this).data('target')
       songListView.animateTo target
 
-    $('.show-app').click ->
-      App.showApp()
 
-    $(window).unload ->
-      shortList.saveList()
+    #saves shortlist when window closes
+    #$(window).unload ->
+      #shortList.saveList()
 
   shouldIShowApp: ->
     @showApp() if @hasLocalStorageSongs() || @hasShortlist()
 
   showApp: ->
     $('#app').removeClass('hidden')
-    $('.list_index').removeClass('hidden')
+    $('#react').removeClass('hidden')
     $('#loading').hide()
 
   loadBackbone: ->
@@ -42,13 +43,9 @@ window.Launcher = {
       #load the rest later
 
     ReactDOM.render(React.createElement(App, {songs: gon.initial_songs}), document.getElementById("react"))
-    #window.songListView = new Hotmess.Views.SongsListView({collection: songsList})
 
     #$('header').append(saveLoadView.render().el)
     #saveLoadView.setEmailFromUrlLoad(urlEmail) if urlEmail
-
-    #window.hottestPlayer = new Hotmess.Views.PlayerView({})
-    #$('header').append(hottestPlayer.render().el)
 
     #load these last - will break url email to saveload push otherwise
     #if gon.shortlist

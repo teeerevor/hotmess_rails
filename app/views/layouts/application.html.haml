@@ -45,8 +45,8 @@
             %use{"xlink:href" => "#beer"}
           .rant
             Get ready for the motherfuckin party
-        %li
-          %button.show-app.button.rosy
+        %li.button-item
+          %button.show-app.hot-button
             Lets do this!
 
 
@@ -63,8 +63,7 @@
           %a{href: 'http://twitter.com/teeerevor', target:'_blank'}
             @teeerevor
 
-    #app.hidden
-
+    #app.app.hidden
       %header
         %svg.logo{:viewbox => "0 0 460 79"}
           %use{"xlink:href" => "#logo"}
@@ -72,7 +71,7 @@
           %img.logo{src:'/assets/hottest100_logo.png'}
         %h1.hidden
           Hotmess100
-      #react
+      #react.hidden
 
 
     = javascript_include_tag '/assets/application'
@@ -82,19 +81,11 @@
       window.urlEmail = '#{@email}'
       window.urlYear = '#{@year}'
 
-      function onYouTubePlayerReady(playerId) {
-        ytplayer = document.getElementById(playerId);
-        var functionName = playerId+'_statechange'
-        window[functionName] = function(newState) {
-          hottestPlayer.ytStateChange(playerId, ytplayer, newState);
-        }
-
-        ytplayer.addEventListener("onStateChange", functionName);
-      }
-
-      function onYouTubeError(error) {
-        window.console && console.log && console.log(error);
-      }
+      //load youtube vid api
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     = yield
     //google analytics

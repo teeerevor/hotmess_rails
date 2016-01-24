@@ -37,6 +37,7 @@ Song = React.createClass({
                {this.longNameFix(this.props.song.name)}</span>);
   },
   toggleDisplay: function(){
+    console.log('toggle');
     this.state.open ? this.setState({open: false}) : this.setState({open: true})
   },
   handleWaypointEnter(){
@@ -53,7 +54,7 @@ Song = React.createClass({
       return <Waypoint className='waypoint' onEnter={this.handleWaypointEnter} threshold={0.2} />
   },
   addAudio: function(){
-    if( this.state.open) 
+    if( this.state.open)
       return <SongAudio song={this.props.song} />
   },
   shortlistAdd: function(){

@@ -37,7 +37,7 @@ window.App = React.createClass({
 
   render() {
     return (
-      <div className="app">
+      <div>
         <nav className='toggle-sort'>
           <a onClick={this.toggleSortOrder} toggelto={this.state.sortByNext}>{this.state.sortBtnText}</a>
         </nav>
