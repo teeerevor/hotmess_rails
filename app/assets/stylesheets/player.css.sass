@@ -1,22 +1,17 @@
 @import 'mixins'
 
+$button-grey: #aaa
+$button-red: tomato
+$button-size: 18px
+
 .player
-  margin: 10px 0
+  margin: 20px 0
   text-align: center
 
-  .current_song
+  .current-song
     cursor: pointer
-    display: none
 
-    img
-      float: left
-      margin-right: 10px
-
-  .song_name
-  //+song_name
-  .artist_name
-  //+artist_name
-  .player_buttons
+  .player-buttons
     width: 190px
     margin: 5px auto 0
 
@@ -27,64 +22,43 @@
     background: 0
     //+hottest-button
     svg
-      fill: #555
+      width: $button-size
+      height: $button-size
+      fill: $button-grey
 
     &:hover, &.active
       svg
-        fill: tomato
+        fill: $button-red
 
     i
       display: none
 
-  .play_pause
-    font-size: 2em
+  .play-pause, .random
+    background-color: $button-grey
+    border-radius: 35px
+    height: 35px
+    width: 35px
     cursor: pointer
+    .icon-play
+    svg
+      position: relative
+      left: 2px
+      fill: white
+    &:hover
+      svg
+        fill: white
+      background-color: $button-red
 
-  .is_paused
+  .is-paused
     .pause
       display: none
 
-  .is_playing
+  .is-playing
     .play
       display: none
 
-  .previous, .next, .shuffle, .continuous
-    font-size: 1.2em
-    cursor: pointer
-    position: relative
-    top: -5px
-    display: none
-
-  .play_pause, .play-random
-    width: 40px
-
-  .previous
-    width: 25px
-  .next
-    width: 25px
-
-  .continuous, .shuffle
-    width: 20px
-
-  .continuous
-
-  .shuffle
-    display: none
-    margin-left: 10px
-
-  .continuous
-    margin-left: 25px
-    position: relative
-    top: -7px
-
-.playing
-  .previous, .next, .continuous
-    display: inline
-
-.i-feel-lucky
-  display: none
-
 .play-random
+  display: inline-block
   position: relative
   cursor: pointer
 
@@ -94,9 +68,8 @@
       opacity: 1
 
   .i-feel-lucky
-    display: block
     position: absolute
-    top: 6px
+    top: 9px
     left: 0px
     width: 200px
     font-size: 16px

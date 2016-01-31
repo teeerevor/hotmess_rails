@@ -19,15 +19,18 @@ header
     display: flex
 
   .song-section, .shortlist-section
-    position: relative
     -webkit-flex: 1 1 auto
     -moz-flex: 1 1 auto
     -ms-flex: 1 1 auto
     flex: 1 1 auto
     min-height: 0px
     padding: 10px
-    overflow-y: scroll
-    max-height: 100vh
+
+    .scroller
+      padding-right: 15px
+      position: relative
+      overflow-y: auto
+      max-height: 100vh
 
   .shortlist-section
     width: 50%

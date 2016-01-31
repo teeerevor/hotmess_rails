@@ -11,13 +11,18 @@ SongAudio = React.createClass({
     var videoId = this.props.song.youtube_url;
     var player;
     player = new YT.Player('yt-video', {
-      videoId: videoId
+      videoId: videoId,
+      events: {
+        'onReady': this.onPlayerReady,
+        'onStateChange': this.onPlayerStateChange
+      }
     });
 
     $('.song-audio').fitVids()
   },
+  onPlayerReady: function(e){
+    e.target.playVideo();
+  },
+  onPlayerStateChange: function(e){
+  }
 })
-      //events: {
-        //'onReady': onPlayerReady,
-        //'onStateChange': onPlayerStateChange
-      //}

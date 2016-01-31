@@ -42,7 +42,9 @@ window.Launcher = {
       #window.songsList = new Hotmess.Collections.Songs()
       #load the rest later
 
+    #ReactDOM.render(React.createElement(App, {songs: gon.songs}), document.getElementById("react"))
     ReactDOM.render(React.createElement(App, {songs: gon.initial_songs}), document.getElementById("react"))
+    ReactDOM.render(React.createElement(Player), document.getElementById("player"))
 
     #$('header').append(saveLoadView.render().el)
     #saveLoadView.setEmailFromUrlLoad(urlEmail) if urlEmail

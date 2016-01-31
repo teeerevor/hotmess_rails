@@ -42,11 +42,8 @@ window.App = React.createClass({
           <a onClick={this.toggleSortOrder} toggelto={this.state.sortByNext}>{this.state.sortBtnText}</a>
         </nav>
 
-        <nav className='item-index'>
-          {this.renderIndex()}
-        </nav>
-
         <div className='lists'>
+          <nav className='item-index alpha-index'> {this.renderIndex()} </nav>
           <Shortlist />
           <SongList songs={this.state.songs} index={this.state.index} sortBy={this.state.sortBy} />
         </div>

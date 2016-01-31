@@ -93,11 +93,13 @@ SongList = React.createClass({
     return (
       <div className='song-section'>
         <h3>2015 Song List</h3>
-        <ul className='big-list list'>
-          {songs.map((song, i) => {
-            return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs}  />;
-          })}
-        </ul>
+        <div className='scroller'>
+          <ul className='big-list list'>
+            {songs.map((song, i) => {
+              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs}  />;
+            })}
+          </ul>
+        </div>
       </div>
     );
   }
