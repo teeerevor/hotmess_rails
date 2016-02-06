@@ -34,7 +34,7 @@ SongAudio = React.createClass({
     $('.song-audio').fitVids()
   },
   onPlayerReady: function(e){
-    //e.target.playVideo();
+    e.target.playVideo();
   },
   onPlayerStateChange: function(e){
     //BUFFERING: 3 CUED: 5 ENDED: 0 PAUSED: 2 PLAYING: 1 UNSTARTED: -1

@@ -9,8 +9,8 @@ Song = React.createClass({
           {this.renderWaypoint()}
           {this.renderAudio()}
         </div>
-        <button onClick={this.shortlistTop} > <InlineSvg iconClass={'icon-top'} iconName={'#up-arrow'} /> </button>
-        <button onClick={this.shortlistAdd} > <InlineSvg iconClass={'icon-plus'} iconName={'#plus'} /> </button>
+        <button className='circle-button' onClick={this.shortlistTop} > <InlineSvg iconClass={'icon-top'} iconName={'#arrow-circ'} /> </button>
+        <button className='circle-button' onClick={this.shortlistAdd} > <InlineSvg iconClass={'icon-plus'} iconName={'#plus-circ'} /> </button>
       </li>
     );
   },

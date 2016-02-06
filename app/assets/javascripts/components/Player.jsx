@@ -11,8 +11,8 @@ Player = React.createClass({
     if(this.state.song.id == 0){
       return(
         <div className='play-random'>
-          <button className='random' onClick={this.playRandom}>
-            <InlineSvg iconClass={'icon-play'} iconName={'#play'} />
+          <button className='random circle-button' onClick={this.playRandom}>
+            <InlineSvg iconClass={'icon-play'} iconName={'#play-circ'} />
           </button>
           <div className="i-feel-lucky">
             Fuck it, I feel lucky
@@ -32,14 +32,14 @@ Player = React.createClass({
             { this.state.song.artistName }
         </div>
         <div className='player-buttons'>
-          <button className='back' onClick={this.back}>
+          <button className='back small-button' onClick={this.back}>
             <InlineSvg iconClass={'icon-rewind'} iconName={'#rewind'} />
           </button>
           {this.renderPlayPause()}
-          <button className='forward' onClick={this.forward}>
+          <button className='forward small-button' onClick={this.forward}>
             <InlineSvg iconClass={'icon-fastforward'} iconName={'#fastforward'} />
           </button>
-          <button className='continuous' onClick={this.continuous}>
+          <button className='continuous small-button' onClick={this.continuous}>
             <InlineSvg iconClass={'icon-continuous'} iconName={'#continue'} />
           </button>
         </div>
@@ -50,14 +50,14 @@ Player = React.createClass({
   renderPlayPause: function(){
     if(this.state.playing){
       return(
-          <button className='pause' onClick={this.pause}>
-            <InlineSvg iconClass={'icon-pause'} iconName={'#pause'} />
+          <button className='pause circle-button' onClick={this.pause}>
+            <InlineSvg iconClass={'icon-pause'} iconName={'#pause-circ'} />
           </button>
       );
     }else{
       return(
-        <button className='play' onClick={this.play}>
-          <InlineSvg iconClass={'icon-play'} iconName={'#play'} />
+        <button className='play circle-button' onClick={this.play}>
+          <InlineSvg iconClass={'icon-play'} iconName={'#play-circ'} />
         </button>
       );
     }

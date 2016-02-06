@@ -1,0 +1,15 @@
+$button-grey: #aaa
+$button-red: tomato
+$button-size: 35px
+$button-size-small: 20px
+
+=circle-button-colours
+  border-radius: $button-size
+  svg
+    fill: white
+    color: $button-grey
+  &:hover
+    svg
+      -webkit-filter: drop-shadow(0 3px 2px rgba(0,0,0,0.2))
+      filter: drop-shadow(0 3px 2px rgba(0,0,0,0.2))
+      color: $button-red

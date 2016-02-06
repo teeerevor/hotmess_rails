@@ -29,8 +29,8 @@ ShortlistSong = React.createClass({
         </span>
         </div>
         </div>
-        <button onClick={this.shortlistMoveTop} > <InlineSvg iconClass={'icon-top'} iconName={'#up-arrow'} /> </button>
-        <button onClick={this.shortlistRemove} > <InlineSvg iconClass={'icon-cross'} iconName={'#cross'} /> </button>
+        <button onClick={this.shortlistMoveTop} > <InlineSvg iconClass={'icon-top'} iconName={'#arrow-circ'} /> </button>
+        <button onClick={this.shortlistRemove} > <InlineSvg iconClass={'icon-cross'} iconName={'#cross-circ'} /> </button>
       </li>
     );
   }
