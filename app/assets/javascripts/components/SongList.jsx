@@ -30,7 +30,7 @@ Sorter = {
   },
 
   handleEnd(startLetter){
-    var endRegex = /|^x|^y|^z/i;
+    var endRegex = /^x|^y|^z/i;
     if(!endRegex.test(startLetter)){
       sequence = this.getLetterSequence(startLetter, 'z');
       return RegExp(sequence + endPostfix.source, 'i');
@@ -41,13 +41,8 @@ Sorter = {
   getSongFilter(startLetter, endLetter){
     if(startLetter == 'top')
       return this.handleTop(endLetter);
-
-    switch(endLetter){
-      case 'x':
-      case 'y':
-      case 'z':
-        return this.handleEnd(startLetter);
-    }
+    if(startLetter == 'xyz')
+      return this.handleEnd(startLetter);
 
     sequence = this.getLetterSequence(startLetter, endLetter);
     return RegExp(sequence, 'i');
