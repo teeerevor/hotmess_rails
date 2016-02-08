@@ -1,7 +1,10 @@
 Player = React.createClass({
   render(){
+    var classes = ['player'];
+    if(this.state.continuousPlay)
+      classes.push('continuousPlay');
     return(
-      <div className='player is-paused'>
+      <div className={classes.join(' ')}>
         {this.renderRandom()}
         {this.renderPlayer()}
       </div>
@@ -32,14 +35,14 @@ Player = React.createClass({
             { this.state.song.artistName }
         </div>
         <div className='player-buttons'>
-          <button className='back small-button' onClick={this.back}>
+          <button className='back small-button' onClick={this.previous}>
             <InlineSvg iconClass={'icon-rewind'} iconName={'#rewind'} />
           </button>
           {this.renderPlayPause()}
-          <button className='forward small-button' onClick={this.forward}>
+          <button className='forward small-button' onClick={this.next}>
             <InlineSvg iconClass={'icon-fastforward'} iconName={'#fastforward'} />
           </button>
-          <button className='continuous small-button' onClick={this.continuous}>
+          <button className='continuous small-button' onClick={this.continuousToggle}>
             <InlineSvg iconClass={'icon-continuous'} iconName={'#continue'} />
           </button>
         </div>
@@ -65,7 +68,8 @@ Player = React.createClass({
   getInitialState: function(){
     return {
       song: {id:0},
-      playing: false
+      playing: false,
+      continuousPlay: false
     };
   },
   componentWillMount: function() {
@@ -75,6 +79,10 @@ Player = React.createClass({
     }.bind(this));
     this.pubsubPlay = PubSub.subscribe('ytSongPause', function(topic, song) {
       player.setState({ playing: false });
+    }.bind(this));
+    this.pubsubSongEnd = PubSub.subscribe('ytSongEnd', function(topic, song) {
+      if(player.state.continuousPlay)
+        player.next();
     }.bind(this));
   },
   componentWillUnmount: function() {
@@ -93,13 +101,14 @@ Player = React.createClass({
   playRandom: function(){
     this.setState({song: ['a']});
   },
-  back: function(){
-    console.log('back');
+  previous: function(){
+    PubSub.publish( 'playerPrev', this.state.song);
   },
-  forward: function(){
-    console.log('forward');
+  next: function(){
+    PubSub.publish( 'playerNext', this.state.song);
   },
-  continuous: function(){
-    console.log('continuous');
+  continuousToggle: function(){
+    var state = this.state.continuousPlay ? false : true;
+    this.setState({continuousPlay: state});
   }
 });

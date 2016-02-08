@@ -9,7 +9,6 @@ Sorter = {
         return String.fromCharCode(letter.charCodeAt(letter.length-1)+1);
     }
   },
-
   getLetterSequence(start, end){
     //returns eg ^a|^b
     var letterSet = [];
@@ -19,7 +18,6 @@ Sorter = {
     }
     return letterSet.join('|');
   },
-
   handleTop(endLetter){
     var topRegex = /^\W|^\d|^a|/i;
     if(endLetter != 'top'){
@@ -28,7 +26,6 @@ Sorter = {
     }
     return topRegex;
   },
-
   handleEnd(startLetter){
     var endRegex = /^x|^y|^z/i;
     if(!endRegex.test(startLetter)){
@@ -37,7 +34,6 @@ Sorter = {
     }
     return endRegex;
   },
-
   getSongFilter(startLetter, endLetter){
     if(startLetter == 'top')
       return this.handleTop(endLetter);
@@ -47,7 +43,6 @@ Sorter = {
     sequence = this.getLetterSequence(startLetter, endLetter);
     return RegExp(sequence, 'i');
   },
-
   filterSongs(songs, filterBy, startsWith, endsWith){
     var songFilter = this.getSongFilter(startsWith, endsWith);
     return songs.filter((song) => {
@@ -62,27 +57,6 @@ Sorter = {
 };
 
 SongList = React.createClass({
-  getInitialState: function() {
-    return {
-      startFilter: this.props.index,
-      endFilter: this.props.index
-    };
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    this.setState({
-      startFilter: nextProps.index,
-      endFilter: nextProps.index
-    });
-  },
-
-  showMore(){
-    var moreIndex = Sorter.getNextLetter(this.state.endFilter);
-    this.setState({
-      endFilter: moreIndex
-    });
-  },
-
   render() {
     var songs = Sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, this.state.endFilter);
     return (
@@ -91,13 +65,54 @@ SongList = React.createClass({
         <div className='scroller'>
           <ul className='big-list list'>
             {songs.map((song, i) => {
-              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs}  />;
+              if(this.open(i))
+                debugger
+
+              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} open={this.open(i)} />;
             })}
           </ul>
         </div>
       </div>
     );
+  },
+  getInitialState: function() {
+    return {
+      startFilter: this.props.index,
+      endFilter: this.props.index,
+      switchTo: ''
+    };
+  },
+  componentWillMount: function() {
+    var songList =  this
+    this.pubsubNext = PubSub.subscribe('playerNext', function(topic, currentSong) {
+      this.setState({currentSong: currentSong, switchTo: 'next'})
+    }.bind(this));
+    this.pubsubPrev = PubSub.subscribe('playerPrevious', function(topic, currentSong) {
+      this.setState({currentSong: currentSong, switchTo: 'previous'})
+    }.bind(this));
+  },
+  componentWillUnmount: function() {
+    PubSub.unsubscribe(this.pubsubNext);
+    PubSub.unsubscribe(this.pubsubPrev);
+  },
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      startFilter: nextProps.index,
+      endFilter: nextProps.index
+    });
+  },
+  showMore(){
+    var moreIndex = Sorter.getNextLetter(this.state.endFilter);
+    this.setState({
+      endFilter: moreIndex
+    });
+  },
+  open: function(songIndex){
+    var open = false;
+    if(this.state.switchTo === 'next' && songIndex > 0 && this.props.songs[songIndex - 1].id === this.state.currentSong.id )
+      open = true;
+    if(this.state.switchTo === 'previous' && songIndex < this.props.songs.length && this.props.songs[songIndex + 1].id === this.state.currentSong.id )
+      open = true;
+    return open;
   }
 });
-
-

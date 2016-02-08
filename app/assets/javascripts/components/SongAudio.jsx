@@ -12,7 +12,7 @@ SongAudio = React.createClass({
     this.pubsubPlay = PubSub.subscribe('playerPlay', function(topic, song) {
       thisPlayer.play(song);
     }.bind(this));
-    this.pubsubPlay = PubSub.subscribe('playerPause', function(topic) {
+    this.pubsubPause = PubSub.subscribe('playerPause', function(topic) {
       thisPlayer.pause();
     }.bind(this));
   },

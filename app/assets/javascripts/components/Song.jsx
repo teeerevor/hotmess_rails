@@ -1,9 +1,7 @@
 Song = React.createClass({
   render() {
-    const songClassName = false ? "opened" : "";
-
     return (
-      <li className={'song '+songClassName}>
+      <li className={'song'}>
         <div className='song-display' onClick={this.toggleDisplay}>
           {this.arrangeSongInfo()}
           {this.renderWaypoint()}
@@ -25,12 +23,13 @@ Song = React.createClass({
       return <SongAudio song={this.props.song} />
   },
   getInitialState: function() {
+    if(this.props.open == false)
+      debugger
     return {
       includeWaypoint: true,
-      open: false
+      open: this.props.open
     };
   },
-
   arrangeSongInfo(){
     if(this.props.sortBy == 'song')
       return (<span className="text">
