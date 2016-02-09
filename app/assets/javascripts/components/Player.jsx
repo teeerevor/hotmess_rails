@@ -77,18 +77,23 @@ Player = React.createClass({
     this.pubsubPlay = PubSub.subscribe('ytSongPlay', function(topic, song) {
       player.setState({ playing: true, song: song });
     }.bind(this));
-    this.pubsubPlay = PubSub.subscribe('ytSongPause', function(topic, song) {
+    this.pubsubPause = PubSub.subscribe('ytSongPause', function(topic, song) {
       player.setState({ playing: false });
     }.bind(this));
     this.pubsubSongEnd = PubSub.subscribe('ytSongEnd', function(topic, song) {
       if(player.state.continuousPlay)
         player.next();
     }.bind(this));
+    this.pubsubUpdateSong = PubSub.subscribe('updateCurrentSong', function(topic, song) {
+      console.log('received updateCurrentSong');
+      player.setState({ playing: false, song: song });
+    }.bind(this));
   },
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubPlay);
     PubSub.unsubscribe(this.pubsubPause);
-    //PubSub.unsubscribe(this.pubsubMoveTop);
+    PubSub.unsubscribe(this.pubsubEnd);
+    PubSub.unsubscribe(this.pubsubUpdateSong);
   },
   play: function(){
     this.setState({ playing: true });
@@ -102,7 +107,7 @@ Player = React.createClass({
     this.setState({song: ['a']});
   },
   previous: function(){
-    PubSub.publish( 'playerPrev', this.state.song);
+    PubSub.publish( 'playerPrevious', this.state.song);
   },
   next: function(){
     PubSub.publish( 'playerNext', this.state.song);

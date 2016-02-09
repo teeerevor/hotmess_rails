@@ -19,16 +19,31 @@ Song = React.createClass({
       return <Waypoint className='waypoint' onEnter={this.handleWaypointEnter} threshold={0.2} />
   },
   renderAudio: function(){
-    if( this.state.open)
+    if( this.state.open || this.props.openOnLoad )
       return <SongAudio song={this.props.song} />
   },
   getInitialState: function() {
-    if(this.props.open == false)
+    if(this.props.openOnLoad)
       debugger
     return {
       includeWaypoint: true,
-      open: this.props.open
+      open: this.props.openOnLoad
     };
+  },
+  componentWillMount: function() {
+    var song =  this
+    this.pubsubNext = PubSub.subscribe('playerNext', function(topic, currentSong) {
+      if( currentSong.id === song.props.song.id)
+        song.toggleDisplay();
+    }.bind(this));
+    this.pubsubPrev = PubSub.subscribe('playerPrevious', function(topic, currentSong){
+      if( currentSong.id === song.props.song.id)
+        song.toggleDisplay();
+    }.bind(this));
+  },
+  componentWillUnmount: function() {
+    PubSub.unsubscribe(this.pubsubNext);
+    PubSub.unsubscribe(this.pubsubPrev);
   },
   arrangeSongInfo(){
     if(this.props.sortBy == 'song')

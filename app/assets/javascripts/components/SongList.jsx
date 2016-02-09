@@ -58,6 +58,7 @@ Sorter = {
 
 SongList = React.createClass({
   render() {
+    var songList = this;
     var songs = Sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, this.state.endFilter);
     return (
       <div className='song-section'>
@@ -65,10 +66,7 @@ SongList = React.createClass({
         <div className='scroller'>
           <ul className='big-list list'>
             {songs.map((song, i) => {
-              if(this.open(i))
-                debugger
-
-              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} open={this.open(i)} />;
+              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} openOnLoad={songList.openSong(i)} />;
             })}
           </ul>
         </div>
@@ -76,19 +74,23 @@ SongList = React.createClass({
     );
   },
   getInitialState: function() {
+    this.nextSong = {id: 0}
     return {
       startFilter: this.props.index,
       endFilter: this.props.index,
-      switchTo: ''
+      switchTo: '',
+      currentSong: {id: -1}
     };
   },
   componentWillMount: function() {
-    var songList =  this
+    var songList =  this;
     this.pubsubNext = PubSub.subscribe('playerNext', function(topic, currentSong) {
-      this.setState({currentSong: currentSong, switchTo: 'next'})
+      songList.setState({currentSong: currentSong, switchTo: 'next'})
+      this.nextSong = currentSong;
     }.bind(this));
     this.pubsubPrev = PubSub.subscribe('playerPrevious', function(topic, currentSong) {
-      this.setState({currentSong: currentSong, switchTo: 'previous'})
+      songList.setState({currentSong: currentSong, switchTo: 'previous'})
+      this.nextSong = currentSong;
     }.bind(this));
   },
   componentWillUnmount: function() {
@@ -107,12 +109,27 @@ SongList = React.createClass({
       endFilter: moreIndex
     });
   },
-  open: function(songIndex){
-    var open = false;
-    if(this.state.switchTo === 'next' && songIndex > 0 && this.props.songs[songIndex - 1].id === this.state.currentSong.id )
-      open = true;
-    if(this.state.switchTo === 'previous' && songIndex < this.props.songs.length && this.props.songs[songIndex + 1].id === this.state.currentSong.id )
-      open = true;
-    return open;
+  openSong: function(songIndex){
+    if( this.state.currentSong.id == this.nextSong.id){
+      if( this.isNextSong(songIndex) || this.isPreviousSong(songIndex)){
+        console.log('pub updateCurrentSong');
+        this.nextSong = this.props.songs[songIndex];
+        PubSub.publish('updateCurrentSong', this.nextSong)
+        return true;
+      }
+    }
+    return false;
+  },
+  isNextSong: function(songIndex){
+    var next = this.state.switchTo === 'next';
+    var notFirstItem = songIndex > 0;
+    var nextSongTest = next && notFirstItem && this.props.songs[songIndex - 1].id === this.state.currentSong.id;
+    return nextSongTest;
+  },
+  isPreviousSong: function(songIndex){
+    var prev = this.state.switchTo === 'previous';
+    var notLastItem = songIndex < this.props.songs.length;
+    var prevSongTest = prev && notLastItem && this.props.songs[songIndex + 1].id === this.state.currentSong.id;
+    return prevSongTest;
   }
 });

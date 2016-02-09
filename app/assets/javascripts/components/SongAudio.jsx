@@ -19,7 +19,7 @@ SongAudio = React.createClass({
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubPlay);
     PubSub.unsubscribe(this.pubsubPause);
-    //PubSub.unsubscribe(this.pubsubMoveTop);
+    this.player = {};
   },
   componentDidMount: function() {
     var videoId = this.props.song.youtube_url;
