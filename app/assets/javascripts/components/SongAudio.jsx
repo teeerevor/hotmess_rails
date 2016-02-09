@@ -19,7 +19,8 @@ SongAudio = React.createClass({
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubPlay);
     PubSub.unsubscribe(this.pubsubPause);
-    this.player = {};
+    this.player.stopVideo();
+    delete player;
   },
   componentDidMount: function() {
     var videoId = this.props.song.youtube_url;
@@ -47,7 +48,6 @@ SongAudio = React.createClass({
         break;
       case YT.PlayerState.ENDED:
         PubSub.publish( 'ytSongEnded', this.props.song);
-        console.log('ytsongEnd')
         break;
     }
   },

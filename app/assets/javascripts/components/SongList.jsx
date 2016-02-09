@@ -66,7 +66,9 @@ SongList = React.createClass({
         <div className='scroller'>
           <ul className='big-list list'>
             {songs.map((song, i) => {
-              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} openOnLoad={songList.openSong(i)} />;
+              song.index = i;
+              var openSong = songList.state.currentSong.index === i;
+              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} open={openSong} />;
             })}
           </ul>
         </div>
@@ -74,23 +76,20 @@ SongList = React.createClass({
     );
   },
   getInitialState: function() {
-    this.nextSong = {id: 0}
+    this.nextSongPos = '';
     return {
       startFilter: this.props.index,
       endFilter: this.props.index,
-      switchTo: '',
       currentSong: {id: -1}
     };
   },
   componentWillMount: function() {
     var songList =  this;
     this.pubsubNext = PubSub.subscribe('playerNext', function(topic, currentSong) {
-      songList.setState({currentSong: currentSong, switchTo: 'next'})
-      this.nextSong = currentSong;
+      songList.getNextSong(currentSong);
     }.bind(this));
     this.pubsubPrev = PubSub.subscribe('playerPrevious', function(topic, currentSong) {
-      songList.setState({currentSong: currentSong, switchTo: 'previous'})
-      this.nextSong = currentSong;
+      songList.getPreviousSong(currentSong);
     }.bind(this));
   },
   componentWillUnmount: function() {
@@ -109,27 +108,14 @@ SongList = React.createClass({
       endFilter: moreIndex
     });
   },
-  openSong: function(songIndex){
-    if( this.state.currentSong.id == this.nextSong.id){
-      if( this.isNextSong(songIndex) || this.isPreviousSong(songIndex)){
-        console.log('pub updateCurrentSong');
-        this.nextSong = this.props.songs[songIndex];
-        PubSub.publish('updateCurrentSong', this.nextSong)
-        return true;
-      }
-    }
-    return false;
+  getNextSong: function(song){
+    var nextSong = this.props.songs[song.index + 1];
+    PubSub.publish('updateCurrentSong', nextSong);
+    this.setState({currentSong: nextSong});
   },
-  isNextSong: function(songIndex){
-    var next = this.state.switchTo === 'next';
-    var notFirstItem = songIndex > 0;
-    var nextSongTest = next && notFirstItem && this.props.songs[songIndex - 1].id === this.state.currentSong.id;
-    return nextSongTest;
-  },
-  isPreviousSong: function(songIndex){
-    var prev = this.state.switchTo === 'previous';
-    var notLastItem = songIndex < this.props.songs.length;
-    var prevSongTest = prev && notLastItem && this.props.songs[songIndex + 1].id === this.state.currentSong.id;
-    return prevSongTest;
+  getPreviousSong: function(song){
+    var nextSong = this.props.songs[song.index - 1];
+    PubSub.publish('updateCurrentSong', nextSong);
+    this.setState({currentSong: nextSong});
   }
 });

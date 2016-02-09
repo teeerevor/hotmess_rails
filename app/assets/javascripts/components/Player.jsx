@@ -25,7 +25,6 @@ Player = React.createClass({
     }
   },
   renderPlayer: function(){
-    //<InlineSvg iconClass={'icon-pause pause'} iconName={'#pause'} />
     if(this.state.song.id != 0){
       return(
         <div>
@@ -80,12 +79,11 @@ Player = React.createClass({
     this.pubsubPause = PubSub.subscribe('ytSongPause', function(topic, song) {
       player.setState({ playing: false });
     }.bind(this));
-    this.pubsubSongEnd = PubSub.subscribe('ytSongEnd', function(topic, song) {
+    this.pubsubSongEnd = PubSub.subscribe('ytSongEnded', function(topic, song) {
       if(player.state.continuousPlay)
         player.next();
     }.bind(this));
     this.pubsubUpdateSong = PubSub.subscribe('updateCurrentSong', function(topic, song) {
-      console.log('received updateCurrentSong');
       player.setState({ playing: false, song: song });
     }.bind(this));
   },
