@@ -58,17 +58,15 @@ Sorter = {
 
 SongList = React.createClass({
   render() {
-    var songList = this;
-    var songs = Sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, this.state.endFilter);
     return (
       <div className='song-section'>
         <h3>2015 Song List</h3>
         <div className='scroller'>
           <ul className='big-list list'>
-            {songs.map((song, i) => {
+            {this.state.songs.map((song, i) => {
               song.index = i;
-              var openSong = songList.state.currentSong.index === i;
-              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={songs} open={openSong} />;
+              var openSong = this.state.currentSong.index === i;
+              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} />;
             })}
           </ul>
         </div>
@@ -80,7 +78,8 @@ SongList = React.createClass({
     return {
       startFilter: this.props.index,
       endFilter: this.props.index,
-      currentSong: {id: -1}
+      currentSong: {id: -1},
+      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
     };
   },
   componentWillMount: function() {
@@ -98,23 +97,26 @@ SongList = React.createClass({
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({
+      currentSong: {id: -1},
       startFilter: nextProps.index,
-      endFilter: nextProps.index
+      endFilter: nextProps.index,
+      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
     });
   },
   showMore(){
     var moreIndex = Sorter.getNextLetter(this.state.endFilter);
     this.setState({
-      endFilter: moreIndex
+      endFilter: moreIndex,
+      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
     });
   },
   getNextSong: function(song){
-    var nextSong = this.props.songs[song.index + 1];
+    var nextSong = this.state.songs[song.index + 1];
     PubSub.publish('updateCurrentSong', nextSong);
     this.setState({currentSong: nextSong});
   },
   getPreviousSong: function(song){
-    var nextSong = this.props.songs[song.index - 1];
+    var nextSong = this.state.songs[song.index - 1];
     PubSub.publish('updateCurrentSong', nextSong);
     this.setState({currentSong: nextSong});
   }
