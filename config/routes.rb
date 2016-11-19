@@ -12,4 +12,6 @@ HotmessRails::Application.routes.draw do
 
   get 'songs' => 'songs#index'
   get '/:email' => 'short_lists#show', :email => /.*/
+
+  mount MagicLamp::Genie, at: "/magic_lamp" if defined?(MagicLamp)
 end

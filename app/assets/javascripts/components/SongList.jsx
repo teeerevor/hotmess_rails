@@ -1,60 +1,4 @@
-Sorter = {
-  getNextLetter(letter){
-    switch(letter){
-      case 'top':
-        return 'a';
-      case 'z':
-        return 'z';
-      default :
-        return String.fromCharCode(letter.charCodeAt(letter.length-1)+1);
-    }
-  },
-  getLetterSequence(start, end){
-    //returns eg ^a|^b
-    var letterSet = [];
-    for(letter = start;; letter = this.getNextLetter(letter)){
-      letterSet.push('^'+letter);
-      if (letter == end) break;
-    }
-    return letterSet.join('|');
-  },
-  handleTop(endLetter){
-    var topRegex = /^\W|^\d|^a|/i;
-    if(endLetter != 'top'){
-      sequence = this.getLetterSequence('a', endLetter);
-      return RegExp(topRegex.source + sequence, 'i');
-    }
-    return topRegex;
-  },
-  handleEnd(startLetter){
-    var endRegex = /^x|^y|^z/i;
-    if(!endRegex.test(startLetter)){
-      sequence = this.getLetterSequence(startLetter, 'z');
-      return RegExp(sequence + endPostfix.source, 'i');
-    }
-    return endRegex;
-  },
-  getSongFilter(startLetter, endLetter){
-    if(startLetter == 'top')
-      return this.handleTop(endLetter);
-    if(startLetter == 'xyz')
-      return this.handleEnd(startLetter);
-
-    sequence = this.getLetterSequence(startLetter, endLetter);
-    return RegExp(sequence, 'i');
-  },
-  filterSongs(songs, filterBy, startsWith, endsWith){
-    var songFilter = this.getSongFilter(startsWith, endsWith);
-    return songs.filter((song) => {
-      switch(filterBy){
-        case 'song':
-          return songFilter.test(song.name);
-        case 'artist':
-          return songFilter.test(song.artist_name);
-      }
-    });
-  }
-};
+sorter = window.listSorter;
 
 SongList = React.createClass({
   render() {
@@ -79,7 +23,7 @@ SongList = React.createClass({
       startFilter: this.props.index,
       endFilter: this.props.index,
       currentSong: {id: -1},
-      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
+      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
     };
   },
   componentWillMount: function() {
@@ -100,14 +44,14 @@ SongList = React.createClass({
       currentSong: {id: -1},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
-      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
+      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
     });
   },
   showMore(){
-    var moreIndex = Sorter.getNextLetter(this.state.endFilter);
+    var moreIndex = sorter.getNextLetter(this.state.endFilter);
     this.setState({
       endFilter: moreIndex,
-      songs: Sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
+      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
     });
   },
   getNextSong: function(song){

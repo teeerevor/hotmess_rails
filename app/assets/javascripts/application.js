@@ -16,5 +16,6 @@
 //= require vendor
 //= require react
 //= require react_ujs
+//= require listSorter
 //= require components
 //= require_tree .
