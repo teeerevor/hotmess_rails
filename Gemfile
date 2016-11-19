@@ -50,6 +50,7 @@ group :development, :test do
   gem 'fuubar', require: false                           # rspec progress bar formatter
   gem 'rspec-rails', require: false                      # test framework
   gem 'teaspoon-mocha'
+  gem 'guard-teaspoon'
   gem 'phantomjs'
   gem 'magic_lamp'
 end
