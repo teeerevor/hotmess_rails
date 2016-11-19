@@ -81,6 +81,7 @@
       window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
       window.urlEmail = '#{@email}'
       window.urlYear = '#{@year}'
+      Launcher.init();
 
       //load youtube vid api
       var tag = document.createElement('script');
