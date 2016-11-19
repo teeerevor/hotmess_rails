@@ -1,4 +1,4 @@
-sorter = window.listSorter;
+filter = window.songListFilter;
 
 SongList = React.createClass({
   render() {
@@ -23,7 +23,7 @@ SongList = React.createClass({
       startFilter: this.props.index,
       endFilter: this.props.index,
       currentSong: {id: -1},
-      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
+      songs: filter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
     };
   },
   componentWillMount: function() {
@@ -44,14 +44,14 @@ SongList = React.createClass({
       currentSong: {id: -1},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
-      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
+      songs: filter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
     });
   },
   showMore(){
-    var moreIndex = sorter.getNextLetter(this.state.endFilter);
+    var moreIndex = filter.getNextLetter(this.state.endFilter);
     this.setState({
       endFilter: moreIndex,
-      songs: sorter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
+      songs: filter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
     });
   },
   getNextSong: function(song){

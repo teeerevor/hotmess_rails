@@ -1,4 +1,4 @@
-class @ListSorter
+class @SongListFilter
   getNextLetter: (letter) ->
     switch letter
       when 'top'
@@ -10,12 +10,14 @@ class @ListSorter
     return
 
   getLetterSequence: (start, end) ->
-    #returns eg ^a|^b
+    #returns ^a|^b for regex
+    start = start.toLowerCase()
+    end = end.toLowerCase()
     letterSet = []
     letter = start
     loop
       letterSet.push '^' + letter
-      if letter == end
+      if letter == end || letter =='z'
         break
       letter = @getNextLetter(letter)
     letterSet.join '|'
@@ -31,7 +33,7 @@ class @ListSorter
     endRegex = /^x|^y|^z/i
     if !endRegex.test(startLetter)
       sequence = @getLetterSequence(startLetter, 'z')
-      return RegExp(sequence + endPostfix.source, 'i')
+      return RegExp(sequence + endRegex.source, 'i')
     endRegex
 
   getSongFilter: (startLetter, endLetter) ->
