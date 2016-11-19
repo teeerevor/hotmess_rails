@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.3"
+ruby "2.3.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
@@ -36,7 +36,7 @@ gem 'nokogiri'
 gem 'googleajax'
 
 group :development do
-  gem 'thin' # a bit faster than webrick
+  gem 'puma' # a bit faster than webrick
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-rails'
@@ -46,11 +46,12 @@ group :development do
   gem 'html2haml', '~> 2.0.0.beta.1'
 end
 
-group :test do
+group :development, :test do
   gem 'fuubar', require: false                           # rspec progress bar formatter
   gem 'rspec-rails', require: false                      # test framework
-  gem 'rspec-subject_call'                               # convenient rspec extensions by yours truly
-  gem 'shoulda-matchers'                                 # rails test assertions
+  gem 'teaspoon-mocha'
+  gem 'phantomjs'
+  gem 'magic_lamp'
 end
 
 #for heroku
