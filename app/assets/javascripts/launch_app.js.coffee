@@ -1,4 +1,3 @@
-#window.gon |= {}
 window.Launcher = {
   init: ->
     @loadBackbone()
@@ -85,6 +84,3 @@ window.Launcher = {
   hasLocalStorage: ->
     Modernizr.localstorage
 }
-
-$ ->
-  #Launcher.init()

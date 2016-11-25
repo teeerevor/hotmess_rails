@@ -1,4 +1,5 @@
-filter = window.songListFilter;
+#= require songListFilter
+filter = new SongListFilter();
 
 SongList = React.createClass({
   render() {
