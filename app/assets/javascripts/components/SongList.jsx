@@ -5,13 +5,17 @@ SongList = React.createClass({
   render() {
     return (
       <div className='song-section'>
+        <nav className='toggle-sort'>
+          <a onClick={this.toggleSortOrder}>{this.getSorterButtonLabel()}</a>
+        </nav>
         <h3>2015 Song List</h3>
         <div className='scroller'>
           <ul className='big-list list'>
+            {console.log(this.state) }
             {this.state.songs.map((song, i) => {
               song.index = i;
               var openSong = this.state.currentSong.index === i;
-              return <Song key={song.id} {...this.props} songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} />;
+              return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} />;
             })}
           </ul>
         </div>
@@ -19,12 +23,14 @@ SongList = React.createClass({
     );
   },
   getInitialState: function() {
-    this.nextSongPos = '';
+    var sortBy = 'song';
     return {
+      sortBy:      sortBy,
       startFilter: this.props.index,
-      endFilter: this.props.index,
+      endFilter:   this.props.index,
       currentSong: {id: -1},
-      songs: filter.filterSongs(this.props.songs, this.props.sortBy, this.props.index, this.props.index)
+      songData: this.props.songs,
+      songs: filter.filterSongs(this.props.songs, sortBy, this.props.index, this.props.index)
     };
   },
   componentWillMount: function() {
@@ -45,14 +51,35 @@ SongList = React.createClass({
       currentSong: {id: -1},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
-      songs: filter.filterSongs(this.props.songs, this.props.sortBy, nextProps.index, nextProps.index)
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index)
     });
   },
-  showMore(){
+  getSorterButtonLabel: function(){
+    var sortBtnText = 'Sorted by ';
+    return sortBtnText + this.state.sortBy;
+  },
+  toggleSortOrder: function(){
+    var newSortBy, songdata;
+    if( this.state.sortBy == 'song' ){
+      newSortBy =  'artist';
+      songData  = this.props.songs;
+    } else {
+      newSortBy = 'song';
+      songData  = this.props.artistSongs;
+    }
+
+    this.setState({
+      index:  'top',
+      sortBy: newSortBy,
+      songData: songData,
+      songs: filter.filterSongs(songData, newSortBy, 'top', 'top')
+    });
+  },
+  showMore: function(){
     var moreIndex = filter.getNextLetter(this.state.endFilter);
     this.setState({
       endFilter: moreIndex,
-      songs: filter.filterSongs(this.props.songs, this.props.sortBy, this.state.startFilter, moreIndex)
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
     });
   },
   getNextSong: function(song){

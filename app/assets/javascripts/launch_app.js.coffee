@@ -41,7 +41,7 @@ window.Launcher = {
     #else
       #window.songsList = new Hotmess.Collections.Songs()
       #load the rest later
-    ReactDOM.render(React.createElement(App, {songs: gon.songs}), document.getElementById("react"))
+    ReactDOM.render(React.createElement(App, {songs: gon.songs, artistSongs: gon.songs_by_artists}), document.getElementById("react"))
     #ReactDOM.render(React.createElement(App, {songs: gon.initial_songs}), document.getElementById("react"))
     ReactDOM.render(React.createElement(Player), document.getElementById("player"))
 
