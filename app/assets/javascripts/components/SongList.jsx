@@ -68,8 +68,6 @@ SongList = React.createClass({
       songData  = this.props.songs;
     }
 
-    console.log('-----state-------');
-    console.log('sortBy ='+newSortBy)
     this.setState({
       index:  'top',
       sortBy: newSortBy,
