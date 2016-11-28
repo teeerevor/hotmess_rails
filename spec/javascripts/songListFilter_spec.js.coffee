@@ -70,13 +70,13 @@ describe 'SongListFilter', ->
   describe 'filterSongs', ->
     aagg =
       name: 'aa'
-      artist_name: 'gg'
+      artistName: 'gg'
     bbee =
       name: 'bb'
-      artist_name: 'ee'
+      artistName: 'ee'
     ccdd =
       name: 'cc'
-      artist_name: 'dd'
+      artistName: 'dd'
 
     songs = [ aagg,bbee,ccdd ]
 

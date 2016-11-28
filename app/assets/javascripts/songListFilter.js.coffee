@@ -51,4 +51,4 @@ class @SongListFilter
         when 'song'
           return songFilter.test(song.name)
         when 'artist'
-          return songFilter.test(song.artist_name)
+          return songFilter.test(song.artistName)
