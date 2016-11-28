@@ -15,7 +15,7 @@ SongList = React.createClass({
             {this.state.songs.map((song, i) => {
               song.index = i;
               var openSong = this.state.currentSong.index === i;
-              return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} />;
+              return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} sortBy={this.state.sortBy}/>;
             })}
           </ul>
         </div>
@@ -62,12 +62,14 @@ SongList = React.createClass({
     var newSortBy, songdata;
     if( this.state.sortBy == 'song' ){
       newSortBy =  'artist';
-      songData  = this.props.songs;
+      songData  = this.props.artistSongs;
     } else {
       newSortBy = 'song';
-      songData  = this.props.artistSongs;
+      songData  = this.props.songs;
     }
 
+    console.log('-----state-------');
+    console.log('sortBy ='+newSortBy)
     this.setState({
       index:  'top',
       sortBy: newSortBy,
