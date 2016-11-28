@@ -11,7 +11,6 @@ SongList = React.createClass({
         <h3>2015 Song List</h3>
         <div className='scroller'>
           <ul className='big-list list'>
-            {console.log(this.state) }
             {this.state.songs.map((song, i) => {
               song.index = i;
               var openSong = this.state.currentSong.index === i;

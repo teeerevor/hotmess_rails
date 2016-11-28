@@ -30,11 +30,9 @@ Shortlist = React.createClass({
   },
   componentWillMount: function() {
     this.pubsubAdd = PubSub.subscribe('addSong', function(topic, song) {
-      //console.log('pub-addSong');
       this.addSong(song);
     }.bind(this));
     this.pubsubTop = PubSub.subscribe('topSong', function(topic, song) {
-      //console.log('pub-addTop');
       this.addTopSong(song);
     }.bind(this));
     this.pubsubRemove = PubSub.subscribe('removeSong', function(topic, song) {
