@@ -1,14 +1,25 @@
 @import 'mixins.css.sass'
 
 header
+  display: flex
   background-color: #fff
   border-bottom: solid 1px #ccc
 
+  .left, .right
+    width: 250px
+
+  .center
+    flex: 1
+
+  .left, .center, .right
+    display: flex
+    flex-direction: column
+    justify-content: center
+
   .logo
+    margin-left: 20px
     width: 200px
     +transition(all 300ms linear)
-    position: absolute
-    margin: 10px
 
   &.open
     height: 92px
