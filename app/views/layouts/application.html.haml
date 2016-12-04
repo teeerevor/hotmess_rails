@@ -65,15 +65,14 @@
 
     #app.app.hidden
       %header
-        .left
+        .logo-block
           %svg.logo{:viewbox => "0 0 460 79"}
             %use{"xlink:href" => "#logo"}
           .no-svg{style: 'display:none'}
             %img.logo{src:'/assets/hottest100_logo.png'}
           %h1.hidden
             Hotmess100
-        .center
-          #player
+        #player
         -#.right
       #react.hidden
 

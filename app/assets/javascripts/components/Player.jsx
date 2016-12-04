@@ -13,12 +13,12 @@ Player = React.createClass({
   renderRandom: function(){
     if(this.state.song.id == 0){
       return(
-        <div className='play-random'>
+        <div className='player-random'>
           <button className='random circle-button' onClick={this.playRandom}>
             <InlineSvg iconClass={'icon-play'} iconName={'#play-circ'} />
           </button>
           <div className="i-feel-lucky">
-            Fuck it, I feel lucky
+            Fuck it play something
           </div>
         </div>
       );
@@ -27,24 +27,23 @@ Player = React.createClass({
   renderPlayer: function(){
     if(this.state.song.id != 0){
       return(
-        <div>
+        <div className='player-display'>
           <div className='current-song'>
             <b>{ this.state.song.name }</b>
-            &nbsp;-&nbsp;
             { this.state.song.artistName }
-        </div>
-        <div className='player-buttons'>
-          <button className='back small-button' onClick={this.previous}>
-            <InlineSvg iconClass={'icon-rewind'} iconName={'#rewind'} />
-          </button>
-          {this.renderPlayPause()}
-          <button className='forward small-button' onClick={this.next}>
-            <InlineSvg iconClass={'icon-fastforward'} iconName={'#fastforward'} />
-          </button>
-          <button className='continuous small-button' onClick={this.continuousToggle}>
-            <InlineSvg iconClass={'icon-continuous'} iconName={'#continue'} />
-          </button>
-        </div>
+          </div>
+          <div className='player-buttons'>
+            <button className='back small-button' onClick={this.previous}>
+              <InlineSvg iconClass={'icon-rewind'} iconName={'#rewind'} />
+            </button>
+            {this.renderPlayPause()}
+            <button className='forward small-button' onClick={this.next}>
+              <InlineSvg iconClass={'icon-fastforward'} iconName={'#fastforward'} />
+            </button>
+            <button className='continuous small-button' onClick={this.continuousToggle}>
+              <InlineSvg iconClass={'icon-continuous'} iconName={'#continue'} />
+            </button>
+          </div>
         </div>
       );
     }
@@ -102,7 +101,7 @@ Player = React.createClass({
     PubSub.publish( 'playerPause');
   },
   playRandom: function(){
-    this.setState({song: ['a']});
+    PubSub.publish( 'playerRandom');
   },
   previous: function(){
     PubSub.publish( 'playerPrevious', this.state.song);

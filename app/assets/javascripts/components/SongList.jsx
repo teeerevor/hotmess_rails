@@ -40,6 +40,9 @@ SongList = React.createClass({
     this.pubsubPrev = PubSub.subscribe('playerPrevious', function(topic, currentSong) {
       songList.getPreviousSong(currentSong);
     }.bind(this));
+    this.pubsubRandom = PubSub.subscribe('playerRandom', function(topic) {
+      songList.playRandomSong();
+    }.bind(this));
   },
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubNext);
@@ -47,7 +50,7 @@ SongList = React.createClass({
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({
-      currentSong: {id: -1},
+      currentSong: {},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
       songs: filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index)
@@ -68,6 +71,7 @@ SongList = React.createClass({
     }
 
     this.setState({
+      currentSong: {},
       index:  'top',
       sortBy: newSortBy,
       songData: songData,
@@ -90,5 +94,17 @@ SongList = React.createClass({
     var nextSong = this.state.songs[song.index - 1];
     PubSub.publish('updateCurrentSong', nextSong);
     this.setState({currentSong: nextSong});
+  },
+  playRandomSong: function(){
+    var songNumber = Math.round(Math.random() * this.state.songData.length);
+    var song = this.state.songData[songNumber];
+    var songFirstLetter = song.name.charAt(0);
+
+    this.setState({
+      currentSong: song,
+      startFilter: songFirstLetter,
+      endFilter: songFirstLetter,
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
+    });
   }
 });

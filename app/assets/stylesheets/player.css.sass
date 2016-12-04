@@ -2,18 +2,42 @@
 @import 'buttons'
 
 .player
-  margin: 15px 0
-  text-align: center
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 60px
+  width: 100vw
+
+  .player-display
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    height: 60px
+    margin-right: 20px
+    width: 100vw
 
   .current-song
     color: #555
     cursor: pointer
-    margin-bottom: 5px
+    padding-bottom: 2px
+    padding-right: 10px
+    b, span
+      display: block
+      width: 200px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+    b
+      font-size: 18px
+      padding-bottom: 4px
+    span
+      font-size: 14px
 
   .player-buttons
     display: flex
     align-items: center
     justify-content: center
+
 
   button
     margin: 0
@@ -48,7 +72,7 @@
     .icon-continuous
       fill: $button-red
 
-.play-random
+.player-random
   position: relative
   cursor: pointer
   display: inline-block
@@ -64,9 +88,9 @@
 
   .i-feel-lucky
     position: absolute
-    top: 9px
-    left: 25px
-    width: 150px
+    top: 6px
+    left: 35px
+    min-width: 170px
     font-size: 16px
     opacity: 0
     will-change: transform, opacity
