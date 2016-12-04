@@ -29,7 +29,7 @@
           %svg.stereo{:viewbox => "0 0 60.5 73.1"}
             %use{"xlink:href" => "#stereo"}
           .rant
-            Blast the fuck out of 2014's best tunes
+            Blast the fuck out of #{ENV['current_year']}'s best tunes
         %li
           %svg.mixer{:viewbox => "0 0 57.4 63.9"}
             %use{"xlink:href" => "#mixer"}
@@ -84,6 +84,7 @@
       window.iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false )
       window.urlEmail = '#{@email}'
       window.urlYear = '#{@year}'
+      window.hotmess100 = {year:'#{@year}'}
       Launcher.init();
 
       //load youtube vid api

@@ -8,7 +8,7 @@ SongList = React.createClass({
         <nav className='toggle-sort'>
           <a onClick={this.toggleSortOrder}>{this.getSorterButtonLabel()}</a>
         </nav>
-        <h3>2015 Song List</h3>
+        <h3>{window.hotmess100.year} Song List</h3>
         <div className='scroller'>
           <ul className='big-list list'>
             {this.state.songs.map((song, i) => {
