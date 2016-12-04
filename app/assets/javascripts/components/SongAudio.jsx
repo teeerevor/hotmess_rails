@@ -8,7 +8,7 @@ SongAudio = React.createClass({
     );
   },
   componentWillMount: function() {
-    thisPlayer = this;
+    var thisPlayer = this;
     this.pubsubPlay = PubSub.subscribe('playerPlay', function(topic, song) {
       thisPlayer.play(song);
     }.bind(this));
@@ -27,16 +27,14 @@ SongAudio = React.createClass({
     var divId = this.ytDivId();
     this.player = new YT.Player(divId, {
       videoId: videoId,
+      playerVars: { 'autoplay': 1},
       events: {
-        'onReady': this.onPlayerReady,
         'onStateChange': this.onPlayerStateChange
       }
     });
 
+    PubSub.publish( 'playerPause');
     $('.song-audio').fitVids()
-  },
-  onPlayerReady: function(e){
-    e.target.playVideo();
   },
   onPlayerStateChange: function(e){
     //BUFFERING: 3 CUED: 5 ENDED: 0 PAUSED: 2 PLAYING: 1 UNSTARTED: -1
@@ -59,7 +57,9 @@ SongAudio = React.createClass({
       this.player.pauseVideo();
   },
   pause: function(){
-    this.player.pauseVideo();
+    if(this.player.pauseVideo){
+      this.player.pauseVideo();
+    }
   },
   ytDivId: function(){
     return 'yt-video-'+this.props.song.youtube_url;
