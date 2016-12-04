@@ -2,7 +2,7 @@ SongAudio = React.createClass({
   render(){
     return (
       <div className='song-audio'>
-        <div id='yt-video' />
+        <div id={this.ytDivId()} />
         <div id='jjj-audio' />
       </div>
     );
@@ -19,12 +19,13 @@ SongAudio = React.createClass({
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubPlay);
     PubSub.unsubscribe(this.pubsubPause);
-    this.player.stopVideo();
+    this.player.destroy();
     delete player;
   },
   componentDidMount: function() {
     var videoId = this.props.song.youtube_url;
-    this.player = new YT.Player('yt-video', {
+    var divId = this.ytDivId();
+    this.player = new YT.Player(divId, {
       videoId: videoId,
       events: {
         'onReady': this.onPlayerReady,
@@ -59,5 +60,8 @@ SongAudio = React.createClass({
   },
   pause: function(){
     this.player.pauseVideo();
+  },
+  ytDivId: function(){
+    return 'yt-video-'+this.props.song.youtube_url;
   }
 })
