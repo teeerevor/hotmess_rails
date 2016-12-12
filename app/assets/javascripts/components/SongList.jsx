@@ -3,21 +3,48 @@ filter = new SongListFilter();
 
 SongList = React.createClass({
   render() {
+    let songBlock;
+    if(this.state.songs.length == 0){
+      songBlock = this.renderEmptyState();
+    }else{
+      songBlock = this.renderSongList();
+    }
     return (
       <div className='song-section'>
         <nav className='toggle-sort'>
           <a onClick={this.toggleSortOrder}>{this.getSorterButtonLabel()}</a>
         </nav>
         <h3>{window.hotmess100.year} Song List</h3>
-        <div className='scroller'>
-          <ul className='big-list list'>
-            {this.state.songs.map((song, i) => {
-              song.index = i;
-              var openSong = this.state.currentSong.index === i;
-              return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} sortBy={this.state.sortBy}/>;
-            })}
-          </ul>
-        </div>
+        { songBlock }
+      </div>
+    );
+  },
+  renderEmptyState: function(){
+    return(
+      <div className='emptyState'>
+        <InlineSvg iconClass={'no-tunes'} iconName={'#no-tunes'} />
+        <h4>
+          WOAH! NO TUNES.
+        </h4>
+        <p>
+          There are no <b>{this.state.sortBy}s</b> starting with <b>'{this.state.startFilter.toUpperCase()}'</b> in this list.
+        </p>
+
+        <button data-startFilter="{this.state.startFilter}" onClick={this.showPrevAlphaIndex}>BACK UP!</button>
+        <button data-startFilter="{this.state.startFilter}" onClick={this.showNextAlphaIndex}>GO FORTH!</button>
+      </div>
+    );
+  },
+  renderSongList: function(){
+    return(
+      <div className='scroller'>
+        <ul className='big-list list'>
+          {this.state.songs.map((song, i) => {
+            song.index = i;
+            var openSong = this.state.currentSong.index === i;
+            return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} sortBy={this.state.sortBy}/>;
+          })}
+        </ul>
       </div>
     );
   },
@@ -79,6 +106,20 @@ SongList = React.createClass({
     });
   },
   showMore: function(){
+    var moreIndex = filter.getNextLetter(this.state.endFilter);
+    this.setState({
+      endFilter: moreIndex,
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
+    });
+  },
+  showPrevAlphaIndex: function(){
+    var moreIndex = filter.getNextLetter(this.state.endFilter);
+    this.setState({
+      endFilter: moreIndex,
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
+    });
+  },
+  showNextAlphaIndex: function(){
     var moreIndex = filter.getNextLetter(this.state.endFilter);
     this.setState({
       endFilter: moreIndex,
