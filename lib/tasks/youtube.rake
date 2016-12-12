@@ -10,7 +10,8 @@ task :load_youtube => :environment do
   Song.where(year: year, youtube_url: nil).each do |song|
     puts "-----------------------------------"
     puts "#{song.name} - #{song.artist.name}"
-    url = "https://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string + " official vevo" )}"
+    #url = "https://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string + " official vevo" )}"
+    url = "https://www.youtube.com/results?search_query=#{URI::encode(song.youtube_search_string)}"
     puts "search = #{url}"
     begin
       doc = Nokogiri::HTML(open(url))
