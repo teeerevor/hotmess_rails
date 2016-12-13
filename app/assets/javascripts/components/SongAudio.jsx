@@ -1,67 +1,35 @@
 SongAudio = React.createClass({
   render(){
+    let audioBlock;
+    switch( this.hasAudio() ){
+      case 'youtube':
+        audioBlock = this.renderYoutube();
+        break;
+      case 'soundclound':
+        audioBlock = this.renderSoundcloud();
+        break;
+      default:
+        audioBlock = this.renderJJJMp3();
+    }
+
     return (
       <div className='song-audio'>
-        <div id={this.ytDivId()} />
-        <div id='jjj-audio' />
+        { audioBlock }
       </div>
     );
   },
-  componentWillMount: function() {
-    var thisPlayer = this;
-    this.pubsubPlay = PubSub.subscribe('playerPlay', function(topic, song) {
-      thisPlayer.play(song);
-    }.bind(this));
-    this.pubsubPause = PubSub.subscribe('playerPause', function(topic) {
-      thisPlayer.pause();
-    }.bind(this));
+  renderYoutube: function(){
+    return( <YoutubeTrack song={this.props.song} /> );
   },
-  componentWillUnmount: function() {
-    PubSub.unsubscribe(this.pubsubPlay);
-    PubSub.unsubscribe(this.pubsubPause);
-    this.player.destroy();
-    delete player;
+  renderSoundclound: function(){
+    return( <div /> );
   },
-  componentDidMount: function() {
-    var videoId = this.props.song.youtube_url;
-    var divId = this.ytDivId();
-    this.player = new YT.Player(divId, {
-      videoId: videoId,
-      playerVars: { 'autoplay': 1},
-      events: {
-        'onStateChange': this.onPlayerStateChange
-      }
-    });
-
-    PubSub.publish( 'playerPause');
-    $('.song-audio').fitVids()
+  renderJJJMp3: function(){
+    return( <AudioTrack song={this.props.song} /> );
   },
-  onPlayerStateChange: function(e){
-    //BUFFERING: 3 CUED: 5 ENDED: 0 PAUSED: 2 PLAYING: 1 UNSTARTED: -1
-    switch (e.data) {
-      case YT.PlayerState.PLAYING:
-        PubSub.publish( 'ytSongPlay', this.props.song);
-        break;
-      case YT.PlayerState.PAUSED:
-        PubSub.publish( 'ytSongPause', this.props.song);
-        break;
-      case YT.PlayerState.ENDED:
-        PubSub.publish( 'ytSongEnded', this.props.song);
-        break;
-    }
-  },
-  play: function(song){
-    if(this.props.song.id === song.id)
-      this.player.playVideo();
-    else
-      this.player.pauseVideo();
-  },
-  pause: function(){
-    if(this.player.pauseVideo){
-      this.player.pauseVideo();
-    }
-  },
-  ytDivId: function(){
-    return 'yt-video-'+this.props.song.youtube_url;
+  hasAudio: function(){
+    if(this.props.song.youtube_url) return "youtube";
+    if(this.props.song.soundclound_url) return "soundclound";
+    return "JJJ"
   }
 })

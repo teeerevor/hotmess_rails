@@ -72,13 +72,13 @@ Player = React.createClass({
   },
   componentWillMount: function() {
     var player =  this
-    this.pubsubPlay = PubSub.subscribe('ytSongPlay', function(topic, song) {
+    this.pubsubPlay = PubSub.subscribe('songPlay', function(topic, song) {
       player.setState({ playing: true, song: song });
     }.bind(this));
-    this.pubsubPause = PubSub.subscribe('ytSongPause', function(topic, song) {
+    this.pubsubPause = PubSub.subscribe('songPause', function(topic, song) {
       player.setState({ playing: false });
     }.bind(this));
-    this.pubsubSongEnd = PubSub.subscribe('ytSongEnded', function(topic, song) {
+    this.pubsubSongEnd = PubSub.subscribe('songEnded', function(topic, song) {
       if(player.state.continuousPlay)
         player.next();
     }.bind(this));
