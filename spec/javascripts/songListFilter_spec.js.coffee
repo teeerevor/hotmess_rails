@@ -14,6 +14,15 @@ describe 'SongListFilter', ->
       expect(filter.getNextLetter('z')).to.equal 'z'
 
 
+  describe 'checkLetter', ->
+    it 'returns the letter if letter', ->
+      expect(filter.checkLetter('a')).to.equal 'a'
+    it 'returns the top if something else entered', ->
+      expect(filter.checkLetter('1')).to.equal 'top'
+      expect(filter.checkLetter('!')).to.equal 'top'
+      expect(filter.checkLetter('(')).to.equal 'top'
+
+
   describe 'getLetterSequence', ->
     it 'returns letter sequence used for regex', ->
       expect(filter.getLetterSequence('a','c')).to.equal '^a|^b|^c'

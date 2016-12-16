@@ -41,7 +41,8 @@ SongList = React.createClass({
         <ul className='big-list list'>
           {this.state.songs.map((song, i) => {
             song.index = i;
-            var openSong = this.state.currentSong.index === i;
+            var openSong = this.state.currentSong.id === song.id;
+            {if(openSong) console.log(song)}
             return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} sortBy={this.state.sortBy}/>;
           })}
         </ul>
@@ -140,26 +141,29 @@ SongList = React.createClass({
     this.setState({currentSong: nextSong});
   },
   playRandomSong: function(){
-    var songNumber = Math.round(Math.random() * this.state.songData.length);
-    var song = this.state.songData[songNumber];
-    var songFirstLetter = song.name.charAt(0);
+    var songNumber = Math.round(Math.random() * this.state.songData.length),
+        song = this.state.songData[songNumber],
+        songFirstLetter = song.name.charAt(0),
+        filterLetter = filter.checkLetter(songFirstLetter);
 
     this.setState({
       currentSong: song,
-      startFilter: songFirstLetter,
-      endFilter: songFirstLetter,
+      endFilter: filterLetter,
+      sortBy: 'song',
+      startFilter: filterLetter,
       songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
     });
   },
   jumpToSong: function(song){
     var songFirstLetter = song.name.charAt(0),
         filterLetter = filter.checkLetter(songFirstLetter);
+    console.log(filterLetter);
 
     this.setState({
       currentSong: song,
-      startFilter: filterLetter,
       endFilter: filterLetter,
       sortBy: 'song',
+      startFilter: filterLetter,
       songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
     });
   }

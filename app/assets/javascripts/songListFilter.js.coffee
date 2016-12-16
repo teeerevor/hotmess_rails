@@ -10,7 +10,7 @@ class @SongListFilter
     return
 
   checkLetter: (letter) ->
-    nonLetter = /^\W|^\d|/i
+    nonLetter = /^\W|^\d/i
     if nonLetter.test(letter)
       return 'top'
     return letter
