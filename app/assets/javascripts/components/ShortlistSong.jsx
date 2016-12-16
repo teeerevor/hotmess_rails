@@ -1,30 +1,14 @@
 ShortlistSong = React.createClass({
-  getInitialState: function() {
-    return {};
-  },
-
-  longNameFix(name){
-    return name.length > 34 ? name.substring(0, 34).concat('...') : name
-  },
-
-  shortlistRemove: function(){
-    PubSub.publish( 'removeSong', this.props.song);
-  },
-
-  shortlistMoveTop: function(){
-    PubSub.publish( 'moveTopSong', this.props.song);
-  },
-
   render() {
     return (
       <li className={'song'}>
         <div className='song-wrap'>
-        <div className='song-display'>
+        <div className='song-display' onClick={this.jumpToSong}>
         <span className="text">
           <b>
-            {this.longNameFix(this.props.song.name)}
+            {this.props.song.name}
           </b>
-          {this.longNameFix(this.props.song.artistName)}
+          {this.props.song.artistName}
         </span>
         </div>
         </div>
@@ -32,6 +16,18 @@ ShortlistSong = React.createClass({
         <button onClick={this.shortlistRemove} > <InlineSvg iconClass={'icon-cross'} iconName={'#cross-circ'} /> </button>
       </li>
     );
+  },
+  getInitialState: function() {
+    return {};
+  },
+  shortlistRemove: function(){
+    PubSub.publish( 'removeSong', this.props.song);
+  },
+  shortlistMoveTop: function(){
+    PubSub.publish( 'moveTopSong', this.props.song);
+  },
+  jumpToSong: function(){
+    PubSub.publish( 'jumpToSong', this.props.song);
   }
 });
 

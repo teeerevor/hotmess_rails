@@ -70,6 +70,9 @@ SongList = React.createClass({
     this.pubsubRandom = PubSub.subscribe('playerRandom', function(topic) {
       songList.playRandomSong();
     }.bind(this));
+    this.pubsubJumpToSong = PubSub.subscribe('jumpToSong', function(topic, song) {
+      songList.jumpToSong(song);
+    }.bind(this));
   },
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubNext);
@@ -147,5 +150,18 @@ SongList = React.createClass({
       endFilter: songFirstLetter,
       songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
     });
+  },
+  jumpToSong: function(song){
+    var songFirstLetter = song.name.charAt(0),
+        filterLetter = filter.checkLetter(songFirstLetter);
+
+    this.setState({
+      currentSong: song,
+      startFilter: filterLetter,
+      endFilter: filterLetter,
+      sortBy: 'song',
+      songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
+    });
   }
+  
 });

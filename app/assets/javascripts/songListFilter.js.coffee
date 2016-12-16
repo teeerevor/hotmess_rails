@@ -9,6 +9,12 @@ class @SongListFilter
         return String.fromCharCode(letter.charCodeAt(letter.length - 1) + 1)
     return
 
+  checkLetter: (letter) ->
+    nonLetter = /^\W|^\d|/i
+    if nonLetter.test(letter)
+      return 'top'
+    return letter
+
   getLetterSequence: (start, end) ->
     #returns ^a|^b for regex
     start = start.toLowerCase()
