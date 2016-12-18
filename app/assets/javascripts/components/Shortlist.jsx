@@ -10,15 +10,17 @@ Shortlist = React.createClass({
     return(
       <div className='shortlist-section'>
         <h3>Your Shortlist</h3>
-        <ul className='shortlist list'>
-          {shortlist.map((songID, i) => {
-            return <ShortlistSong key={ i+1 } song={ shortlistSongs[songID] }/>;
-          })}
-          {blanks.map((placeholder, index) => {
-            if( index >= this.state.shortlist.length )
-              return <li key={ index + 1 } className='placeholder'>Pick { placeholder }</li>;
-          })}
-        </ul>
+        <div className='shortlist-scroller'>
+          <ul className='shortlist list'>
+            {shortlist.map((songID, i) => {
+              return <ShortlistSong key={ i+1 } song={ shortlistSongs[songID] }/>;
+            })}
+            {blanks.map((placeholder, index) => {
+              if( index >= this.state.shortlist.length )
+                return <li key={ index + 1 } className='placeholder'>Pick { placeholder }</li>;
+            })}
+          </ul>
+        </div>
       </div>
     );
   },
