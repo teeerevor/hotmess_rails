@@ -47,3 +47,50 @@ ul
       text-decoration: underline
   button + button
     padding-left: 20px
+
+.song-section
+  h3
+    border-bottom: 1px solid #ddd
+    margin-right: 15px
+    position: absolute
+    width: 97%
+    z-index: 1
+
+  .scroller
+    margin-top: 22px
+
+.lists
+  li:first-child
+    margin-top: 5px
+
+@media only screen and (min-width: 600px)
+  .app
+    height: 100%
+    left: 0
+    position: fixed
+    top: 0
+    width: 100%
+
+  .lists
+    display: -moz-flex
+    display: -ms-flex
+    display: -webkit-flex
+    display: flex
+
+  .song-section, .shortlist-section
+    -webkit-flex: 1 1 auto
+    -moz-flex: 1 1 auto
+    -ms-flex: 1 1 auto
+    flex: 1 1 auto
+    min-height: 0px
+    padding: 10px
+
+    .scroller
+      padding-right: 15px
+      position: relative
+      overflow-y: auto
+      max-height: 100vh
+
+  .shortlist-section
+    max-width: 425px
+    order: 2
