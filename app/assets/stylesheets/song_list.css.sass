@@ -52,16 +52,24 @@ ul
   h3
     border-bottom: 1px solid #ddd
     margin-right: 15px
-    position: absolute
-    width: 97%
-    z-index: 1
-
-  .scroller
-    margin-top: 20px
 
 .lists
   li:first-child
     margin-top: 5px
+
+
+@media only screen and (max-width: 599px)
+  .alpha-index
+    position: fixed
+    left: 0
+    height: 99vh
+    max-height: auto
+    margin-top: 0
+
+  .lists
+    margin-top: 60px
+    margin-left: 40px
+    overflow: hidden
 
 @media only screen and (min-width: 600px)
   .app
@@ -85,11 +93,20 @@ ul
     min-height: 0px
     padding: 10px
 
+
+  .song-section
+    h3
+      position: absolute
+      width: 97%
+      z-index: 1
+
     .scroller
       padding-right: 15px
       position: relative
       overflow-y: auto
       max-height: 100vh
+      margin-top: 20px
+
 
   .shortlist-section
     max-width: 425px

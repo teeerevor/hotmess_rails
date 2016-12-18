@@ -3,7 +3,7 @@
 header
   display: flex
   background-color: #fff
-  border-bottom: solid 1px #ccc
+  border-bottom: solid 1px #ddd
 
   .center
     flex: 1
@@ -19,25 +19,10 @@ header
     width: 200px
     +transition(all 300ms linear)
 
-  &.open
-    height: 92px
-
-    .player
-      display: none
-
-    #save_load
-      float: right
-      position: relative
-
-  #save_load
-    position: absolute
-    right: 4%
-    top: 5px
-
-#app.active
-  .logo
-    margin-top: 20px
-
-#app.hidden
-  #header
-    position: relative
+@media only screen and (max-width: 599px)
+  header
+    position: fixed
+    z-index: 1
+    top: 0
+    height: 50px
+    width: 100%
