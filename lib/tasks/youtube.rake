@@ -38,3 +38,40 @@ task :load_youtube => :environment do
     end
   end
 end
+
+desc 'fix youtube_urls'
+task :update_youtube_urls => :environment do
+  year = ENV['current_year']
+
+  updates = {
+    '2382': '',
+    '2419': '',
+    '2432': '',
+    '2453': '',
+    '2478': '',
+    '2492': '',
+    '2506': '',
+    '2522': '',
+    '2594': '',
+    '2675': '',
+    '2684': '',
+    '2759': '',
+    '2793': '',
+    '2807': '',
+    '2810': '',
+    '2808': '',
+    '2806': '',
+    '2815': '',
+    '2888': '',
+    '2905': '',
+    '2907': '',
+  }
+  updates.keys.each do |key|
+    song = Song.find(key)
+    puts "-----------------------------------"
+    puts "#{song.name} - #{song.artist.name}"
+    song.youtube_url = updates[key]
+    song.save
+  end
+end
+

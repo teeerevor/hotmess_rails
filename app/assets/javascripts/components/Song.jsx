@@ -1,7 +1,7 @@
 Song = React.createClass({
   render() {
     return (
-      <li className={'song'}>
+      <li className={'song'} data-id={this.props.song.id}>
         <div className='song-display' onClick={this.toggleDisplay}>
           {this.arrangeSongInfo()}
           {this.renderWaypoint()}
