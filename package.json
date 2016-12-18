@@ -1,0 +1,26 @@
+{
+  "name": "hotmess_rails",
+  "version": "1.0.0",
+  "description": "hottest100.io =============",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teeerevor/hotmess_rails.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teeerevor/hotmess_rails/issues"
+  },
+  "homepage": "https://github.com/teeerevor/hotmess_rails#readme",
+  "dependencies": {
+    "browserify": "~10.2.4",
+    "browserify-incremental": "^3.0.1",
+    "react-localstorage": "^0.3.0"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  }
+}

@@ -12,6 +12,7 @@ gem 'haml'
 
 gem 'react-rails', '~> 1.5.0'
 gem 'susy'
+gem 'browserify-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
 gem 'animation'

@@ -1,4 +1,7 @@
+var LocalStorageMixin = require('react-localstorage');
+
 Shortlist = React.createClass({
+  mixins: [LocalStorageMixin],
   render(){
     var shortlist = this.state.shortlist;
     var shortlistSongs = this.state.shortlistSongs;
