@@ -1,10 +1,13 @@
+var classNames = require('classnames');
+
 Player = React.createClass({
   render(){
-    var classes = ['player'];
-    if(this.state.continuousPlay)
-      classes.push('continuousPlay');
+    var classes = classNames({
+      'player': true,
+      'continuousPlay': this.state.continuousPlay
+    });
     return(
-      <div className={classes.join(' ')}>
+      <div className={classes}>
         {this.renderRandom()}
         {this.renderPlayer()}
       </div>
