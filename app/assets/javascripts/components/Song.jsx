@@ -1,11 +1,18 @@
+var classNames = require('classnames');
+
 Song = React.createClass({
   render() {
+    var classes = classNames({
+      'song': true,
+      'open': this.state.open
+    });
     return (
-      <li className={'song'} data-id={this.props.song.id}>
+      <li className={classes} data-id={this.props.song.id}>
         <div className='song-display' onClick={this.toggleDisplay}>
           {this.arrangeSongInfo()}
           {this.renderWaypoint()}
           {this.renderAudio()}
+          <InlineSvg iconClass={'hover-play'} iconName={'#play'} />
         </div>
         <button className='circle-button' onClick={this.shortlistTop} > <InlineSvg iconClass={'icon-top'} iconName={'#arrow-circ'} /> </button>
         <button className='circle-button' onClick={this.shortlistAdd} > <InlineSvg iconClass={'icon-plus'} iconName={'#plus-circ'} /> </button>
@@ -38,16 +45,16 @@ Song = React.createClass({
     if(this.props.sortBy == 'song')
       return (<span className="text">
                 <b>
-                  {this.longNameFix(this.props.song.name)}
+                  {this.props.song.name}
                 </b>
                 &nbsp;-&nbsp;
-                {this.longNameFix(this.props.song.artistName)}
+                {this.props.song.artistName}
               </span>);
     else
       return (<span className="text">
-                <b>{this.longNameFix(this.props.song.artistName)}</b>
+                <b>{this.props.song.artistName}</b>
                 &nbsp;-&nbsp;
-               {this.longNameFix(this.props.song.name)}</span>);
+               {this.props.song.name}</span>);
   },
   toggleDisplay: function(){
     this.state.open ? this.setState({open: false}) : this.setState({open: true})
@@ -55,9 +62,6 @@ Song = React.createClass({
   handleWaypointEnter(){
     this.props.songList.showMore();
     this.setState({includeWaypoint: false})
-  },
-  longNameFix(name){
-    return name.length > 34 ? name.substring(0, 34).concat('...') : name
   },
   shortlistAdd: function(){
     PubSub.publish( 'addSong', this.props.song);

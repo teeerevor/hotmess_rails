@@ -17,12 +17,19 @@ $song-bottom-margin: 3px
       svg
         color: $button-red
 
+    .hover-play
+      transform: translateX(-30px)
+  &.open
+    .hover-play
+      opacity: 0
+
   .song-display
     cursor: pointer
     border-radius: 5px
     background: $song-background
     flex: 1
     padding: 10px $song-padding-vert
+    position: relative
 
   button
     height: $button-size
@@ -40,3 +47,16 @@ $song-bottom-margin: 3px
   .song-audio
     position: relative
     padding: 15px 0
+
+  .hover-play
+    width: 14px
+    height: 14px
+    position: absolute
+    right: -20px
+    fill: white
+    transition: transform ease-out 200ms
+    top: 12px
+
+.big-list
+  .song-display
+    overflow: hidden
