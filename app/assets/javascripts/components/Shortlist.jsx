@@ -62,6 +62,7 @@ Shortlist = React.createClass({
       slSongs[song.id] = song;
       this.setState({ shortlist: sl, shortlistSongs: slSongs });
     }
+    this.publishShortlist();
   },
   addTopSong: function(song){
     var sl = this.cloneArray(this.state.shortlist);
@@ -71,6 +72,7 @@ Shortlist = React.createClass({
       slSongs[song.id] = song;
       this.setState({ shortlist: sl, shortlistSongs: slSongs });
     }
+    this.publishShortlist();
   },
   moveTopSong: function(song){
     var sl = this.cloneArray(this.state.shortlist);
@@ -81,6 +83,7 @@ Shortlist = React.createClass({
       sl.unshift(song.id);
       this.setState({ shortlist: sl, shortlistSongs: slSongs });
     }
+    this.publishShortlist();
   },
   removeSong: function(song){
     var sl = this.cloneArray(this.state.shortlist);
@@ -91,6 +94,10 @@ Shortlist = React.createClass({
       delete slSongs[song.id]
       this.setState({ shortlist: sl, shortlistSongs: slSongs });
     }
+    this.publishShortlist();
+  },
+  publishShortlist: function(){
+    PubSub.publish( 'shortlistUpdated', this.state.shortlist);
   },
   cloneArray: function(array){
     return array.slice(0);

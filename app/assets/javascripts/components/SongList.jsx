@@ -41,23 +41,32 @@ SongList = React.createClass({
         <ul className='big-list list'>
           {this.state.songs.map((song, i) => {
             song.index = i;
-            var openSong = this.state.currentSong.id === song.id;
-            {if(openSong) console.log(song)}
-            return <Song key={song.id}  songList={this} songIndex={i} song={song} songs={this.state.songs} open={openSong} sortBy={this.state.sortBy}/>;
+            var openSong = this.state.currentSong.id === song.id,
+                shortlisted = this.state.shortlistedSongs.includes(song.id)
+            return <Song key={song.id}
+                         song={song}
+                         songList={this}
+                         songIndex={i}
+                         songListLength={this.state.songs.length}
+                         open={openSong}
+                         shortlisted={shortlisted}
+                         sortBy={this.state.sortBy}/>;
           })}
         </ul>
       </div>
     );
   },
   getInitialState: function() {
-    var sortBy = 'song';
+    var sortBy = 'song',
+        filterdSongs = filter.filterSongs(this.props.songs, sortBy, this.props.index, this.props.index);
     return {
       sortBy:      sortBy,
       startFilter: this.props.index,
       endFilter:   this.props.index,
       currentSong: {id: -1},
       songData: this.props.songs,
-      songs: filter.filterSongs(this.props.songs, sortBy, this.props.index, this.props.index)
+      songs: filterdSongs,
+      shortlistedSongs: []
     };
   },
   componentWillMount: function() {
@@ -74,17 +83,21 @@ SongList = React.createClass({
     this.pubsubJumpToSong = PubSub.subscribe('jumpToSong', function(topic, song) {
       songList.jumpToSong(song);
     }.bind(this));
+    this.pubsubShortlistUpdated = PubSub.subscribe('shortlistUpdated', function(topic, shortlist) {
+      songList.setState({shortlistedSongs: shortlist});
+    }.bind(this));
   },
   componentWillUnmount: function() {
     PubSub.unsubscribe(this.pubsubNext);
     PubSub.unsubscribe(this.pubsubPrev);
   },
   componentWillReceiveProps: function(nextProps) {
+    var filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index);
     this.setState({
       currentSong: {},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index)
+      songs: filterdSongs
     });
   },
   getSorterButtonLabel: function(){
@@ -92,7 +105,7 @@ SongList = React.createClass({
     return sortBtnText + this.state.sortBy;
   },
   toggleSortOrder: function(){
-    var newSortBy, songdata;
+    var newSortBy, songdata, filteredSongs;
     if( this.state.sortBy == 'song' ){
       newSortBy =  'artist';
       songData  = this.props.artistSongs;
@@ -101,33 +114,37 @@ SongList = React.createClass({
       songData  = this.props.songs;
     }
 
+    filterdSongs = filter.filterSongs(songData, newSortBy, 'top', 'top');
     this.setState({
       currentSong: {},
       index:  'top',
       sortBy: newSortBy,
       songData: songData,
-      songs: filter.filterSongs(songData, newSortBy, 'top', 'top')
+      songs: filteredSongs
     });
   },
   showMore: function(){
-    var moreIndex = filter.getNextLetter(this.state.endFilter);
+    var newEnd       = filter.getNextLetter(this.state.endFilter),
+        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
     this.setState({
-      endFilter: moreIndex,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
+      endFilter: newEnd,
+      songs: filterSongs
     });
   },
   showPrevAlphaIndex: function(){
-    var moreIndex = filter.getNextLetter(this.state.endFilter);
+    var newStart     = filter.getPreviousLetter(this.state.startFilter),
+        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, newStart, this.state.startFilter);
     this.setState({
-      endFilter: moreIndex,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
+      startFilter: newStart,
+      songs: filterSongs
     });
   },
   showNextAlphaIndex: function(){
-    var moreIndex = filter.getNextLetter(this.state.endFilter);
+    var newEnd       = filter.getNextLetter(this.state.endFilter),
+        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
     this.setState({
-      endFilter: moreIndex,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, moreIndex)
+      endFilter: newEnd,
+      songs: filterSongs
     });
   },
   getNextSong: function(song){
@@ -144,27 +161,28 @@ SongList = React.createClass({
     var songNumber = Math.round(Math.random() * this.state.songData.length),
         song = this.state.songData[songNumber],
         songFirstLetter = song.name.charAt(0),
-        filterLetter = filter.checkLetter(songFirstLetter);
+        filterLetter = filter.checkLetter(songFirstLetter),
+        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
 
     this.setState({
       currentSong: song,
       endFilter: filterLetter,
       sortBy: 'song',
       startFilter: filterLetter,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
+      songs: filterdSongs
     });
   },
   jumpToSong: function(song){
     var songFirstLetter = song.name.charAt(0),
-        filterLetter = filter.checkLetter(songFirstLetter);
-    console.log(filterLetter);
+        filterLetter = filter.checkLetter(songFirstLetter),
+        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
 
     this.setState({
       currentSong: song,
       endFilter: filterLetter,
       sortBy: 'song',
       startFilter: filterLetter,
-      songs: filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter)
+      songs: filterdSongs
     });
   }
   

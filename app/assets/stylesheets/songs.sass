@@ -10,9 +10,10 @@ $song-bottom-margin: 3px
   display: flex
   list-style: none
   margin-bottom: $song-bottom-margin
+
   &:hover
     .song-display
-      background: darken($song-background,10)
+      background: darken($song-background,7)
     button
       svg
         color: $button-red
@@ -20,6 +21,15 @@ $song-bottom-margin: 3px
     .hover-play
       transform: translateX(-30px)
   &.open
+    .hover-play
+      opacity: 0
+  &.shortlisted
+    .song-display
+      background-color: rgba(199,235,95,0.4)
+    .circle-button
+      opacity: 0
+    .icon-selected
+      display: inline
     .hover-play
       opacity: 0
 
@@ -51,14 +61,23 @@ $song-bottom-margin: 3px
     position: relative
     padding-top: 15px
 
+  .icon-selected,
   .hover-play
     width: 14px
     height: 14px
     position: absolute
-    right: -20px
-    fill: white
     transition: transform ease-out 200ms
     top: 12px
+
+  .hover-play
+    fill: white
+    right: -20px
+
+  .icon-selected
+    right: 10px
+    fill: rgba(199,235,95,1)
+    display: none
+
 
 .big-list
   .song-display
