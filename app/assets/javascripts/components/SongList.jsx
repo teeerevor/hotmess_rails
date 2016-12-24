@@ -58,14 +58,14 @@ SongList = React.createClass({
   },
   getInitialState: function() {
     var sortBy = 'song',
-        filterdSongs = filter.filterSongs(this.props.songs, sortBy, this.props.index, this.props.index);
+        filteredSongs = filter.filterSongs(this.props.songs, sortBy, this.props.index, this.props.index);
     return {
       sortBy:      sortBy,
       startFilter: this.props.index,
       endFilter:   this.props.index,
       currentSong: {id: -1},
       songData: this.props.songs,
-      songs: filterdSongs,
+      songs: filteredSongs,
       shortlistedSongs: []
     };
   },
@@ -92,12 +92,12 @@ SongList = React.createClass({
     PubSub.unsubscribe(this.pubsubPrev);
   },
   componentWillReceiveProps: function(nextProps) {
-    var filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index);
+    var filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, nextProps.index, nextProps.index);
     this.setState({
       currentSong: {},
       startFilter: nextProps.index,
       endFilter: nextProps.index,
-      songs: filterdSongs
+      songs: filteredSongs
     });
   },
   getSorterButtonLabel: function(){
@@ -114,7 +114,7 @@ SongList = React.createClass({
       songData  = this.props.songs;
     }
 
-    filterdSongs = filter.filterSongs(songData, newSortBy, 'top', 'top');
+    filteredSongs = filter.filterSongs(songData, newSortBy, 'top', 'top');
     this.setState({
       currentSong: {},
       index:  'top',
@@ -125,15 +125,15 @@ SongList = React.createClass({
   },
   showMore: function(){
     var newEnd       = filter.getNextLetter(this.state.endFilter),
-        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
+        filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
     this.setState({
       endFilter: newEnd,
-      songs: filterSongs
+      songs: filteredSongs
     });
   },
   showPrevAlphaIndex: function(){
     var newStart     = filter.getPreviousLetter(this.state.startFilter),
-        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, newStart, this.state.startFilter);
+        filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, newStart, this.state.startFilter);
     this.setState({
       startFilter: newStart,
       songs: filterSongs
@@ -141,7 +141,7 @@ SongList = React.createClass({
   },
   showNextAlphaIndex: function(){
     var newEnd       = filter.getNextLetter(this.state.endFilter),
-        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
+        filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, this.state.startFilter, newEnd);
     this.setState({
       endFilter: newEnd,
       songs: filterSongs
@@ -162,27 +162,27 @@ SongList = React.createClass({
         song = this.state.songData[songNumber],
         songFirstLetter = song.name.charAt(0),
         filterLetter = filter.checkLetter(songFirstLetter),
-        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
+        filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
 
     this.setState({
       currentSong: song,
       endFilter: filterLetter,
       sortBy: 'song',
       startFilter: filterLetter,
-      songs: filterdSongs
+      songs: filteredSongs
     });
   },
   jumpToSong: function(song){
     var songFirstLetter = song.name.charAt(0),
         filterLetter = filter.checkLetter(songFirstLetter),
-        filterdSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
+        filteredSongs = filter.filterSongs(this.state.songData, this.state.sortBy, songFirstLetter, songFirstLetter);
 
     this.setState({
       currentSong: song,
       endFilter: filterLetter,
       sortBy: 'song',
       startFilter: filterLetter,
-      songs: filterdSongs
+      songs: filteredSongs
     });
   }
   
