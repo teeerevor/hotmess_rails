@@ -20,9 +20,6 @@ $song-bottom-margin: 3px
 
     .hover-play
       transform: translateX(-30px)
-  &.open
-    .hover-play
-      opacity: 0
   &.shortlisted
     .song-display
       background-color: rgba(199,235,95,0.4)
@@ -32,6 +29,11 @@ $song-bottom-margin: 3px
       display: inline
     .hover-play
       opacity: 0
+  &.open
+    .hover-play
+      opacity: 0
+    .song-display
+      background: $song-background
 
   .song-display
     cursor: pointer
