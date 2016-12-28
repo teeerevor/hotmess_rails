@@ -14,9 +14,10 @@
   "homepage": "https://github.com/teeerevor/hotmess_rails#readme",
   "main": "app/index.js",
   "dependencies": {
+    "classnames": "^2.2.5",
+    "pubsub-js": "^1.5.4",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "classnames": "^2.2.5",
     "react-localstorage": "^0.3.0"
   },
   "devDependencies": {
@@ -35,6 +36,6 @@
   },
   "scripts": {
     "start": "webpack-dev-server --content-base public",
-    "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js tests/components/*.js"
+    "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js --watch tests/components/*.js"
   }
 }

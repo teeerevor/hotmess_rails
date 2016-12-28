@@ -59,21 +59,6 @@ export default React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setState({open: nextProps.open});
   },
-  componentWillMount: function() {
-    this.pubsubRemoved = {};
-    if(this.state.shortlisted)
-      this.subscribeToRemove();
-  },
-  componentWillUnmount: function() {
-    if(this.pubsubRemoved!={})
-      PubSub.unsubscribe(this.pubsubRemoved);
-  },
-  subscribeToRemove: function(){
-    let self = this;
-    this.pubsubRemoved = PubSub.subscribe('removeSong', function(topic, song) {
-      self.songRemoved(song);
-    }.bind(this));
-  },
   toggleDisplay: function(){
     this.state.open ? this.setState({open: false}) : this.setState({open: true})
   },
@@ -84,16 +69,10 @@ export default React.createClass({
   shortlistAdd: function(){
     this.setState({shortlisted: true})
     PubSub.publish( 'addSong', this.props.song);
-    this.subscribeToRemove();
   },
   shortlistTop: function(){
     this.setState({shortlisted: true})
     PubSub.publish( 'topSong', this.props.song);
-    this.subscribeToRemove();
-  },
-  songRemoved: function(song){
-    if(this.props.song.id == song.id)
-      this.setState({shortlisted: false});
   }
 });
 

@@ -1,4 +1,6 @@
-SongAudio = React.createClass({
+import React from 'react';
+
+export default React.createClass({
   render(){
     let audioBlock;
     switch( this.hasAudio() ){
