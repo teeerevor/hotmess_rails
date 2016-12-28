@@ -2,9 +2,6 @@
   "name": "hotmess_rails",
   "version": "1.0.0",
   "description": "hottest100.io =============",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teeerevor/hotmess_rails.git"
@@ -15,13 +12,29 @@
     "url": "https://github.com/teeerevor/hotmess_rails/issues"
   },
   "homepage": "https://github.com/teeerevor/hotmess_rails#readme",
+  "main": "app/index.js",
   "dependencies": {
-    "browserify": "~10.2.4",
-    "browserify-incremental": "^3.0.1",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
     "classnames": "^2.2.5",
     "react-localstorage": "^0.3.0"
   },
-  "engines": {
-    "node": ">= 0.10"
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-preset-react": "^6.11.1",
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
+    "jsdom": "^9.4.1",
+    "mocha": "^2.5.3",
+    "react-addons-test-utils": "^15.3.0",
+    "sinon": "^1.17.5",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --content-base public",
+    "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js tests/components/*.js"
   }
 }

@@ -1,4 +1,6 @@
-InlineSvg = React.createClass({
+import React from 'react';
+
+export default React.createClass({
   render() {
     const iconName = this.props.iconName;
     const useTag = '<use xlink:href="'+iconName+'"></use>';

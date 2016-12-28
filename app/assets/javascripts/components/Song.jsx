@@ -1,6 +1,8 @@
-var classNames = require('classnames')
+import React from 'react';
+import classNames from 'classnames'
+import InlineSvg from './InlineSvg';
 
-Song = React.createClass({
+export default React.createClass({
   render() {
     var classes = classNames({
       'song': true,
@@ -33,7 +35,7 @@ Song = React.createClass({
     if( this.state.open )
       return <SongAudio song={this.props.song} />
   },
-  arrangeSongInfo(){
+  arrangeSongInfo: function(){
     if(this.props.sortBy == 'song')
       return (<span className="text">
                 <b>
