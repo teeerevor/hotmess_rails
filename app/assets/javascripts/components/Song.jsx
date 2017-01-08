@@ -66,14 +66,9 @@ Song = React.createClass({
     if(this.pubsubRemoved!={})
       PubSub.unsubscribe(this.pubsubRemoved);
   },
-  subscribeToRemove: function(){
-    let self = this;
-    this.pubsubRemoved = PubSub.subscribe('removeSong', function(topic, song) {
-      self.songRemoved(song);
-    }.bind(this));
-  },
   toggleDisplay: function(){
-    this.state.open ? this.setState({open: false}) : this.setState({open: true})
+    var parent = this.props.songList;
+    this.state.open ?  parent.closeSong() : parent.openSong(this.props.song)
   },
   handleWaypointEnter(){
     this.props.songList.showMore();
@@ -88,10 +83,6 @@ Song = React.createClass({
     this.setState({shortlisted: true})
     PubSub.publish( 'topSong', this.props.song);
     this.subscribeToRemove();
-  },
-  songRemoved: function(song){
-    if(this.props.song.id == song.id)
-      this.setState({shortlisted: false});
   }
 });
 
