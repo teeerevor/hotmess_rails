@@ -51,6 +51,7 @@ Song = React.createClass({
   getInitialState: function() {
     return {
       includeWaypoint: true,
+      open: this.props.open,
       shortlisted: this.props.shortlisted
     };
   },

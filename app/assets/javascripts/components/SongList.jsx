@@ -184,6 +184,17 @@ SongList = React.createClass({
       startFilter: filterLetter,
       songs: filteredSongs
     });
+  },
+  openSong: function(song){
+    console.log('openSong');
+    this.setState({
+      currentSong: song
+    });
+  },
+  closeSong: function(){
+    console.log('closeSong');
+    this.setState({
+      currentSong: {}
+    });
   }
-  
 });
